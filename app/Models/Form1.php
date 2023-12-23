@@ -11,7 +11,6 @@ class Form1 extends Model
 
     protected $fillable = [
         'user_id',
-        'app_id',
         'title_of_study',
         'type_of_study',
         'researchers',

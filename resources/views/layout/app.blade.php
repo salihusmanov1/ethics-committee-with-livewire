@@ -49,19 +49,19 @@
                 <div>
                     <button id="btn" class="list-group-item bg-transparent second-text" data-bs-toggle="collapse"
                         data-bs-target="#subCategory" aria-expanded="false" aria-controls="subCategory"
-                        class="collapse list-group-item bg-transparent second-text">Forms 
+                        class="collapse list-group-item bg-transparent second-text">Forms
                         <i id="icon" class="fa-solid fa-angle-down"></i>
                     </button>
 
                     <div class="collapse" id="subCategory">
-                        <a wire:navigate style="padding-left: 50px"
-                            class="list-group-item bg-transparent second-text" href="/information-consent-form">Informed Consent Form</a>
-                        <a wire:navigate style="padding-left: 50px"
-                            class="list-group-item bg-transparent second-text" href="/application-form">Application Form</a>
-                        <a wire:navigate style="padding-left: 50px"
-                            class="list-group-item bg-transparent second-text" href="/project-information-form">Project Information Form</a>
-                        <a wire:navigate style="padding-left: 50px"
-                            class="list-group-item bg-transparent second-text" href="/checklist-form">
+                        <a wire:navigate style="padding-left: 50px" class="list-group-item bg-transparent second-text"
+                            href="/application-form">Application Form</a>
+                        <a wire:navigate style="padding-left: 50px" class="list-group-item bg-transparent second-text"
+                            href="/information-consent-form">Informed Consent Form</a>
+                        <a wire:navigate style="padding-left: 50px" class="list-group-item bg-transparent second-text"
+                            href="/project-information-form">Project Information Form</a>
+                        <a wire:navigate style="padding-left: 50px" class="list-group-item bg-transparent second-text"
+                            href="/checklist-form">
                             Application Checklist</a>
                     </div>
                 </div>

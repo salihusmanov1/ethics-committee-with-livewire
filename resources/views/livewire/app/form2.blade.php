@@ -226,7 +226,7 @@
                                     <p>{{ Session::get('success') }}</p>
                                 </div>
                                 <hr>
-                                {{-- <div class="text-center alert alert-warning">
+                                <div class="text-center alert alert-warning">
                                     <i style="" class="fa-solid fa-triangle-exclamation fa-xl"></i>
                                     <p>
                                         Please be aware that in order to complete your application, "Ethics Committee
@@ -237,7 +237,7 @@
                                         menu and fill
                                         out the
                                         required information.</p>
-                                </div> --}}
+                                </div>
                             @endif
 
                             @if (Session::has('error'))

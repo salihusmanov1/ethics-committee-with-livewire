@@ -1083,6 +1083,7 @@
         </div>
     </div>
 
+    {{-- Modal --}}
     <div>
         <div wire:ignore.self data-bs-backdrop="static" data-bs-keyboard="false" id="myModal" class="modal"
             tabindex="-1" role="dialog">
@@ -1125,6 +1126,7 @@
             </div>
         </div>
     </div>
+    {{-- End of Modal --}}
 
 
 </div>
