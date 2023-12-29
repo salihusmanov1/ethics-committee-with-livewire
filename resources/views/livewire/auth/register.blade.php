@@ -15,7 +15,7 @@
                 <div class="alert alert-info">{{ Session::get('message') }}</div>
             @endif
             <div class="form-group">
-                <input wire:model="name" name="name" class="form-control" value="" id="name"
+                <input wire:model.live="name" name="name" class="form-control" value="" id="name"
                     placeholder="Name">
                 <span class="text-danger my-0 py-0">
                     @error('name')
@@ -24,7 +24,7 @@
                 </span>
             </div>
             <div class="form-group">
-                <input wire:model="email" type="email" name="email" class="form-control" value=""
+                <input wire:model.live="email" type="email" name="email" class="form-control" value=""
                     id="email" placeholder="Email">
                 <span class="text-danger">
                     @error('email')
@@ -35,7 +35,7 @@
 
 
             <div class="form-group">
-                <input wire:model="password" type="password" name="password" class="form-control" value=""
+                <input wire:model.live="password" type="password" name="password" class="form-control" value=""
                     id="password" placeholder="Password">
                 <span class="text-danger">
                     @error('password')
@@ -44,7 +44,7 @@
                 </span>
             </div>
             <div class="form-group">
-                <input wire:model="password_confirmation" type="password" class="form-control"
+                <input wire:model.live="password_confirmation" type="password" class="form-control"
                     name="password_confirmation" placeholder="Confirm-password">
                 <span class="text-danger">
                     @error('password_confirmation')

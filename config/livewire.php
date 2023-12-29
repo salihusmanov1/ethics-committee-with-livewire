@@ -2,6 +2,7 @@
 
 return [
 
+    'base_url' => 'app',
     /*
     |---------------------------------------------------------------------------
     | Class Namespace
@@ -155,5 +156,5 @@ return [
     |
     */
 
-    'pagination_theme' => 'bootstrap',
+    'pagination_theme' => 'tailwind',
 ];

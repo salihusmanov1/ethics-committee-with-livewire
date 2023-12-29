@@ -33,6 +33,7 @@
 </head>
 
 <body>
+
     <div class="d-flex" id="wrapper">
         <!-- Sidebar -->
         <div id="sidebar-wrapper">
@@ -94,8 +95,12 @@
             </nav>
             {{ $slot }}
         </div>
+
     </div>
+
+
     @livewireScripts
+  
 </body>
 
 </html>
@@ -110,18 +115,4 @@
     toggleButton.onclick = function() {
         el.classList.toggle("toggled");
     };
-
-    document.addEventListener("DOMContentLoaded", function() {
-        var subcategory = document.querySelector(".subcategory");
-        var subBtn = document.querySelector(".sub-btn");
-        var icon = document.querySelector("#icon");
-
-        subBtn.addEventListener("click", function() {
-            if (subcategory.style.maxHeight) {
-                subcategory.style.maxHeight = null;
-            } else {
-                subcategory.style.maxHeight = subcategory.scrollHeight + "px";
-            }
-        });
-    });
 </script>

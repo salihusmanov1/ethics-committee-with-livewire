@@ -120,9 +120,6 @@ class ChecklistForm extends Component
     public $question_8_c = '';
 
     #[Rule('required_if:question_8,Yes')]
-    public $question_8_d = '';
-
-    #[Rule('required_if:question_8,Yes')]
     public $question_8_d_i = '';
 
     #[Rule('required_if:question_8,Yes')]
@@ -145,7 +142,7 @@ class ChecklistForm extends Component
     {
         $validated = $this->validate();
         if ($validated)
-        $this->dispatch('showAttachFormModal');
+            $this->dispatch('showAttachFormModal');
     }
 
     public $attached_form_id = '';
@@ -201,6 +198,10 @@ class ChecklistForm extends Component
             Session::flash('error', 'An error occurred while saving the form. Please try again.');
         }
         $this->dispatch('showMessageModal');
+    }
+
+    public function redirectToDashboard() {
+        return redirect()->route('user-dashboard');
     }
 
 

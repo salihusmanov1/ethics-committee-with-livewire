@@ -12,6 +12,7 @@ class Form2 extends Model
 
     protected $fillable = [
         'user_id',
+        'app_id',
         'question_1',
         'question_2',
         'question_3',

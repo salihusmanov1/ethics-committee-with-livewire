@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Session;
 use Livewire\Attributes\Rule;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Log;
+use Livewire\Attributes\On;
 
 
 #[Layout('layout.app')]
@@ -75,14 +76,23 @@ class Form2 extends Component
     #[Rule('required')]
     public $sname;
 
-
     public function createForm2()
     {
-        $this->validate();
+       $validated = $this->validate();
 
         try {
-            $form2 = ModelsForm2::create([
+
+            $app = AppStatus::create([
                 'user_id' => auth()->user()->id,
+                'form_type' => 2,
+                'checklist_form_id' => null,
+                'status' => 'New',
+                'user_email' => auth()->user()->email
+            ]);
+
+            ModelsForm2::create([
+                'user_id' => auth()->user()->id,
+                'app_id' => $app->id,
                 'question_1' => $this->question_1,
                 'question_2' => $this->question_2,
                 'question_3' => $this->question_3,
@@ -94,26 +104,25 @@ class Form2 extends Component
                 'sname' => $this->sname
             ]);
 
-
-            AppStatus::create([
-                'user_id' => auth()->user()->id,
-                'form_id' => $form2->id,
-                'form_type' => 2,
-                'checklist_form_id' => null,
-                'status' => 'New',
-                'user_email' => auth()->user()->email
-            ]);
             Session::flash('success', 'Your form has been updated successfully.');
         } catch (QueryException $e) {
 
             Log::error("SQL Error: " . $e->getMessage());
             Session::flash('error', 'An error occurred while saving the form. Please try again.');
         }
-        $this->dispatch('showModal');
+        if ($validated) {
+            $this->dispatch('show-modal');
+        }
+       
     }
 
+    public function redirectToDashboard()
+    {
+        return redirect()->route('user-dashboard');
+    }
 
     public $pageName = "ETHICS COMMITTEE PROJECT INFORMATION FORM";
+
     public function render()
     {
         return view('livewire.app.form2');

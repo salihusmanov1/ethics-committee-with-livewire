@@ -43,7 +43,19 @@
 }
 
 .form-control:focus {
-    /* color: #000000; */
+
+    background-color: #ffffff;
+    border: 2px solid;
+    outline: 0;
+    box-shadow: none;
+}
+
+.form-select-lg {
+    padding: 7px 5px !important;
+    border: solid 1px #555555;
+}
+
+.form-select-lg:focus {
     background-color: #ffffff;
     border: 2px solid;
     outline: 0;
@@ -129,16 +141,13 @@ h4 {
 } */
 
 .submit {
+    margin-top: 10px;
     padding: 0.6rem 2rem;
-    background: #2d3142;
-    border: 2px solid #2d3142;
     font-size: 16px;
     font-family: 'Karla';
 }
 
 .submit:hover {
-    background-color: #56575f;
-    border-color: #56575f;
     transition: .3s;
 
 }

@@ -12,7 +12,7 @@
                     <img style="width: 15%" src="img\logo6.png" alt="">
                 </div>
                 <h3>ETHICS COMMITTEE PROJECT INFORMATION FORM</h3>
-                <form wire:submit='createForm2' _lpchecked="1" method="POST" action="">
+                <form wire:submit='createForm2'>
                     <!-- 1 -->
                     <div class="mb-3 row">
                         <div class="col">
@@ -203,63 +203,69 @@
                         </div>
                     </div>
 
-                    <div class="button d-flex flex-row align-items-center justify-content-end">
-                        <button type="submit" class="btn submit btn-primary">Submit</button>
-                    </div>
+                   
                 </form>
-            </div>
-        </div>
-    </div>
 
-    <div>
-        <div wire:ignore.self data-bs-backdrop="static" data-bs-keyboard="false" id="myModal" class="modal"
-            tabindex="-1" role="dialog">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                    </div>
-                    <div class="modal-body">
-                        <p class="">
-                            @if (Session::has('success'))
-                                <div class="text-center alert alert-success">
-                                    <i class="fa-solid fa-circle-check"></i>
-                                    <p>{{ Session::get('success') }}</p>
-                                </div>
-                                <hr>
-                                <div class="text-center alert alert-warning">
-                                    <i style="" class="fa-solid fa-triangle-exclamation fa-xl"></i>
-                                    <p>
-                                        Please be aware that in order to complete your application, "Ethics Committee
-                                        Application Control
-                                        List" must be filled. Please navigate to the "Application Control List" section
-                                        in
-                                        the
-                                        menu and fill
-                                        out the
-                                        required information.</p>
-                                </div>
-                            @endif
-
-                            @if (Session::has('error'))
-                                <div class="alert alert-danger">{{ Session::get('error') }}</div>
-                            @endif
-                        </p>
-                    </div>
-
-                    <div class="modal-footer">
-                        <a wire:navigate href="/user-dashboard" type="button" class="btn btn-secondary">Close</a>
-                    </div>
+                <div class="button d-flex flex-row align-items-center justify-content-end">
+                    <button wire:click='createForm2' type="submit" class="btn submit btn-primary">Submit</button>
                 </div>
             </div>
         </div>
     </div>
+
+    <div wire:ignore.self data-bs-backdrop="static" data-bs-keyboard="false" id="myModal" class="modal"
+        tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                </div>
+                <div class="modal-body">
+                    <p class="">
+                        @if (Session::has('success'))
+                            <div class="text-center alert alert-success">
+                                <i class="fa-solid fa-circle-check"></i>
+                                <p>{{ Session::get('success') }}</p>
+                            </div>
+                            <hr>
+                            <div class="text-center alert alert-warning">
+                                <i style="" class="fa-solid fa-triangle-exclamation fa-xl"></i>
+                                <p>
+                                    Please be aware that in order to complete your application, "Ethics Committee
+                                    Application Control
+                                    List" must be filled. Please navigate to the "Application Control List" section
+                                    in
+                                    the
+                                    menu and fill
+                                    out the
+                                    required information.</p>
+                            </div>
+                        @endif
+
+                        @if (Session::has('error'))
+                            <div class="alert alert-danger">{{ Session::get('error') }}</div>
+                        @endif
+                    </p>
+                </div>
+
+                <div class="modal-footer">
+                    <a wire:click='redirectToDashboard' type="button" class="btn btn-secondary">Close</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
+<script data-navigate-once>
+   
+        document.addEventListener('livewire:navigated', () => {
+            Livewire.on('show-modal', (event) => {
+                console.log('hi');
+                $('#myModal').modal('show');
 
-<script>
-    document.addEventListener('livewire:init', () => {
-        Livewire.on('showModal', (event) => {
-            $('#myModal').modal('show');
-
+            });
+            // $('.btn').click(function() {
+            //     $('#myModal').modal('hide');
+            // })
         });
-    });
+ 
 </script>

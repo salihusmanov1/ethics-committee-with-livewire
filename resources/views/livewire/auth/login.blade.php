@@ -15,7 +15,7 @@
             @endif
             @csrf
             <div class="form-group">
-                <input wire:model="email" type="text" class="form-control" placeholder="Email" name="email">
+                <input wire:model.live="email" type="text" class="form-control" placeholder="Email" name="email">
                 <span class="text-danger">
                     @error('email')
                         {{ $message }}
@@ -25,7 +25,7 @@
 
 
             <div class="form-group">
-                <input wire:model="password" type="password" class="form-control" name="password"
+                <input wire:model.live="password" type="password" class="form-control" name="password"
                     placeholder="Password">
                 <span class="text-danger">
                     @error('password')

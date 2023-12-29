@@ -26,7 +26,7 @@
                     <div class="row d-flex justify-content-between align-items-center">
                         <div class="col col-sm-3">
                             <div class="form-check">
-                                <input wire:model='attach_form' class="form-check-input"
+                                <input wire:model.live='attach_form' class="form-check-input"
                                     value="Ethics Committee Application Form" type="radio">
                                 <label class="form-label-small" for="form_list">
                                     Ethics Committee Application Form
@@ -35,7 +35,7 @@
                         </div>
                         <div class="col col-sm-3">
                             <div class="form-check">
-                                <input wire:model='attach_form' class="form-check-input"
+                                <input wire:model.live='attach_form' class="form-check-input"
                                     value="Project Information Form" type="radio">
                                 <label class="form-label-small" for="form_list">
                                     Project Information Form
@@ -44,7 +44,7 @@
                         </div>
                         <div class="col">
                             <div class="form-check">
-                                <input wire:model='attach_form' class="form-check-input" value="Informed Consent Form"
+                                <input wire:model.live='attach_form' class="form-check-input" value="Informed Consent Form"
                                     type="radio">
                                 <label class="form-label-small" for="form_list">
                                     Informed Consent Form
@@ -61,7 +61,7 @@
                         <label class="form-label">Parent/Guardian Consent Form</label>
                         <div class="col-6 col-sm-3">
                             <div class="form-check">
-                                <input wire:model='attach_parental' class="form-check-input" value="Yes"
+                                <input wire:model.live='attach_parental' class="form-check-input" value="Yes"
                                     type="radio">
                                 <label class="form-label-small">
                                     Yes
@@ -70,7 +70,7 @@
                         </div>
                         <div class="col-6 col-sm-3">
                             <div class="form-check">
-                                <input wire:model='attach_parental' class="form-check-input" value="No"
+                                <input wire:model.live='attach_parental' class="form-check-input" value="No"
                                     type="radio">
                                 <label class="form-label-small">
                                     Not Needed
@@ -86,7 +86,7 @@
                         <label class="form-label">Debriefing Form</label>
                         <div class="col-6 col-sm-3">
                             <div class="form-check">
-                                <input wire:model='debriefing' class="form-check-input" value="Yes" type="radio">
+                                <input wire:model.live='debriefing' class="form-check-input" value="Yes" type="radio">
                                 <label class="form-label-small">
                                     Yes
                                 </label>
@@ -94,7 +94,7 @@
                         </div>
                         <div class="col-6 col-sm-3">
                             <div class="form-check">
-                                <input wire:model='debriefing' class="form-check-input" value="No" type="radio">
+                                <input wire:model.live='debriefing' class="form-check-input" value="No" type="radio">
                                 <label class="form-label-small">
                                     Not Needed
                                 </label>
@@ -102,7 +102,7 @@
                         </div>
                         <div class="col col-sm-3">
                             <div class="form-check">
-                                <input wire:model='debriefing' class="form-check-input" value="Tools" type="radio">
+                                <input wire:model.live='debriefing' class="form-check-input" value="Tools" type="radio">
                                 <label class="form-label-small" for="data_checklist">
                                     An example of data collection tools (including online forms, applications, etc.)
                                 </label>
@@ -149,15 +149,15 @@
                             </div>
                             <div class="col-3 d-flex justify-content-between align-items-center">
                                 <div class="form-check">
-                                    <input wire:model='question_1' class="form-check-input" value="Yes"
+                                    <input wire:model.live='question_1' class="form-check-input" value="Yes"
                                         type="radio">
                                 </div>
                                 <div class="form-check">
-                                    <input wire:model='question_1' class="form-check-input" value="No"
+                                    <input wire:model.live='question_1' class="form-check-input" value="No"
                                         type="radio">
                                 </div>
                                 <div class="form-check">
-                                    <input wire:model='question_1' class="form-check-input" value="N/A"
+                                    <input wire:model.live='question_1' class="form-check-input" value="N/A"
                                         type="radio">
                                 </div>
                             </div>
@@ -182,15 +182,15 @@
                             <div class="col-3 d-flex justify-content-between align-items-center">
                                 <div class="form-check">
                                     <input class="form-check-input" value="Yes" type="radio"
-                                        wire:model="question_2_a">
+                                        wire:model.live="question_2_a">
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" value="No" type="radio"
-                                        wire:model="question_2_a">
+                                        wire:model.live="question_2_a">
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" value="N/A" type="radio"
-                                        wire:model="question_2_a">
+                                        wire:model.live="question_2_a">
                                 </div>
                             </div>
                             @error('question_2_a')
@@ -210,16 +210,16 @@
                             <div class="col-3 d-flex justify-content-between align-items-center">
                                 <div class="form-check">
                                     <input class="form-check-input" value="Yes" type="radio"
-                                        wire:model="question_2_b">
+                                        wire:model.live="question_2_b">
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" value="No" type="radio"
-                                        wire:model="question_2_b">
+                                        wire:model.live="question_2_b">
                                 </div>
 
                                 <div class="form-check">
                                     <input class="form-check-input" value="N/A" type="radio"
-                                        wire:model="question_2_b">
+                                        wire:model.live="question_2_b">
                                 </div>
                             </div>
                             @error('question_2_b')
@@ -244,16 +244,16 @@
                             <div class="col-3 d-flex justify-content-between align-items-center">
                                 <div class="form-check">
                                     <input class="form-check-input" value="Yes" type="radio"
-                                        wire:model="question_3_a">
+                                        wire:model.live="question_3_a">
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" value="No" type="radio"
-                                        wire:model="question_3_a">
+                                        wire:model.live="question_3_a">
                                 </div>
 
                                 <div class="form-check">
                                     <input class="form-check-input" value="N/A" type="radio"
-                                        wire:model="question_3_a">
+                                        wire:model.live="question_3_a">
                                 </div>
                             </div>
                             @error('question_3_a')
@@ -267,16 +267,16 @@
                             <div class="col-3 d-flex justify-content-between align-items-center">
                                 <div class="form-check">
                                     <input class="form-check-input" value="Yes" type="radio"
-                                        wire:model="question_3_b">
+                                        wire:model.live="question_3_b">
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" value="No" type="radio"
-                                        wire:model="question_3_b">
+                                        wire:model.live="question_3_b">
                                 </div>
 
                                 <div class="form-check">
                                     <input class="form-check-input" value="N/A" type="radio"
-                                        wire:model="question_3_b">
+                                        wire:model.live="question_3_b">
                                 </div>
                             </div>
                             @error('question_3_b')
@@ -296,16 +296,16 @@
                             <div class="col-3 d-flex justify-content-between align-items-center">
                                 <div class="form-check">
                                     <input class="form-check-input" value="Yes" type="radio"
-                                        wire:model="question_3_c">
+                                        wire:model.live="question_3_c">
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" value="No" type="radio"
-                                        wire:model="question_3_c">
+                                        wire:model.live="question_3_c">
                                 </div>
 
                                 <div class="form-check">
                                     <input class="form-check-input" value="N/A" type="radio"
-                                        wire:model="question_3_c">
+                                        wire:model.live="question_3_c">
                                 </div>
                             </div>
                             @error('question_3_c')
@@ -320,16 +320,16 @@
                             <div class="col-3 d-flex justify-content-between align-items-center">
                                 <div class="form-check">
                                     <input class="form-check-input" value="Yes" type="radio"
-                                        wire:model="question_3_d">
+                                        wire:model.live="question_3_d">
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" value="No" type="radio"
-                                        wire:model="question_3_d">
+                                        wire:model.live="question_3_d">
                                 </div>
 
                                 <div class="form-check">
                                     <input class="form-check-input" value="N/A" type="radio"
-                                        wire:model="question_3_d">
+                                        wire:model.live="question_3_d">
                                 </div>
                             </div>
                             @error('question_3_d')
@@ -347,16 +347,16 @@
                             <div class="col-3 d-flex justify-content-between align-items-center">
                                 <div class="form-check">
                                     <input class="form-check-input" value="Yes" type="radio"
-                                        wire:model="question_3_e">
+                                        wire:model.live="question_3_e">
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" value="No" type="radio"
-                                        wire:model="question_3_e">
+                                        wire:model.live="question_3_e">
                                 </div>
 
                                 <div class="form-check">
                                     <input class="form-check-input" value="N/A" type="radio"
-                                        wire:model="question_3_e">
+                                        wire:model.live="question_3_e">
                                 </div>
                             </div>
                             @error('question_3_e')
@@ -371,16 +371,16 @@
                             <div class="col-3 d-flex justify-content-between align-items-center">
                                 <div class="form-check">
                                     <input class="form-check-input" value="Yes" type="radio"
-                                        wire:model="question_3_f">
+                                        wire:model.live="question_3_f">
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" value="No" type="radio"
-                                        wire:model="question_3_f">
+                                        wire:model.live="question_3_f">
                                 </div>
 
                                 <div class="form-check">
                                     <input class="form-check-input" value="N/A" type="radio"
-                                        wire:model="question_3_f">
+                                        wire:model.live="question_3_f">
                                 </div>
                             </div>
                             @error('question_3_f')
@@ -397,16 +397,16 @@
                             <div class="col-3 d-flex justify-content-between align-items-center">
                                 <div class="form-check">
                                     <input class="form-check-input" value="Yes" type="radio"
-                                        wire:model="question_3_g">
+                                        wire:model.live="question_3_g">
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" value="No" type="radio"
-                                        wire:model="question_3_g">
+                                        wire:model.live="question_3_g">
                                 </div>
 
                                 <div class="form-check">
                                     <input class="form-check-input" value="N/A" type="radio"
-                                        wire:model="question_3_g">
+                                        wire:model.live="question_3_g">
                                 </div>
                             </div>
                             @error('question_3_g')
@@ -425,16 +425,16 @@
                             <div class="col-3 d-flex justify-content-between align-items-center">
                                 <div class="form-check">
                                     <input class="form-check-input" value="Yes" type="radio"
-                                        wire:model="question_3_h">
+                                        wire:model.live="question_3_h">
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" value="No" type="radio"
-                                        wire:model="question_3_h">
+                                        wire:model.live="question_3_h">
                                 </div>
 
                                 <div class="form-check">
                                     <input class="form-check-input" value="N/A" type="radio"
-                                        wire:model="question_3_h">
+                                        wire:model.live="question_3_h">
                                 </div>
                             </div>
                             @error('question_3_h')
@@ -455,16 +455,16 @@
                             <div class="col-3 d-flex justify-content-between align-items-center">
                                 <div class="form-check">
                                     <input class="form-check-input" value="Yes" type="radio"
-                                        wire:model="question_3_i">
+                                        wire:model.live="question_3_i">
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" value="No" type="radio"
-                                        wire:model="question_3_i">
+                                        wire:model.live="question_3_i">
                                 </div>
 
                                 <div class="form-check">
                                     <input class="form-check-input" value="N/A" type="radio"
-                                        wire:model="question_3_i">
+                                        wire:model.live="question_3_i">
                                 </div>
                             </div>
                             @error('question_3_i')
@@ -479,16 +479,16 @@
                             <div class="col-3 d-flex justify-content-between align-items-center">
                                 <div class="form-check">
                                     <input class="form-check-input" value="Yes" type="radio"
-                                        wire:model="question_3_j">
+                                        wire:model.live="question_3_j">
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" value="No" type="radio"
-                                        wire:model="question_3_j">
+                                        wire:model.live="question_3_j">
                                 </div>
 
                                 <div class="form-check">
                                     <input class="form-check-input" value="N/A" type="radio"
-                                        wire:model="question_3_j">
+                                        wire:model.live="question_3_j">
                                 </div>
                             </div>
                             @error('question_3_j')
@@ -508,16 +508,16 @@
                             <div class="col-3 d-flex justify-content-between align-items-center">
                                 <div class="form-check">
                                     <input class="form-check-input" value="Yes" type="radio"
-                                        wire:model="question_3_k">
+                                        wire:model.live="question_3_k">
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" value="No" type="radio"
-                                        wire:model="question_3_k">
+                                        wire:model.live="question_3_k">
                                 </div>
 
                                 <div class="form-check">
                                     <input class="form-check-input" value="N/A" type="radio"
-                                        wire:model="question_3_k">
+                                        wire:model.live="question_3_k">
                                 </div>
                             </div>
 
@@ -545,11 +545,11 @@
                             <div class="col-3 d-flex justify-content-between align-items-center">
                                 <div class="form-check">
                                     <input class="form-check-input" value="Yes" type="radio"
-                                        wire:model="question_4">
+                                        wire:model.live="question_4">
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" value="No" type="radio"
-                                        wire:model="question_4">
+                                        wire:model.live="question_4">
                                 </div>
                                 <div class="form-check">
 
@@ -578,16 +578,16 @@
                             <div class="col-3 d-flex justify-content-between align-items-center">
                                 <div class="form-check">
                                     <input class="form-check-input" value="Yes" type="radio"
-                                        wire:model="question_5">
+                                        wire:model.live="question_5">
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" value="No" type="radio"
-                                        wire:model="question_5">
+                                        wire:model.live="question_5">
                                 </div>
 
                                 <div class="form-check">
                                     <input class="form-check-input" value="N/A" type="radio"
-                                        wire:model="question_5">
+                                        wire:model.live="question_5">
                                 </div>
                             </div>
                         </div>
@@ -612,16 +612,16 @@
                             <div class="col-3 d-flex justify-content-between align-items-center">
                                 <div class="form-check">
                                     <input class="form-check-input" value="Yes" type="radio"
-                                        wire:model="question_6">
+                                        wire:model.live="question_6">
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" value="No" type="radio"
-                                        wire:model="question_6">
+                                        wire:model.live="question_6">
                                 </div>
 
                                 <div class="form-check">
                                     <input class="form-check-input" value="N/A" type="radio"
-                                        wire:model="question_6">
+                                        wire:model.live="question_6">
                                 </div>
                             </div>
                         </div>
@@ -643,11 +643,11 @@
                         <div class="col-3 d-flex justify-content-between align-items-center">
                             <div class="form-check">
                                 <input wire:click='showSectionOf7' class="form-check-input" value="Yes"
-                                    type="radio" wire:model="question_7">
+                                    type="radio" wire:model.live="question_7">
                             </div>
                             <div class="form-check">
                                 <input wire:click='showSectionOf7' class="form-check-input" value="No"
-                                    type="radio" wire:model="question_7">
+                                    type="radio" wire:model.live="question_7">
                             </div>
 
                             <div class="form-check">
@@ -674,16 +674,16 @@
                                 <div class="col-3 d-flex justify-content-between align-items-center">
                                     <div class="form-check">
                                         <input class="form-check-input" value="Yes" type="radio"
-                                            wire:model="question_7_a">
+                                            wire:model.live="question_7_a">
                                     </div>
                                     <div class="form-check">
                                         <input class="form-check-input" value="No" type="radio"
-                                            wire:model="question_7_a">
+                                            wire:model.live="question_7_a">
                                     </div>
 
                                     <div class="form-check">
                                         <input class="form-check-input" value="N/A" type="radio"
-                                            wire:model="question_7_a">
+                                            wire:model.live="question_7_a">
                                     </div>
                                 </div>
                                 @error('question_7_a')
@@ -703,16 +703,16 @@
                                 <div class="col-3 d-flex justify-content-between align-items-center">
                                     <div class="form-check">
                                         <input class="form-check-input" value="Yes" type="radio"
-                                            wire:model="question_7_b">
+                                            wire:model.live="question_7_b">
                                     </div>
                                     <div class="form-check">
                                         <input class="form-check-input" value="No" type="radio"
-                                            wire:model="question_7_b">
+                                            wire:model.live="question_7_b">
                                     </div>
 
                                     <div class="form-check">
                                         <input class="form-check-input" value="N/A" type="radio"
-                                            wire:model="question_7_b">
+                                            wire:model.live="question_7_b">
                                     </div>
                                 </div>
                                 @error('question_7_b')
@@ -732,16 +732,16 @@
                                 <div class="col-3 d-flex justify-content-between align-items-center">
                                     <div class="form-check">
                                         <input class="form-check-input" value="Yes" type="radio"
-                                            wire:model="question_7_c">
+                                            wire:model.live="question_7_c">
                                     </div>
                                     <div class="form-check">
                                         <input class="form-check-input" value="No" type="radio"
-                                            wire:model="question_7_c">
+                                            wire:model.live="question_7_c">
                                     </div>
 
                                     <div class="form-check">
                                         <input class="form-check-input" value="N/A" type="radio"
-                                            wire:model="question_7_c">
+                                            wire:model.live="question_7_c">
                                     </div>
                                 </div>
                                 @error('question_7_c')
@@ -761,11 +761,11 @@
                         <div class="col-3 d-flex justify-content-between align-items-center">
                             <div class="form-check">
                                 <input wire:click="showSectionOf8" class="form-check-input" value="Yes"
-                                    type="radio" wire:model="question_8">
+                                    type="radio" wire:model.live="question_8">
                             </div>
                             <div class="form-check">
                                 <input wire:click="showSectionOf8" class="form-check-input" value="No"
-                                    id="no-8" type="radio" wire:model="question_8">
+                                    id="no-8" type="radio" wire:model.live="question_8">
                             </div>
 
                             <div class="form-check">
@@ -791,11 +791,11 @@
                                 <div class="col-3 d-flex justify-content-between align-items-center">
                                     <div class="form-check">
                                         <input class="form-check-input" value="Yes" type="radio"
-                                            wire:model="question_8_a">
+                                            wire:model.live="question_8_a">
                                     </div>
                                     <div class="form-check">
                                         <input class="form-check-input" value="No" type="radio"
-                                            wire:model="question_8_a">
+                                            wire:model.live="question_8_a">
                                     </div>
 
                                     <div class="form-check">
@@ -819,11 +819,11 @@
                                 <div class="col-3 d-flex justify-content-between align-items-center">
                                     <div class="form-check">
                                         <input class="form-check-input" value="Yes" type="radio"
-                                            wire:model="question_8_b">
+                                            wire:model.live="question_8_b">
                                     </div>
                                     <div class="form-check">
                                         <input class="form-check-input" value="No" type="radio"
-                                            wire:model="question_8_b">
+                                            wire:model.live="question_8_b">
                                     </div>
 
                                     <div class="form-check">
@@ -847,11 +847,11 @@
                                 <div class="col-3 d-flex justify-content-between align-items-center">
                                     <div class="form-check">
                                         <input class="form-check-input" value="Yes" type="radio"
-                                            wire:model="question_8_c">
+                                            wire:model.live="question_8_c">
                                     </div>
                                     <div class="form-check">
                                         <input class="form-check-input" value="No" type="radio"
-                                            wire:model="question_8_c">
+                                            wire:model.live="question_8_c">
                                     </div>
 
                                     <div class="form-check">
@@ -877,16 +877,16 @@
                                     <div class="col-3 d-flex justify-content-between align-items-center">
                                         <div class="form-check">
                                             <input class="form-check-input" value="Yes" type="radio"
-                                                wire:model="question_8_d_i">
+                                                wire:model.live="question_8_d_i">
                                         </div>
                                         <div class="form-check">
                                             <input class="form-check-input" value="No" type="radio"
-                                                wire:model="question_8_d_i">
+                                                wire:model.live="question_8_d_i">
                                         </div>
 
                                         <div class="form-check">
                                             <input class="form-check-input" value="N/A" type="radio"
-                                                wire:model="question_8_d_i">
+                                                wire:model.live="question_8_d_i">
                                         </div>
                                     </div>
                                     @error('question_8_d_i')
@@ -901,16 +901,16 @@
                                     <div class="col-3 d-flex justify-content-between align-items-center">
                                         <div class="form-check">
                                             <input class="form-check-input" value="Yes" type="radio"
-                                                wire:model="question_8_d_ii">
+                                                wire:model.live="question_8_d_ii">
                                         </div>
                                         <div class="form-check">
                                             <input class="form-check-input" value="No" type="radio"
-                                                wire:model="question_8_d_ii">
+                                                wire:model.live="question_8_d_ii">
                                         </div>
 
                                         <div class="form-check">
                                             <input class="form-check-input" value="N/A" type="radio"
-                                                wire:model="question_8_d_ii">
+                                                wire:model.live="question_8_d_ii">
                                         </div>
                                     </div>
                                     @error('question_8_d_ii')
@@ -931,16 +931,16 @@
                                     <div class="col-3 d-flex justify-content-between align-items-center">
                                         <div class="form-check">
                                             <input class="form-check-input" value="Yes" type="radio"
-                                                wire:model="question_8_d_iii">
+                                                wire:model.live="question_8_d_iii">
                                         </div>
                                         <div class="form-check">
                                             <input class="form-check-input" value="No" type="radio"
-                                                wire:model="question_8_d_iii">
+                                                wire:model.live="question_8_d_iii">
                                         </div>
 
                                         <div class="form-check">
                                             <input class="form-check-input" value="N/A" type="radio"
-                                                wire:model="question_8_d_iii">
+                                                wire:model.live="question_8_d_iii">
                                         </div>
                                     </div>
                                     @error('question_8_d_iii')
@@ -967,16 +967,16 @@
                             <div class="col-3 d-flex justify-content-between align-items-center">
                                 <div class="form-check">
                                     <input class="form-check-input" value="Yes" type="radio"
-                                        wire:model="question_9">
+                                        wire:model.live="question_9">
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" value="No" type="radio"
-                                        wire:model="question_9">
+                                        wire:model.live="question_9">
                                 </div>
 
                                 <div class="form-check">
                                     <input class="form-check-input" value="N/A" type="radio"
-                                        wire:model="question_9">
+                                        wire:model.live="question_9">
                                 </div>
                             </div>
                         </div>
@@ -1000,16 +1000,16 @@
                             <div class="col-3 d-flex justify-content-between align-items-center">
                                 <div class="form-check">
                                     <input class="form-check-input" value="Yes" type="radio"
-                                        wire:model="question_10">
+                                        wire:model.live="question_10">
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" value="No" type="radio"
-                                        wire:model="question_10">
+                                        wire:model.live="question_10">
                                 </div>
 
                                 <div class="form-check">
                                     <input class="form-check-input" value="N/A" type="radio"
-                                        wire:model="question_10">
+                                        wire:model.live="question_10">
                                 </div>
                             </div>
                         </div>
@@ -1033,11 +1033,11 @@
                             <div class="col-3 d-flex justify-content-between align-items-center">
                                 <div class="form-check">
                                     <input class="form-check-input" value="Yes" type="radio"
-                                        wire:model="question_11">
+                                        wire:model.live="question_11">
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" value="No" type="radio"
-                                        wire:model="question_11">
+                                        wire:model.live="question_11">
                                 </div>
                                 <div class="form-check">
 
@@ -1051,7 +1051,7 @@
 
 
                     <div class="button d-flex flex-row align-items-center justify-content-end">
-                        <button wire:click='checkValidation' class="btn btn-primary">Submit</button>
+                        <button type="submit" wire:click='checkValidation' class="btn btn-primary">Submit</button>
                     </div>
                 </div>
             </form>
@@ -1068,11 +1068,11 @@
                             aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <select wire:model="attached_form_id" class="form-control form-select form-select-lg"-
+                        <select wire:model.live="attached_form_id" class="form-control form-select form-select-lg"-
                             aria-label=".form-select-lg">
-                            <option value="" hidden>Select a Form</option> 
+                            <option value="" hidden>Select a Form</option>
                             @foreach ($datas as $data)
-                                @if ($data->checklist_form_id == null)
+                                @if ($data->checklist_form_id == null && $data->form->name === $attach_form)
                                     <option value="{{ $data->id }}">
                                         <span>№{{ $data->id }}</span>
                                         <span> - </span>
@@ -1105,10 +1105,6 @@
                                 <div class="text-center alert alert-success">
                                     <i class="fa-solid fa-circle-check"></i>
                                     <p>{{ Session::get('success') }}</p>
-                                </div>
-                                <hr>
-                                <div class="text-center alert alert-warning">
-                                    <i style="" class="fa-solid fa-triangle-exclamation fa-xl"></i>
                                 </div>
                             @endif
 

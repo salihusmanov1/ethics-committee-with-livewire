@@ -11,6 +11,9 @@ use Illuminate\Support\Facades\Session;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 use PhpParser\Node\Stmt\TryCatch;
+use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Log;
+
 
 #[Layout('layout.app')]
 class Form1 extends Component
@@ -338,59 +341,59 @@ class Form1 extends Component
             'end' => $this->expected_end
         ];
 
+        try {
 
 
-        $form1 = ModelsForm1::create([
-            'user_id' => auth()->user()->id,
-            'title_of_study' => $this->title_of_study,
-            'type_of_study' => json_encode($this->type_of_study),
-            'researchers' => json_encode($this->researcher),
-            'other_researchers' => json_encode($this->other_researchers),
-            'advisors' => json_encode($this->advisor),
-            'expected_time_frame' => json_encode($this->time_frame),
-            'org_inst' => json_encode($this->organizations),
-            'question_8' => json_encode($this->question_8),
-            'question_9_1' => $this->question_9_1,
-            'question_9_2' => json_encode($this->question_9_2),
-            'question_9_3' => json_encode($this->question_9_3),
-            'status' => $this->status,
-            'reporting_changes' => json_encode($this->reporting_changes),
-            'extension_pr_study' => json_encode($this->extension_pr_study),
-            'question_11' => $this->question_11,
-            'question_12' => $this->question_12,
-            'question_13' => $this->question_13,
-            'question_14' => json_encode($this->question_14),
-            'question_15' => $this->question_15,
-            'question_16' => $this->question_16,
-            'question_17' => json_encode($this->question_17),
-            'question_17_1' => $this->question_17_1,
-            'question_17_2' => $this->question_17_2,
-            'question_18' => $this->question_18,
-            'question_19' => $this->question_19,
-            'question_20' => json_encode($this->question_20),
-            'question_21' => $this->question_21,
-            'rname' => $this->rname,
-            'rdate' => $this->rdate,
-            'sname' => $this->sname,
-            'sdate' => $this->sdate
-        ]);
+            $app = AppStatus::create([
+                'user_id' => auth()->user()->id,
+                'form_type' => 1,
+                'checklist_form_id' => null,
+                'status' => 'New',
+                'user_email' => auth()->user()->email
+            ]);
 
-        AppStatus::create([
-            'user_id' => auth()->user()->id,
-            'form_id' => $form1->id,
-            'form_type' => 1,
-            'checklist_form_id' => null,
-            'status' => 'New',
-            'user_email' => auth()->user()->email
-        ]);
-
-        if ($form1) {
+            ModelsForm1::create([
+                'user_id' => auth()->user()->id,
+                'app_id' => $app->id,
+                'title_of_study' => $this->title_of_study,
+                'type_of_study' => json_encode($this->type_of_study),
+                'researchers' => json_encode($this->researcher),
+                'other_researchers' => json_encode($this->other_researchers),
+                'advisors' => json_encode($this->advisor),
+                'expected_time_frame' => json_encode($this->time_frame),
+                'org_inst' => json_encode($this->organizations),
+                'question_8' => json_encode($this->question_8),
+                'question_9_1' => $this->question_9_1,
+                'question_9_2' => json_encode($this->question_9_2),
+                'question_9_3' => json_encode($this->question_9_3),
+                'status' => $this->status,
+                'reporting_changes' => json_encode($this->reporting_changes),
+                'extension_pr_study' => json_encode($this->extension_pr_study),
+                'question_11' => $this->question_11,
+                'question_12' => $this->question_12,
+                'question_13' => $this->question_13,
+                'question_14' => json_encode($this->question_14),
+                'question_15' => $this->question_15,
+                'question_16' => $this->question_16,
+                'question_17' => json_encode($this->question_17),
+                'question_17_1' => $this->question_17_1,
+                'question_17_2' => $this->question_17_2,
+                'question_18' => $this->question_18,
+                'question_19' => $this->question_19,
+                'question_20' => json_encode($this->question_20),
+                'question_21' => $this->question_21,
+                'rname' => $this->rname,
+                'rdate' => $this->rdate,
+                'sname' => $this->sname,
+                'sdate' => $this->sdate
+            ]);
             Session::flash('success', 'Your form has been updated successfully.');
+        } catch (QueryException $e) {
 
-            $this->dispatch('showSuccessModal');
-        } else {
-            Session::flash('error', 'Oops something went wrong');
+            Log::error("SQL Error: " . $e->getMessage());
+            Session::flash('error', 'An error occurred while saving the form. Please try again.');
         }
+        $this->dispatch('showModal');
     }
 
     public function redirectUserDashboard()
