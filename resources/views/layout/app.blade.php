@@ -42,7 +42,7 @@
             </div>
             <div class="list-group list-group-flush my-3">
                 @if (auth()->user()->role_id == 1)
-                    <a wire:navigate href="/user-dashboard" class="list-group-item bg-transparent second-text">Home</a>
+                    <a href="{{ url('/user-dashboard') }}" class="list-group-item bg-transparent second-text">Home</a>
                 @endif
                 {{-- @if (auth()->user()->role_id == 0)
                     <a href="{{ route('admin-dashboard') }}" class="list-group-item bg-transparent second-text">Home</a>
@@ -55,19 +55,19 @@
                     </button>
 
                     <div class="collapse" id="subCategory">
-                        <a wire:navigate style="padding-left: 50px" class="list-group-item bg-transparent second-text"
-                            href="/application-form">Application Form</a>
-                        <a wire:navigate style="padding-left: 50px" class="list-group-item bg-transparent second-text"
-                            href="/information-consent-form">Informed Consent Form</a>
-                        <a wire:navigate style="padding-left: 50px" class="list-group-item bg-transparent second-text"
-                            href="/project-information-form">Project Information Form</a>
-                        <a wire:navigate style="padding-left: 50px" class="list-group-item bg-transparent second-text"
-                            href="/checklist-form">
+                        <a style="padding-left: 50px" class="list-group-item bg-transparent second-text"
+                            href="{{ url('/application-form') }}">Application Form</a>
+                        <a style="padding-left: 50px" class="list-group-item bg-transparent second-text"
+                            href="{{ url('/information-consent-form') }}">Informed Consent Form</a>
+                        <a style="padding-left: 50px" class="list-group-item bg-transparent second-text"
+                            href="{{ url('/project-information-form') }}">Project Information Form</a>
+                        <a style="padding-left: 50px" class="list-group-item bg-transparent second-text"
+                            href="{{ url('/checklist-form') }}">
                             Application Checklist</a>
                     </div>
                 </div>
 
-                <a wire:navigate class="list-group-item bg-transparent second-text" href="/app-status">App Status</a>
+                <a class="list-group-item bg-transparent second-text" href="/app-status">App Status</a>
 
                 <a href="" class="list-group-item bg-transparent second-text">Log Out</a>
 
@@ -100,7 +100,7 @@
 
 
     @livewireScripts
-  
+
 </body>
 
 </html>

@@ -180,7 +180,6 @@ class ChecklistForm extends Component
                 'question_8_a' => $this->question_8_a,
                 'question_8_b' => $this->question_8_b,
                 'question_8_c' => $this->question_8_c,
-                'question_8_d' => $this->question_8_d,
                 'question_8_d_i' => $this->question_8_d_i,
                 'question_8_d_ii' => $this->question_8_d_ii,
                 'question_8_d_iii' => $this->question_8_d_iii,

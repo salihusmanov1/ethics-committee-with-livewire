@@ -257,7 +257,7 @@
 </div>
 <script data-navigate-once>
    
-        document.addEventListener('livewire:navigated', () => {
+        document.addEventListener('livewire:init', () => {
             Livewire.on('show-modal', (event) => {
                 console.log('hi');
                 $('#myModal').modal('show');
