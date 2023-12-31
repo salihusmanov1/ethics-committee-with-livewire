@@ -5,10 +5,20 @@ namespace App\Livewire;
 use App\Models\AppStatus as ModelsAppStatus;
 use Livewire\Component;
 use Livewire\Attributes\Layout;
+use Livewire\Attributes\On;
+
 
 #[Layout('layout.app')]
 class AppStatus extends Component
 {
+    #[On('dataSent')]
+    public function handleFormsShow($formType, $formId)
+    {
+
+        if ($formType == 2) {
+            $this->redirectRoute('project-information-form-show', ['formId' => $formId]);
+        }
+    }
 
     public $pageName = "APPLICATION STATUS";
     public function render()
@@ -18,7 +28,7 @@ class AppStatus extends Component
         } else {
             $datas = ModelsAppStatus::with('form')->all();
         }
-      
+
 
         return view('livewire.app.app-status', [
             'datas' => $datas

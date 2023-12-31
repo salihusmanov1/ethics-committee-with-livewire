@@ -1,5 +1,3 @@
-
-
 <div>
     <link rel="stylesheet" href="/css/appstatus.css">
     {{-- Be like water. --}}
@@ -68,7 +66,9 @@
                     @foreach ($datas as $data)
                         <tr>
                             {{-- ID --}}
-                            <th scope="row"><a href="">#{{ $data->id }} </a></th>
+                            <th scope="row"><button class="btn btn-link"
+                                    wire:click="$dispatch('dataSent', { formType: {{ $data->form->id }}, formId: {{ $data->id }} })">#{{ $data->id }}
+                                </button></th>
                             {{-- TYPE --}}
                             <td>{{ $data->form->name }}</td>
 
@@ -106,7 +106,8 @@
                                             </li>
                                         @endif
 
-                                        <li><a data-id="{{ $data->id }}" class="btn delete dropdown-item">delete</a>
+                                        <li><a data-id="{{ $data->id }}"
+                                                class="btn delete dropdown-item">delete</a>
                                         </li>
 
                                     </ul>

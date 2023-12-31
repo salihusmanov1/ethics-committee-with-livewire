@@ -122,7 +122,7 @@
                                         class="form-control" placeholder="Institute" required>
                                 </div>
                                 <div class="col">
-                                    <a wire:click.prevent="removeInput({{ $index }})"
+                                    <a wire:click.prevent="removeResInput({{ $index }})"
                                         class="btn btn-danger removeResInput">Remove</a>
                                 </div>
                             </div>
@@ -1100,7 +1100,7 @@
                                 </div>
                                 <hr>
                                 <div class="text-center alert alert-warning">
-                                    <i style="" class="fa-solid fa-triangle-exclamation fa-xl"></i>
+                                    <i class="fa-solid fa-triangle-exclamation fa-xl"></i>
                                     <p>
                                         Please be aware that in order to complete your application, "Ethics Committee
                                         Application Control

@@ -39,7 +39,6 @@ class ChecklistForm extends Model
         'question_8_a',
         'question_8_b',
         'question_8_c',
-        'question_8_d',
         'question_8_d_i',
         'question_8_d_ii',
         'question_8_d_iii',

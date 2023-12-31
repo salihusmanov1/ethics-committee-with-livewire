@@ -15,7 +15,7 @@ use Livewire\Attributes\On;
 
 #[Layout('layout.app')]
 
-class Form2 extends Component
+class ProjectInformationForm extends Component
 {
 
     #[Rule('required')]
@@ -125,6 +125,6 @@ class Form2 extends Component
 
     public function render()
     {
-        return view('livewire.app.form2');
+        return view('livewire.app.project-information-form');
     }
 }

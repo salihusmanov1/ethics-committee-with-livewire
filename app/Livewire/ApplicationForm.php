@@ -2,7 +2,7 @@
 
 namespace App\Livewire;
 
-use App\Livewire\AppStatus as LivewireAppStatus;
+
 use App\Models\AppStatus;
 use App\Models\Forms;
 use App\Models\Form1 as ModelsForm1;
@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Log;
 
 
 #[Layout('layout.app')]
-class Form1 extends Component
+class ApplicationForm extends Component
 {
 
     #[Rule('required|string')]
@@ -341,7 +341,7 @@ class Form1 extends Component
             'end' => $this->expected_end
         ];
 
-        try {
+        // try {
 
 
             $app = AppStatus::create([
@@ -388,11 +388,11 @@ class Form1 extends Component
                 'sdate' => $this->sdate
             ]);
             Session::flash('success', 'Your form has been updated successfully.');
-        } catch (QueryException $e) {
+        // } catch (QueryException $e) {
 
-            Log::error("SQL Error: " . $e->getMessage());
+            // Log::error("SQL Error: " . $e->getMessage());
             Session::flash('error', 'An error occurred while saving the form. Please try again.');
-        }
+        // }
         $this->dispatch('showModal');
     }
 
@@ -406,6 +406,6 @@ class Form1 extends Component
     public $pageName = "Ethics Committee Application Form";
     public function render()
     {
-        return view('livewire.app.form1');
+        return view('livewire.app.application-form');
     }
 }

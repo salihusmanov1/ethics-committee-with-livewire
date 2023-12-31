@@ -144,7 +144,7 @@
 
                         <div class="button d-flex flex-row align-items-center justify-content-end">
                             <button type="submit" class="btn submit btn-primary">Submit</button>
-                        </div>
+                        </div> 
                         <br />
                         <div class="row consent-row justify-content-center">
                             <p class="col">I accept to participate in this research.</p>
