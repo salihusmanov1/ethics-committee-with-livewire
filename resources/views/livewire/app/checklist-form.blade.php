@@ -23,7 +23,7 @@
                         beginning
                         of your application list</h4>
 
-                    <div class="row d-flex justify-content-between align-items-center">
+                    <div class="row d-flex justify-content-start align-items-center">
                         <div class="col col-sm-3">
                             <div class="form-check">
                                 <input wire:model.live='attach_form' class="form-check-input"
@@ -42,15 +42,7 @@
                                 </label>
                             </div>
                         </div>
-                        <div class="col">
-                            <div class="form-check">
-                                <input wire:model.live='attach_form' class="form-check-input" value="Informed Consent Form"
-                                    type="radio">
-                                <label class="form-label-small" for="form_list">
-                                    Informed Consent Form
-                                </label>
-                            </div>
-                        </div>
+
                         @error('attach_form')
                             <span class="text-danger">This input field is required!</span></br>
                         @enderror
@@ -81,12 +73,16 @@
                             <span class="text-danger">This input field is required!</span></br>
                         @enderror
                     </div>
+                    <div>
+                        <input class="form-control form-control-lg" id="formFileLg" type="file">
+                    </div>
 
                     <div class="row">
                         <label class="form-label">Debriefing Form</label>
                         <div class="col-6 col-sm-3">
                             <div class="form-check">
-                                <input wire:model.live='debriefing' class="form-check-input" value="Yes" type="radio">
+                                <input wire:model.live='debriefing' class="form-check-input" value="Yes"
+                                    type="radio">
                                 <label class="form-label-small">
                                     Yes
                                 </label>
@@ -94,7 +90,8 @@
                         </div>
                         <div class="col-6 col-sm-3">
                             <div class="form-check">
-                                <input wire:model.live='debriefing' class="form-check-input" value="No" type="radio">
+                                <input wire:model.live='debriefing' class="form-check-input" value="No"
+                                    type="radio">
                                 <label class="form-label-small">
                                     Not Needed
                                 </label>
@@ -102,7 +99,8 @@
                         </div>
                         <div class="col col-sm-3">
                             <div class="form-check">
-                                <input wire:model.live='debriefing' class="form-check-input" value="Tools" type="radio">
+                                <input wire:model.live='debriefing' class="form-check-input" value="Tools"
+                                    type="radio">
                                 <label class="form-label-small" for="data_checklist">
                                     An example of data collection tools (including online forms, applications, etc.)
                                 </label>
