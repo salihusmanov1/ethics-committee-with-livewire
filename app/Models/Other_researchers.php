@@ -12,8 +12,9 @@ class Other_researchers extends Model
     protected $primaryKey = 'id';
     protected $fillable = [
         'full_name',
-        'institue',
+        'institute',
         'app_form_id',
     ];
+    public $timestamps = false;
     use HasFactory;
 }

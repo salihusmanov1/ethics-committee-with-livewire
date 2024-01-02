@@ -14,5 +14,7 @@ class Method extends Model
         'method',
         'app_form_id',
     ];
+    public $timestamps = false;
+
     use HasFactory;
 }

@@ -14,5 +14,6 @@ class Organization extends Model
         'organization',
         'app_form_id',
     ];
+    public $timestamps = false;
     use HasFactory;
 }

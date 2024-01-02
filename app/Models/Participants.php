@@ -14,5 +14,7 @@ class Participants extends Model
         'type',
         'app_form_id',
     ];
+    public $timestamps = false;
+
     use HasFactory;
 }

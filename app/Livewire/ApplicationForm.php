@@ -58,7 +58,7 @@ class ApplicationForm extends Component
     public $other_researchers = [];
     public function addResInput()
     {
-        $this->other_researchers[] = ['name' => '', 'institute' => ''];
+        $this->other_researchers[] = ['full_name' => '', 'institute' => ''];
     }
 
     public function removeResInput($index)
@@ -101,7 +101,7 @@ class ApplicationForm extends Component
 
     public function addOrgInput()
     {
-        $this->organizations[] = [''];
+        $this->organizations[] = '';
     }
 
     public function removeInputOrg($index)
@@ -296,33 +296,49 @@ class ApplicationForm extends Component
     // public $showModal = false;
     public function createForm1()
     {
-        $this->validate();
+        // $this->validate();
 
-        $form1 = new Form1();
-        $form1Id = $form1->id;
-        $methodValues = $this->input('methods', []);
-        foreach ($methodValues as $methodValue) {
+        $form1Id = 100;
+        foreach ($this->question_20['types'] as $type => $isChecked) {
+            if ($isChecked) {
+                $method = new Method([
+                    'method' => $type,
+                    'app_form_id' => $form1Id,
+                ]);
 
+                $method->save();
+            }
+        }
+        if (!empty($this->question_20['other'])) {
             $method = new Method([
-                'method' => $methodValue,
+                'method' => $this->question_20['other'],
                 'app_form_id' => $form1Id,
             ]);
-
 
             $method->save();
         }
 
-        $participantsValues = $this->input('methods', []);
-        foreach ($participantsValues as $participantsValue) {
+       
+        foreach ($this->question_17['types'] as $type => $isChecked) {
+            if ($isChecked) {
+                $participant = new Participants([
+                    'type' => $type,
+                    'app_form_id' => $form1Id,
+                ]);
 
+
+                $participant->save();
+            }
+        }
+        if (!empty($this->question_17['other'])) {
             $method = new Participants([
-                'type' => $participantsValue,
+                'type' => $this->question_17['other'],
                 'app_form_id' => $form1Id,
             ]);
 
-
-            $method->save();
+            $participant->save();
         }
+
 
         foreach ($this->other_researchers as $researcher) {
             $other_researchers = new Other_researchers([
@@ -334,8 +350,8 @@ class ApplicationForm extends Component
         }
 
         foreach ($this->organizations as $organization) {
-            $organizations = new Organizations([
-                'organizations' => $organization['organizations'],
+            $organizations = new Organization([
+                'organization' => $organization,
                 'app_form_id' => $form1Id,
             ]);
             $organizations->save();
