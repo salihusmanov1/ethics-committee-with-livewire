@@ -5,7 +5,11 @@ namespace App\Livewire;
 
 use App\Models\AppStatus;
 use App\Models\Forms;
-use App\Models\Form1 as ModelsForm1;
+use App\Models\Method;
+use App\Models\Participants;
+use App\Models\Form1;
+use App\Models\Other_researchers;
+use App\Models\Organization;
 use Livewire\Attributes\Rule;
 use Illuminate\Support\Facades\Session;
 use Livewire\Attributes\Layout;
@@ -51,17 +55,17 @@ class ApplicationForm extends Component
 
 
 
-    // public $other_researchers = [];
-    // public function addResInput()
-    // {
-    //     $this->other_researchers[] = ['name' => '', 'institute' => ''];
-    // }
+    public $other_researchers = [];
+    public function addResInput()
+    {
+        $this->other_researchers[] = ['name' => '', 'institute' => ''];
+    }
 
-    // public function removeResInput($index)
-    // {
-    //     unset($this->other_researchers[$index]);
-    //     $this->other_researchers = array_values($this->other_researchers);
-    // }
+    public function removeResInput($index)
+    {
+        unset($this->other_researchers[$index]);
+        $this->other_researchers = array_values($this->other_researchers);
+    }
 
     public $question_5 = true;
 
@@ -93,18 +97,18 @@ class ApplicationForm extends Component
     #[Rule('required|date|after:expected_start')]
     public $expected_end = '';
 
-    // public $organizations = [];
+    public $organizations = [];
 
-    // public function addOrgInput()
-    // {
-    //     $this->organizations[] = [''];
-    // }
+    public function addOrgInput()
+    {
+        $this->organizations[] = [''];
+    }
 
-    // public function removeInputOrg($index)
-    // {
-    //     unset($this->organizations[$index]);
-    //     $this->organizations = array_values($this->organizations);
-    // }
+    public function removeInputOrg($index)
+    {
+        unset($this->organizations[$index]);
+        $this->organizations = array_values($this->organizations);
+    }
 
     #[Rule('required')]
     public $question_8 = '';
@@ -208,13 +212,9 @@ class ApplicationForm extends Component
                 'question_14_1',
                 'question_15',
                 'question_16',
-
-
                 'question_18',
                 'question_19',
-
                 'question_21'
-
             );
         }
         if ($this->status == 'Extension of a Previous Study') {
@@ -297,6 +297,49 @@ class ApplicationForm extends Component
     public function createForm1()
     {
         $this->validate();
+
+        $form1 = new Form1();
+        $form1Id = $form1->id;
+        $methodValues = $this->input('methods', []);
+        foreach ($methodValues as $methodValue) {
+
+            $method = new Method([
+                'method' => $methodValue,
+                'app_form_id' => $form1Id,
+            ]);
+
+
+            $method->save();
+        }
+
+        $participantsValues = $this->input('methods', []);
+        foreach ($participantsValues as $participantsValue) {
+
+            $method = new Participants([
+                'type' => $participantsValue,
+                'app_form_id' => $form1Id,
+            ]);
+
+
+            $method->save();
+        }
+
+        foreach ($this->other_researchers as $researcher) {
+            $other_researchers = new Other_researchers([
+                'full_name' => $researcher['name'],
+                'institute' => $researcher['institute'],
+                'app_form_id' => $form1Id,
+            ]);
+            $other_researchers->save();
+        }
+
+        foreach ($this->organizations as $organization) {
+            $organizations = new Organizations([
+                'organizations' => $organization['organizations'],
+                'app_form_id' => $form1Id,
+            ]);
+            $organizations->save();
+        }
         // try {
 
 

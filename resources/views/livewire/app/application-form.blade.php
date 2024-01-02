@@ -110,7 +110,7 @@
                     </div>
                 </div>
                 <!-- 4 -->
-                {{-- <div class="mb-3 row" id="section-4">
+                 <div class="mb-3 row" id="section-4">
                     <label class="form-label">4. Other Researchers (if any)</label>
                     <div class="col" style="margin: 10px">
                         <a wire:click.prevent="addResInput" class="btn btn-light w-25">Add</a>
@@ -133,7 +133,7 @@
                             </div>
                         @endforeach
                     </div>
-                </div> --}}
+                </div> 
 
 
                 <!-- 5 -->
@@ -230,7 +230,7 @@
                     </div>
                 </div>
                 <!-- 7 -->
-                {{-- <div class="mb-3 row">
+                 <div class="mb-3 row">
                     <label class="form-label">7. Organizations, institutions in which data collection is planned to be
                         accomplished:</label>
 
@@ -252,7 +252,7 @@
                         @endforeach
                     </div>
 
-                </div> --}}
+                </div>
 
                 <!-- 8 -->
                 <div class="mb-3 row">

@@ -46,6 +46,8 @@ class Form1 extends Model
         'question_16',
         'question_18',
         'question_19',
+        'question_20',
+        'question_20_1',
         'question_21',
         'rp_protocol_no',
         'reporting_q_1',

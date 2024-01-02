@@ -12,8 +12,6 @@ class Participants extends Model
     protected $primaryKey = 'id';
     protected $fillable = [
         'type',
-        'children_consent',
-        'pupils_consent',
         'app_form_id',
     ];
     use HasFactory;
