@@ -8,13 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Form1 extends Model
 {
     protected $table = 'form1';
-
+    protected $primaryKey = 'id';
     protected $fillable = [
         'user_id',
         'app_id',
         'title_of_study',
         'type_of_study',
-        'type_of_study_other',
+        // 'type_of_study_other',
         'r_full_name',
         'r_department',
         'r_institute',
@@ -46,8 +46,6 @@ class Form1 extends Model
         'question_16',
         'question_18',
         'question_19',
-        'question_20',
-        'question_20_1',
         'question_21',
         'rp_protocol_no',
         'reporting_q_1',
@@ -61,5 +59,7 @@ class Form1 extends Model
         'sname',
         'sdate',
     ];
+    // public $timestamps = false;
+
     use HasFactory;
 }
