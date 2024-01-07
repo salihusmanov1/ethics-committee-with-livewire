@@ -9,6 +9,11 @@ class AppStatus extends Model
 {
     protected $table = 'app_status';
 
+    public function Checklist()
+    {
+        return $this->hasOne(ChecklistForm::class, 'app_id', 'id');
+    }
+
     public function form()
     {
         return $this->belongsTo(Forms::class, 'form_type', 'id');

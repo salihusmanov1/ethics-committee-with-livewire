@@ -7,6 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Form1 extends Model
 {
+    public function consentForm()
+    {
+        return $this->hasOne(ConsentForm::class, 'app_form_id', 'id');
+    }
     protected $table = 'form1';
     protected $primaryKey = 'id';
     protected $fillable = [

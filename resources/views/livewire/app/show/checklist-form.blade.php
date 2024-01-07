@@ -13,7 +13,7 @@
                     <div class="checklist" style="font-size: 16px; font-weight: bold;">
                         <div class="row">
                             <div class="col">
-                                <p>Checklist:&nbsp#{{ $form->id }} of App #{{$data->id}}</p>
+                                <p>Checklist Form of Application #{{$form->app_id}}</p>
                             </div>
                         </div>
                     </div>

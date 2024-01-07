@@ -145,13 +145,14 @@ class ChecklistForm extends Component
             $this->dispatch('showAttachFormModal');
     }
 
-    public $attached_form_id = '';
+    public $attached_app_id;
 
     public function createChecklist()
     {
         try {
-            $checklist = ModelsChecklistForm::create([
+            ModelsChecklistForm::create([
                 'user_id' => auth()->user()->id,
+                'app_id' => $this->attached_app_id,
                 'attach_form' => $this->attach_form,
                 'attach_parental'  => $this->attach_parental,
                 'debriefing' => $this->debriefing,
@@ -187,10 +188,7 @@ class ChecklistForm extends Component
                 'question_10' => $this->question_10,
                 'question_11' => $this->question_11
             ]);
-            $app = AppStatus::where('id', $this->attached_form_id)->first();
-            $app->update([
-                'checklist_form_id' => $checklist->id,
-            ]);
+
             Session::flash('success', 'Your form has been updated successfully.');
         } catch (QueryException $e) {
             Log::error("SQL Error: " . $e->getMessage());
@@ -199,7 +197,8 @@ class ChecklistForm extends Component
         $this->dispatch('showMessageModal');
     }
 
-    public function redirectToDashboard() {
+    public function redirectToDashboard()
+    {
         return redirect()->route('user-dashboard');
     }
 
@@ -207,7 +206,10 @@ class ChecklistForm extends Component
     public $pageName = "ETHICS COMMITTEE PROJECT APPLICATION CHECKLIST";
     public function render()
     {
-        $datas = AppStatus::where('user_id', auth()->user()->id)->get();
+        $userId = auth()->user()->id;
+        $datas = AppStatus::whereDoesntHave('Checklist', function ($query) use ($userId) {
+            $query->where('user_id', $userId);
+        })->get();
         return view('livewire.app.checklist-form',  ['datas' => $datas]);
     }
 }

@@ -8,11 +8,13 @@
             </div>
 
             <div class="main">
-                <div class="checklist" style="font-size: 16px; font-weight: bold;">
+                <div style="font-size: 16px; font-weight: bold;">
                     <div class="row">
                         <div class="col">
-                            <p>Attached Checklist:&nbsp<a class="link-opacity-50"
-                                    href="{{ url('/show/checklist/' . $data->checklist_form_id) }}">#{{ $data->checklist_form_id }}</a></p>
+                            <p><a class="link-opacity-50" href="{{ url('/show/checklist/' . $data->Checklist->id) }}"><i
+                                        class="fa-regular fa-file-lines"></i> &nbspAttached Checklist Form</a>
+                            </p>
+                            <h3>№{{$data->id}}</h3>
                         </div>
                     </div>
                 </div>

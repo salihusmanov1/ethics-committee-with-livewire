@@ -55,6 +55,11 @@ class ApplicationForm extends Component
         'other' => '',
     ];
 
+    // protected $rules = [
+    //     'question_20.types' => 'array|required|min:1',
+    // ];
+
+
     #[Rule('required|string')]
     public $title_of_study = '';
 
@@ -244,8 +249,10 @@ class ApplicationForm extends Component
                 'question_14_1',
                 'question_15',
                 'question_16',
+                'question_17',
                 'question_18',
                 'question_19',
+                'question_20',
                 'question_21'
             );
         }
@@ -262,11 +269,10 @@ class ApplicationForm extends Component
                 'question_14_1',
                 'question_15',
                 'question_16',
-
-
+                'question_17',
                 'question_18',
                 'question_19',
-
+                'question_20',
                 'question_21'
 
             );
@@ -292,7 +298,7 @@ class ApplicationForm extends Component
     #[Rule('required_if:status,New,Revised')]
     public $question_13 = '';
 
-    #[Rule('required')]
+    #[Rule('required_if:status,New,Revised')]
     public $question_14 = '';
 
     #[Rule('required_if:question_14,yes|string')]
@@ -303,6 +309,12 @@ class ApplicationForm extends Component
 
     #[Rule('required_if:status,New,Revised')]
     public $question_16 = '';
+
+    #[Rule('required_if:status,New,Revised')]
+    public $question_17_1 = '';
+
+    #[Rule('required_if:status,New,Revised')]
+    public $question_17_2 = '';
 
 
     #[Rule('required_if:status,New,Revised|string')]
@@ -325,11 +337,11 @@ class ApplicationForm extends Component
     public $sdate = '';
 
 
-    // public $showModal = false;
+
     public function createForm1()
     {
-        // $this->validate();
-
+        $this->validate();
+        // dd($this->question_20);
 
         try {
             $app = AppStatus::create([
@@ -402,8 +414,8 @@ class ApplicationForm extends Component
             ]);
             $form1Id = $app_form->id;
 
-           
-            print_r($this->question_20['types']);
+
+
             foreach ($this->question_20['types'] as $type => $isChecked) {
                 if ($isChecked) {
                     $method = new Method([
@@ -468,14 +480,14 @@ class ApplicationForm extends Component
             Session::flash('error', 'An error occurred while saving the form. Please try again.');
         }
 
-        
+
         $this->dispatch('showModal');
     }
 
-    // public function redirectUserDashboard()
-    // {
-    //     return redirect('user-dashboard');
-    // }
+    public function redirectUserDashboard()
+    {
+        return redirect('user-dashboard');
+    }
 
 
 

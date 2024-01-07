@@ -11,6 +11,7 @@ class ChecklistForm extends Model
 
     protected $fillable = [
         'user_id',
+        'app_id',
         'attach_form',
         'attach_parental',
         'debriefing',
