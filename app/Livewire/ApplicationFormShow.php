@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\AppStatus;
+use App\Models\Consentform;
 use App\Models\Forms;
 use App\Models\Method;
 use App\Models\Participants;
@@ -20,11 +21,13 @@ use Illuminate\Support\Facades\Log;
 #[Layout('layout.app')]
 class ApplicationFormShow extends Component
 {
+
     public $readonlyInputs = true;
     public function enableEdit()
     {
         $this->readonlyInputs = !$this->readonlyInputs;
     }
+
 
     #[Rule('required|string')]
     public $title_of_study = '';
@@ -34,7 +37,19 @@ class ApplicationFormShow extends Component
 
     #[Rule('required_if:type_of_study,other')]
     public $type_of_study_other = '';
-
+    public $question_5 = true;
+    public function showOtherInput()
+    {
+        if ($this->type_of_study !== "other") {
+            $this->type_of_study_other = '';
+        }
+        if ($this->type_of_study !== 'Academic Staff Study')
+            $this->question_5 = true;
+        else {
+            $this->question_5 = false;
+            $this->reset('advisor_title', 'advisor_name', 'advisor_phone', 'advisor_department', 'advisor_address', 'advisor_email');
+        }
+    }
 
     #[Rule('required|string')]
     public $researcher_name = '';
@@ -104,7 +119,13 @@ class ApplicationFormShow extends Component
     #[Rule('required_if:question_8,yes')]
     public $question_8_1 = '';
 
+    public function showOtherInput1()
+    {
 
+        if ($this->question_8 === 'no') {
+            $this->question_8_1 = '';
+        }
+    }
     #[Rule('required')]
     public $question_9 = '';
 
@@ -160,7 +181,7 @@ class ApplicationFormShow extends Component
     public $extension_q_1 = '';
 
     // values of radio buttons
-   
+
     public function showFields()
     {
         if ($this->status == 'New') {
@@ -225,6 +246,14 @@ class ApplicationFormShow extends Component
 
     #[Rule('required_if:question_14,yes|string')]
     public $question_14_1 = '';
+
+    public function showOtherInput4()
+    {
+
+        if ($this->question_14 == 'no') {
+            $this->question_14_1 = '';
+        }
+    }
 
     #[Rule('required_if:status,New,Revised|numeric|between:0,20')]
     public $question_15 = '';
@@ -300,36 +329,6 @@ class ApplicationFormShow extends Component
     public $participants;
     public $methods;
 
-    // public $participants_list = [
-    //     'UniversityStudents',
-    //     'AdultsInEmployment',
-    //     'UnemployedAdults',
-    //     'PreschoolChildren',
-    //     'MentallyDisabledChallengedIndividuals',
-    //     'PhysicallyDisabledChallengedIndividuals',
-    //     'HighschoolStudents',
-    //     'PrimarySchoolPupils',
-    //     'ChildWorkers',
-    //     'TheElderly',
-    //     'Prisoners'
-    // ];
-
-    // public $methods_list = [
-    //     'Survey',
-    //     'Interview',
-    //     'Observation',
-    //     'ComputerTest',
-    //     'VideoFilmRecording',
-    //     'VoiceRecording',
-    //     'PhysiologicalMeasurement',
-    //     'BiologicalSample',
-    //     'MakingParticipantsUseSubstance',
-    //     'ExposureToHighSimulation'
-    // ];
-
-    public $methods_other;
-    public $participants_other;
-
 
     public function mount($formId)
     {
@@ -340,9 +339,6 @@ class ApplicationFormShow extends Component
         $this->org = Organization::where('app_form_id', $this->form->id)->get()->pluck('organization')->toArray();
         $this->participants = Participants::where('app_form_id', $this->form->id)->get()->pluck('type')->toArray();
         $this->methods = Method::where('app_form_id', $this->form->id)->pluck('method')->toArray();
-
-        // $this->participants_other = array_diff($this->participants, $this->participants_list);
-        // $this->methods_other = array_diff($this->methods, $this->methods_list);
 
 
         $this->title_of_study = $this->form->title_of_study;
@@ -368,7 +364,7 @@ class ApplicationFormShow extends Component
         $this->expected_end = $this->form->end_date;
 
         $this->organizations = $this->org;
-      
+
         $this->question_8 = $this->form->question_8;
         $this->question_8_1 = $this->form->question_8_1;
 
@@ -380,6 +376,15 @@ class ApplicationFormShow extends Component
 
         $this->status = $this->form->application_status;
 
+        $this->ex_protocol_no = $this->form->ex_protocol_no;
+        $this->extension_q_1 = $this->form->extension_q_1;
+        $this->extension_end_date = $this->form->extension_end_date;
+
+        $this->rp_protocol_no = $this->form->rp_protocol_no;
+        $this->reporting_q_1 = $this->form->reporting_q_1;
+        $this->reporting_q_2 = $this->form->reporting_q_2;
+        $this->reporting_q_2_1 = $this->form->reporting_q_2_1;
+
         $this->question_11 = $this->form->question_11;
         $this->question_12 = $this->form->question_12;
         $this->question_13 = $this->form->question_13;
@@ -387,17 +392,207 @@ class ApplicationFormShow extends Component
         $this->question_14_1 = $this->form->question_14_1;
         $this->question_15 = $this->form->question_15;
         $this->question_16 = $this->form->question_16;
+        $this->question_17_1 = $this->form->question_17_1;
+        $this->question_17_2 = $this->form->question_17_2;
+        $this->question_18 = $this->form->question_18;
+        $this->question_19 = $this->form->question_19;
+        $this->question_21 = $this->form->question_21;
+        $this->sname = $this->form->sname;
+        $this->sdate = $this->form->sdate;
+        $this->rname = $this->form->rname;
+        $this->rdate = $this->form->rdate;
 
         foreach ($this->participants as $key => $value) {
             if (array_key_exists($value, $this->question_17['types'])) {
                 $this->question_17['types'][$value] = true;
-            }
-            else {
-                // $this->question_17['other'] = 
+            } else {
+                $this->question_17['other'] = $value;
             }
         }
-        // dd($this->question_17);
+
+        foreach ($this->methods as $key => $value) {
+            if (array_key_exists($value, $this->question_20['types'])) {
+                $this->question_20['types'][$value] = true;
+            } else {
+                $this->question_20['other'] = $value;
+            }
+        }
     }
+
+    public $existingMethods;
+    public $existingParticipants;
+    public $existingOrganizations;
+    public $existingOtherResearchers;
+
+    public function updateForm1()
+    {
+        $this->validate();
+
+        try {
+
+            $extensionEndDate = $this->extension_end_date;
+            if (empty($extensionEndDate)) {
+                $extensionEndDate = null; // Set it to NULL
+            }
+            $question_15 = $this->question_15;
+            if (empty($question_15)) {
+                $question_15 = null; // Set it to NULL
+            }
+            $this->form->update([
+                'title_of_study' => $this->title_of_study,
+                'type_of_study' => $this->type_of_study,
+                'type_of_study_other' => $this->type_of_study_other,
+                'r_full_name' => $this->researcher_name,
+                'r_department' => $this->researcher_department,
+                'r_institute' => $this->researcher_institution,
+                'r_phone_no' => $this->researcher_phone,
+                'r_address' => $this->researcher_address,
+                'r_email' => $this->researcher_email,
+                'a_title' => $this->advisor_title,
+                'a_full_name' => $this->advisor_name,
+                'a_department' => $this->advisor_department,
+                'a_phone_no' => $this->advisor_phone,
+                'a_address' => $this->advisor_address,
+                'a_email' => $this->advisor_email,
+                'start_date' => $this->expected_start,
+                'end_date' => $this->expected_end,
+                'question_8' => $this->question_8,
+                'question_8_1' => $this->question_8_1,
+                'question_9' => $this->question_9,
+                'question_9_1' => $this->question_9_1,
+                'question_9_2' => $this->question_9_2,
+                'question_9_3' => $this->question_9_3,
+                'question_9_4' => $this->question_9_4,
+                'application_status' => $this->status,
+                'question_11' => $this->question_11,
+                'question_12' => $this->question_12,
+                'question_13' => $this->question_13,
+                'question_14' => $this->question_14,
+                'question_14_1' => $this->question_14_1,
+                'question_15' => $question_15,
+                'question_16' => $this->question_16,
+                'question_17_1' => $this->question_17_1,
+                'question_17_2' => $this->question_17_2,
+                'question_18' => $this->question_18,
+                'question_19' => $this->question_19,
+                'question_21' => $this->question_21,
+                'rp_protocol_no' => $this->rp_protocol_no,
+                'reporting_q_1' => $this->reporting_q_1,
+                'reporting_q_2' => $this->reporting_q_2,
+                'reporting_q_2_1' => $this->reporting_q_2_1,
+                'ex_protocol_no' => $this->ex_protocol_no,
+                'extension_end_date' => $extensionEndDate,
+                'extension_q_1' => $this->extension_q_1,
+                'rname' => $this->rname,
+                'rdate' => $this->rdate,
+                'sname' => $this->sname,
+                'sdate' => $this->sdate
+
+            ]);
+
+            $this->form->consentForm->update([
+                'r_full_name' => $this->researcher_name,
+                'institue' => $this->researcher_institution,
+                'title' => $this->title_of_study,
+                'email' => $this->researcher_email,
+                'phone_no' => $this->researcher_phone
+            ]);
+
+
+            $form1Id = $this->form->id;
+
+            $this->existingMethods = Method::where('app_form_id', $form1Id)->get();
+            foreach ($this->existingMethods as $existingMethod) {
+                $existingMethod->delete();
+            }
+
+            $this->existingParticipants = Participants::where('app_form_id', $form1Id)->get();
+            foreach ($this->existingParticipants as $existingParticipant) {
+                $existingParticipant->delete();
+            }
+            $this->existingOrganizations = Organization::where('app_form_id', $form1Id)->get();
+            foreach ($this->existingOrganizations as $existingOrganization) {
+                $existingOrganization->delete();
+            }
+
+            $this->existingOtherResearchers = Other_researchers::where('app_form_id', $form1Id)->get();
+            foreach ($this->existingOtherResearchers as $existingOtherResearcher) {
+                $existingOtherResearcher->delete();
+            }
+
+
+            foreach ($this->question_20['types'] as $type => $isChecked) {
+                if ($isChecked) {
+                    $method = new Method([
+                        'method' => $type,
+                        'app_form_id' => $form1Id,
+                    ]);
+
+                    $method->save();
+                }
+            }
+
+            if (!empty($this->question_20['other'])) {
+                $method = new Method([
+                    'method' => $this->question_20['other'],
+                    'app_form_id' => $form1Id,
+                ]);
+
+                $method->save();
+            }
+
+
+            foreach ($this->question_17['types'] as $type => $isChecked) {
+                if ($isChecked) {
+                    $participant = new Participants([
+                        'type' => $type,
+                        'app_form_id' => $form1Id,
+                    ]);
+
+
+                    $participant->save();
+                }
+            }
+            if (!empty($this->question_17['other'])) {
+                $participant = new Participants([
+                    'type' => $this->question_17['other'],
+                    'app_form_id' => $form1Id,
+                ]);
+
+                $participant->save();
+            }
+
+
+            foreach ($this->other_researchers as $researcher) {
+                $other_researchers = new Other_researchers([
+                    'full_name' => $researcher['full_name'],
+                    'institute' => $researcher['institute'],
+                    'app_form_id' => $form1Id,
+                ]);
+                $other_researchers->save();
+            }
+
+            foreach ($this->organizations as $organization) {
+                $organizations = new Organization([
+                    'organization' => $organization,
+                    'app_form_id' => $form1Id,
+                ]);
+                $organizations->save();
+            }
+            Session::flash('success', 'Your form has been updated successfully.');
+        } catch (QueryException $e) {
+
+            Log::error("SQL Error: " . $e->getMessage());
+            Session::flash('error', 'An error occurred while saving the form. Please try again.');
+        }
+        $this->dispatch('showModal');
+    }
+
+    public function redirectUserDashboard()
+    {
+        return redirect('user-dashboard');
+    }
+
 
     public $pageName = "Ethics Committee Application Form";
     public function render()

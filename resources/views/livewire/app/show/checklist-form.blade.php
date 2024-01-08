@@ -7,20 +7,29 @@
                 <h1>FINAL INTERNATIONAL UNIVERSITY</h1>
 
             </div>
-            <form>
+            <form wire:submit='updateChecklistForm'>
 
                 <div class="main">
                     <div class="checklist" style="font-size: 16px; font-weight: bold;">
                         <div class="row">
                             <div class="col">
-                                <p>Checklist Form of Application #{{$form->app_id}}</p>
+                                <p>Information Consent Form of Application #{{ $checklist_form->app->id }}</p>
+                            </div>
+                            <div style="width: 100%" class="col d-flex justify-content-end">
+                                <div><button style="margin-left: 10px" wire:click="enableEdit" type="button"
+                                        class="btn btn-primary">Update</button></div>
+                                <div><button style="margin-left: 10px" type="submit"
+                                        class="btn btn-secondary">Save</button>
+                                </div>
+                                <div><button style="margin-left: 10px" type="button"
+                                        class="btn btn-danger">Delete</button></div>
+
                             </div>
                         </div>
                     </div>
                     <div class="d-flex justify-content-center">
                         <img style="width: 15%" src="\img\logo6.png" alt="">
                     </div>
-                   
                     <h3>ETHICS COMMITTEE PROJECT APPLICATION CHECKLIST</h3>
                     <h4 class="form-description">Researchers applying to the Final International University (FIU) Ethics
                         Committee to
@@ -31,42 +40,12 @@
                         beginning
                         of your application list</h4>
 
-                    <div class="row d-flex justify-content-between align-items-center">
-                        <div class="col col-sm-3">
-                            <div class="form-check">
-                                <input {{ $form->attach_form === 'Ethics Committee Application Form' ? 'checked' : '' }}
-                                    class="form-check-input" value="Ethics Committee Application Form" type="radio" disabled>
-                                <label class="form-label-small" for="form_list">
-                                    Ethics Committee Application Form
-                                </label>
-                            </div>
-                        </div>
-                        <div class="col col-sm-3">
-                            <div class="form-check">
-                                <input {{ $form->attach_form === 'Project Information Form' ? 'checked' : '' }}
-                                    class="form-check-input" value="Project Information Form" type="radio" disabled>
-                                <label class="form-label-small" for="form_list">
-                                    Project Information Form
-                                </label>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="form-check">
-                                <input {{ $form->attach_form === 'Informed Consent Form' ? 'checked' : '' }}
-                                    class="form-check-input" value="Informed Consent Form" type="radio" disabled>
-                                <label class="form-label-small" for="form_list">
-                                    Informed Consent Form
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-
                     <div class="row">
                         <label class="form-label">Parent/Guardian Consent Form</label>
                         <div class="col-6 col-sm-3">
                             <div class="form-check">
-                                <input {{ $form->attach_parental === 'Yes' ? 'checked' : '' }} class="form-check-input"
-                                    value="Yes" type="radio" disabled>
+                                <input wire:model.live='attach_parental' class="form-check-input" value="Yes"
+                                    type="radio" @disabled($readonlyInputs)>
                                 <label class="form-label-small">
                                     Yes
                                 </label>
@@ -74,22 +53,25 @@
                         </div>
                         <div class="col-6 col-sm-3">
                             <div class="form-check">
-                                <input {{ $form->attach_parental === 'No' ? 'checked' : '' }} class="form-check-input"
-                                    value="No" type="radio" disabled>
+                                <input wire:model.live='attach_parental' class="form-check-input" value="No"
+                                    type="radio" @disabled($readonlyInputs)>
                                 <label class="form-label-small">
                                     Not Needed
                                 </label>
                             </div>
                         </div>
-
+                        @error('attach_parental')
+                            <span class="text-danger">This input field is required!</span></br>
+                        @enderror
                     </div>
+
 
                     <div class="row">
                         <label class="form-label">Debriefing Form</label>
                         <div class="col-6 col-sm-3">
                             <div class="form-check">
-                                <input {{ $form->debriefing === 'Yes' ? 'checked' : '' }} class="form-check-input"
-                                    value="Yes" type="radio" disabled>
+                                <input wire:model.live='debriefing' class="form-check-input" value="Yes"
+                                    type="radio" @disabled($readonlyInputs)>
                                 <label class="form-label-small">
                                     Yes
                                 </label>
@@ -97,8 +79,8 @@
                         </div>
                         <div class="col-6 col-sm-3">
                             <div class="form-check">
-                                <input {{ $form->debriefing === 'No' ? 'checked' : '' }} class="form-check-input"
-                                    value="No" type="radio" disabled>
+                                <input wire:model.live='debriefing' class="form-check-input" value="No"
+                                    type="radio" @disabled($readonlyInputs)>
                                 <label class="form-label-small">
                                     Not Needed
                                 </label>
@@ -106,14 +88,16 @@
                         </div>
                         <div class="col col-sm-3">
                             <div class="form-check">
-                                <input {{ $form->debriefing === 'Tools' ? 'checked' : '' }} class="form-check-input"
-                                    value="Tools" type="radio" disabled>
+                                <input wire:model.live='debriefing' class="form-check-input" value="Tools"
+                                    type="radio" @disabled($readonlyInputs)>
                                 <label class="form-label-small" for="data_checklist">
                                     An example of data collection tools (including online forms, applications, etc.)
                                 </label>
                             </div>
                         </div>
-
+                        @error('debriefing')
+                            <span class="text-danger">This input field is required!</span></br>
+                        @enderror
                     </div>
 
 
@@ -152,20 +136,22 @@
                             </div>
                             <div class="col-3 d-flex justify-content-between align-items-center">
                                 <div class="form-check">
-                                    <input {{ $form->question_1 === 'Yes' ? 'checked' : '' }} class="form-check-input"
-                                        value="Yes" type="radio" disabled>
+                                    <input wire:model.live='question_1' class="form-check-input" value="Yes"
+                                        type="radio" @disabled($readonlyInputs)>
                                 </div>
                                 <div class="form-check">
-                                    <input {{ $form->question_1 === 'No' ? 'checked' : '' }} class="form-check-input"
-                                        value="No" type="radio" disabled>
+                                    <input wire:model.live='question_1' class="form-check-input" value="No"
+                                        type="radio" @disabled($readonlyInputs)>
                                 </div>
                                 <div class="form-check">
-                                    <input {{ $form->question_1 === 'N/A' ? 'checked' : '' }} class="form-check-input"
-                                        value="N/A" type="radio" disabled>
+                                    <input wire:model.live='question_1' class="form-check-input" value="N/A"
+                                        type="radio" @disabled($readonlyInputs)>
                                 </div>
                             </div>
                         </div>
-
+                        @error('question_1')
+                            <span class="text-danger">This input field is required!</span></br>
+                        @enderror
                     </div>
 
                     <div class="row">
@@ -182,19 +168,21 @@
                             </div>
                             <div class="col-3 d-flex justify-content-between align-items-center">
                                 <div class="form-check">
-                                    <input class="form-check-input" value="Yes" type="radio" disabled
-                                        {{ $form->question_2_a === 'Yes' ? 'checked' : '' }}>
+                                    <input class="form-check-input" value="Yes" type="radio"
+                                        wire:model.live="question_2_a" @disabled($readonlyInputs)>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" value="No" type="radio" disabled
-                                        {{ $form->question_2_a === 'No' ? 'checked' : '' }}>
+                                    <input class="form-check-input" value="No" type="radio"
+                                        wire:model.live="question_2_a" @disabled($readonlyInputs)>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" value="N/A" type="radio" disabled
-                                        {{ $form->question_2_a === 'N/A' ? 'checked' : '' }}>
+                                    <input class="form-check-input" value="N/A" type="radio"
+                                        wire:model.live="question_2_a" @disabled($readonlyInputs)>
                                 </div>
                             </div>
-
+                            @error('question_2_a')
+                                <span class="text-danger">This input field is required!</span></br>
+                            @enderror
                         </div>
                         <div class="row">
                             <div class="col-7">
@@ -208,20 +196,22 @@
                             </div>
                             <div class="col-3 d-flex justify-content-between align-items-center">
                                 <div class="form-check">
-                                    <input class="form-check-input" value="Yes" type="radio" disabled
-                                        {{ $form->question_2_b === 'Yes' ? 'checked' : '' }}>
+                                    <input class="form-check-input" value="Yes" type="radio"
+                                        wire:model.live="question_2_b" @disabled($readonlyInputs)>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" value="No" type="radio" disabled
-                                        {{ $form->question_2_b === 'No' ? 'checked' : '' }}>
+                                    <input class="form-check-input" value="No" type="radio"
+                                        wire:model.live="question_2_b" @disabled($readonlyInputs)>
                                 </div>
 
                                 <div class="form-check">
-                                    <input class="form-check-input" value="N/A" type="radio" disabled
-                                        {{ $form->question_2_b === 'N/A' ? 'checked' : '' }}>
+                                    <input class="form-check-input" value="N/A" type="radio"
+                                        wire:model.live="question_2_b" @disabled($readonlyInputs)>
                                 </div>
                             </div>
-
+                            @error('question_2_b')
+                                <span class="text-danger">This input field is required!</span></br>
+                            @enderror
                         </div>
                     </div>
 
@@ -240,20 +230,22 @@
                             </div>
                             <div class="col-3 d-flex justify-content-between align-items-center">
                                 <div class="form-check">
-                                    <input class="form-check-input" value="Yes" type="radio" disabled
-                                        {{ $form->question_3_a === 'Yes' ? 'checked' : '' }}>
+                                    <input class="form-check-input" value="Yes" type="radio"
+                                        wire:model.live="question_3_a" @disabled($readonlyInputs)>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" value="No" type="radio" disabled
-                                        {{ $form->question_3_a === 'No' ? 'checked' : '' }}>
+                                    <input class="form-check-input" value="No" type="radio"
+                                        wire:model.live="question_3_a" @disabled($readonlyInputs)>
                                 </div>
 
                                 <div class="form-check">
-                                    <input class="form-check-input" value="N/A" type="radio" disabled
-                                        {{ $form->question_3_a === 'N/A' ? 'checked' : '' }}>
+                                    <input class="form-check-input" value="N/A" type="radio"
+                                        wire:model.live="question_3_a" @disabled($readonlyInputs)>
                                 </div>
                             </div>
-
+                            @error('question_3_a')
+                                <span class="text-danger">This input field is required!</span></br>
+                            @enderror
                         </div>
                         <div class="row">
                             <div class="col-7">
@@ -261,20 +253,22 @@
                             </div>
                             <div class="col-3 d-flex justify-content-between align-items-center">
                                 <div class="form-check">
-                                    <input class="form-check-input" value="Yes" type="radio" disabled
-                                        {{ $form->question_3_b === 'Yes' ? 'checked' : '' }}>
+                                    <input class="form-check-input" value="Yes" type="radio"
+                                        wire:model.live="question_3_b" @disabled($readonlyInputs)>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" value="No" type="radio" disabled
-                                        {{ $form->question_3_b === 'No' ? 'checked' : '' }}>
+                                    <input class="form-check-input" value="No" type="radio"
+                                        wire:model.live="question_3_b" @disabled($readonlyInputs)>
                                 </div>
 
                                 <div class="form-check">
-                                    <input class="form-check-input" value="N/A" type="radio" disabled
-                                        {{ $form->question_3_b === 'N/A' ? 'checked' : '' }}>
+                                    <input class="form-check-input" value="N/A" type="radio"
+                                        wire:model.live="question_3_b" @disabled($readonlyInputs)>
                                 </div>
                             </div>
-
+                            @error('question_3_b')
+                                <span class="text-danger">This input field is required!</span></br>
+                            @enderror
                         </div>
 
                         <div class="row">
@@ -288,20 +282,22 @@
                             </div>
                             <div class="col-3 d-flex justify-content-between align-items-center">
                                 <div class="form-check">
-                                    <input class="form-check-input" value="Yes" type="radio" disabled
-                                        {{ $form->question_3_c === 'Yes' ? 'checked' : '' }}>
+                                    <input class="form-check-input" value="Yes" type="radio"
+                                        wire:model.live="question_3_c" @disabled($readonlyInputs)>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" value="No" type="radio" disabled
-                                        {{ $form->question_3_c === 'No' ? 'checked' : '' }}>
+                                    <input class="form-check-input" value="No" type="radio"
+                                        wire:model.live="question_3_c" @disabled($readonlyInputs)>
                                 </div>
 
                                 <div class="form-check">
-                                    <input class="form-check-input" value="N/A" type="radio" disabled
-                                        {{ $form->question_3_c === 'N/A' ? 'checked' : '' }}>
+                                    <input class="form-check-input" value="N/A" type="radio"
+                                        wire:model.live="question_3_c" @disabled($readonlyInputs)>
                                 </div>
                             </div>
-
+                            @error('question_3_c')
+                                <span class="text-danger">This input field is required!</span></br>
+                            @enderror
                         </div>
 
                         <div class="row">
@@ -310,21 +306,22 @@
                             </div>
                             <div class="col-3 d-flex justify-content-between align-items-center">
                                 <div class="form-check">
-                                    <input class="form-check-input" value="Yes" type="radio" disabled
-                                        {{ $form->question_3_d === 'Yes' ? 'checked' : '' }}>
+                                    <input class="form-check-input" value="Yes" type="radio"
+                                        wire:model.live="question_3_d" @disabled($readonlyInputs)>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" value="No" type="radio" disabled
-                                        {{ $form->question_3_d === 'No' ? 'checked' : '' }}>
+                                    <input class="form-check-input" value="No" type="radio"
+                                        wire:model.live="question_3_d" @disabled($readonlyInputs)>
                                 </div>
 
                                 <div class="form-check">
-                                    <input class="form-check-input" value="N/A" type="radio" disabled
-                                        {{ $form->question_3_d === 'N/A' ? 'checked' : '' }}>
+                                    <input class="form-check-input" value="N/A" type="radio"
+                                        wire:model.live="question_3_d" @disabled($readonlyInputs)>
                                 </div>
                             </div>
-
-
+                            @error('question_3_d')
+                                <span class="text-danger">This input field is required!</span></br>
+                            @enderror
                         </div>
 
                         <div class="row">
@@ -336,20 +333,22 @@
                             </div>
                             <div class="col-3 d-flex justify-content-between align-items-center">
                                 <div class="form-check">
-                                    <input class="form-check-input" value="Yes" type="radio" disabled
-                                        {{ $form->question_3_e === 'Yes' ? 'checked' : '' }}>
+                                    <input class="form-check-input" value="Yes" type="radio"
+                                        wire:model.live="question_3_e" @disabled($readonlyInputs)>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" value="No" type="radio" disabled
-                                        {{ $form->question_3_e === 'No' ? 'checked' : '' }}>
+                                    <input class="form-check-input" value="No" type="radio"
+                                        wire:model.live="question_3_e" @disabled($readonlyInputs)>
                                 </div>
 
                                 <div class="form-check">
-                                    <input class="form-check-input" value="N/A" type="radio" disabled
-                                        {{ $form->question_3_e === 'N/A' ? 'checked' : '' }}>
+                                    <input class="form-check-input" value="N/A" type="radio"
+                                        wire:model.live="question_3_e" @disabled($readonlyInputs)>
                                 </div>
                             </div>
-
+                            @error('question_3_e')
+                                <span class="text-danger">This input field is required!</span></br>
+                            @enderror
                         </div>
 
                         <div class="row">
@@ -358,20 +357,22 @@
                             </div>
                             <div class="col-3 d-flex justify-content-between align-items-center">
                                 <div class="form-check">
-                                    <input class="form-check-input" value="Yes" type="radio" disabled
-                                        {{ $form->question_3_f === 'Yes' ? 'checked' : '' }}>
+                                    <input class="form-check-input" value="Yes" type="radio"
+                                        wire:model.live="question_3_f" @disabled($readonlyInputs)>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" value="No" type="radio" disabled
-                                        {{ $form->question_3_f === 'No' ? 'checked' : '' }}>
+                                    <input class="form-check-input" value="No" type="radio"
+                                        wire:model.live="question_3_f" @disabled($readonlyInputs)>
                                 </div>
 
                                 <div class="form-check">
-                                    <input class="form-check-input" value="N/A" type="radio" disabled
-                                        {{ $form->question_3_f === 'N/A' ? 'checked' : '' }}>
+                                    <input class="form-check-input" value="N/A" type="radio"
+                                        wire:model.live="question_3_f" @disabled($readonlyInputs)>
                                 </div>
                             </div>
-
+                            @error('question_3_f')
+                                <span class="text-danger">This input field is required!</span></br>
+                            @enderror
                         </div>
 
 
@@ -382,20 +383,22 @@
                             </div>
                             <div class="col-3 d-flex justify-content-between align-items-center">
                                 <div class="form-check">
-                                    <input class="form-check-input" value="Yes" type="radio" disabled
-                                        {{ $form->question_3_g === 'Yes' ? 'checked' : '' }}>
+                                    <input class="form-check-input" value="Yes" type="radio"
+                                        wire:model.live="question_3_g" @disabled($readonlyInputs)>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" value="No" type="radio" disabled
-                                        {{ $form->question_3_g === 'No' ? 'checked' : '' }}>
+                                    <input class="form-check-input" value="No" type="radio"
+                                        wire:model.live="question_3_g" @disabled($readonlyInputs)>
                                 </div>
 
                                 <div class="form-check">
-                                    <input class="form-check-input" value="N/A" type="radio" disabled
-                                        {{ $form->question_3_g === 'N/A' ? 'checked' : '' }}>
+                                    <input class="form-check-input" value="N/A" type="radio"
+                                        wire:model.live="question_3_g" @disabled($readonlyInputs)>
                                 </div>
                             </div>
-
+                            @error('question_3_g')
+                                <span class="text-danger">This input field is required!</span></br>
+                            @enderror
                         </div>
 
                         <div class="row">
@@ -408,20 +411,22 @@
                             </div>
                             <div class="col-3 d-flex justify-content-between align-items-center">
                                 <div class="form-check">
-                                    <input class="form-check-input" value="Yes" type="radio" disabled
-                                        {{ $form->question_3_h === 'Yes' ? 'checked' : '' }}>
+                                    <input class="form-check-input" value="Yes" type="radio"
+                                        wire:model.live="question_3_h" @disabled($readonlyInputs)>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" value="No" type="radio" disabled
-                                        {{ $form->question_3_h === 'No' ? 'checked' : '' }}>
+                                    <input class="form-check-input" value="No" type="radio"
+                                        wire:model.live="question_3_h" @disabled($readonlyInputs)>
                                 </div>
 
                                 <div class="form-check">
-                                    <input class="form-check-input" value="N/A" type="radio" disabled
-                                        {{ $form->question_3_h === 'N/A' ? 'checked' : '' }}>
+                                    <input class="form-check-input" value="N/A" type="radio"
+                                        wire:model.live="question_3_h" @disabled($readonlyInputs)>
                                 </div>
                             </div>
-
+                            @error('question_3_h')
+                                <span class="text-danger">This input field is required!</span></br>
+                            @enderror
                         </div>
 
                         <div class="row">
@@ -436,20 +441,22 @@
                             </div>
                             <div class="col-3 d-flex justify-content-between align-items-center">
                                 <div class="form-check">
-                                    <input class="form-check-input" value="Yes" type="radio" disabled
-                                        {{ $form->question_3_i === 'Yes' ? 'checked' : '' }}>
+                                    <input class="form-check-input" value="Yes" type="radio"
+                                        wire:model.live="question_3_i" @disabled($readonlyInputs)>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" value="No" type="radio" disabled
-                                        {{ $form->question_3_i === 'No' ? 'checked' : '' }}>
+                                    <input class="form-check-input" value="No" type="radio"
+                                        wire:model.live="question_3_i" @disabled($readonlyInputs)>
                                 </div>
 
                                 <div class="form-check">
-                                    <input class="form-check-input" value="N/A" type="radio" disabled
-                                        {{ $form->question_3_i === 'N/A' ? 'checked' : '' }}>
+                                    <input class="form-check-input" value="N/A" type="radio"
+                                        wire:model.live="question_3_i" @disabled($readonlyInputs)>
                                 </div>
                             </div>
-
+                            @error('question_3_i')
+                                <span class="text-danger">This input field is required!</span></br>
+                            @enderror
                         </div>
 
                         <div class="row">
@@ -458,20 +465,22 @@
                             </div>
                             <div class="col-3 d-flex justify-content-between align-items-center">
                                 <div class="form-check">
-                                    <input class="form-check-input" value="Yes" type="radio" disabled
-                                        {{ $form->question_3_j === 'Yes' ? 'checked' : '' }}>
+                                    <input class="form-check-input" value="Yes" type="radio"
+                                        wire:model.live="question_3_j" @disabled($readonlyInputs)>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" value="No" type="radio" disabled
-                                        {{ $form->question_3_j === 'No' ? 'checked' : '' }}>
+                                    <input class="form-check-input" value="No" type="radio"
+                                        wire:model.live="question_3_j" @disabled($readonlyInputs)>
                                 </div>
 
                                 <div class="form-check">
-                                    <input class="form-check-input" value="N/A" type="radio" disabled
-                                        {{ $form->question_3_j === 'N/A' ? 'checked' : '' }}>
+                                    <input class="form-check-input" value="N/A" type="radio"
+                                        wire:model.live="question_3_j" @disabled($readonlyInputs)>
                                 </div>
                             </div>
-
+                            @error('question_3_j')
+                                <span class="text-danger">This input field is required!</span></br>
+                            @enderror
                         </div>
 
                         <div class="row">
@@ -485,22 +494,24 @@
                             </div>
                             <div class="col-3 d-flex justify-content-between align-items-center">
                                 <div class="form-check">
-                                    <input class="form-check-input" value="Yes" type="radio" disabled
-                                        {{ $form->question_3_k === 'Yes' ? 'checked' : '' }}>
+                                    <input class="form-check-input" value="Yes" type="radio"
+                                        wire:model.live="question_3_k" @disabled($readonlyInputs)>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" value="No" type="radio" disabled
-                                        {{ $form->question_3_k === 'No' ? 'checked' : '' }}>
+                                    <input class="form-check-input" value="No" type="radio"
+                                        wire:model.live="question_3_k" @disabled($readonlyInputs)>
                                 </div>
 
                                 <div class="form-check">
-                                    <input class="form-check-input" value="N/A" type="radio" disabled
-                                        {{ $form->question_3_k === 'N/A' ? 'checked' : '' }}>
+                                    <input class="form-check-input" value="N/A" type="radio"
+                                        wire:model.live="question_3_k" @disabled($readonlyInputs)>
                                 </div>
                             </div>
 
                         </div>
-
+                        @error('question_3_k')
+                            <span class="text-danger">This input field is required!</span></br>
+                        @enderror
                     </div>
 
 
@@ -520,20 +531,21 @@
                             </div>
                             <div class="col-3 d-flex justify-content-between align-items-center">
                                 <div class="form-check">
-                                    <input class="form-check-input" value="Yes" type="radio" disabled
-                                        {{ $form->question_4 === 'Yes' ? 'checked' : '' }}>
+                                    <input class="form-check-input" value="Yes" type="radio"
+                                        wire:model.live="question_4" @disabled($readonlyInputs)>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" value="No" type="radio" disabled
-                                        {{ $form->question_4 === 'No' ? 'checked' : '' }}>
+                                    <input class="form-check-input" value="No" type="radio"
+                                        wire:model.live="question_4" @disabled($readonlyInputs)>
                                 </div>
                                 <div class="form-check">
 
                                 </div>
                             </div>
                         </div>
-
-
+                        @error('question_4')
+                            <span class="text-danger">This input field is required!</span></br>
+                        @enderror
                     </div>
 
                     <div class="row">
@@ -552,21 +564,23 @@
                             </div>
                             <div class="col-3 d-flex justify-content-between align-items-center">
                                 <div class="form-check">
-                                    <input class="form-check-input" value="Yes" type="radio" disabled
-                                        {{ $form->question_5 === 'Yes' ? 'checked' : '' }}>
+                                    <input class="form-check-input" value="Yes" type="radio"
+                                        wire:model.live="question_5" @disabled($readonlyInputs)>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" value="No" type="radio" disabled
-                                        {{ $form->question_5 === 'No' ? 'checked' : '' }}>
+                                    <input class="form-check-input" value="No" type="radio"
+                                        wire:model.live="question_5" @disabled($readonlyInputs)>
                                 </div>
 
                                 <div class="form-check">
-                                    <input class="form-check-input" value="N/A" type="radio" disabled
-                                        {{ $form->question_5 === 'N/A' ? 'checked' : '' }}>
+                                    <input class="form-check-input" value="N/A" type="radio"
+                                        wire:model.live="question_5" @disabled($readonlyInputs)>
                                 </div>
                             </div>
                         </div>
-
+                        @error('question_5')
+                            <span class="text-danger">This input field is required!</span></br>
+                        @enderror
                     </div>
 
                     <div class="row">
@@ -584,22 +598,23 @@
                             </div>
                             <div class="col-3 d-flex justify-content-between align-items-center">
                                 <div class="form-check">
-                                    <input class="form-check-input" value="Yes" type="radio" disabled
-                                        {{ $form->question_6 === 'Yes' ? 'checked' : '' }}>
+                                    <input class="form-check-input" value="Yes" type="radio"
+                                        wire:model.live="question_6" @disabled($readonlyInputs)>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" value="No" type="radio" disabled
-                                        {{ $form->question_6 === 'No' ? 'checked' : '' }}>
+                                    <input class="form-check-input" value="No" type="radio"
+                                        wire:model.live="question_6" @disabled($readonlyInputs)>
                                 </div>
 
                                 <div class="form-check">
-                                    <input class="form-check-input" value="N/A" type="radio" disabled
-                                        {{ $form->question_6 === 'N/A' ? 'checked' : '' }}>
+                                    <input class="form-check-input" value="N/A" type="radio"
+                                        wire:model.live="question_6" @disabled($readonlyInputs)>
                                 </div>
                             </div>
                         </div>
-
-
+                        @error('question_6')
+                            <span class="text-danger">This input field is required!</span></br>
+                        @enderror
                     </div>
 
                     <div class="row">
@@ -615,11 +630,11 @@
                         <div class="col-3 d-flex justify-content-between align-items-center">
                             <div class="form-check">
                                 <input wire:click='showSectionOf7' class="form-check-input" value="Yes"
-                                    type="radio" disabled {{ $form->question_7 === 'Yes' ? 'checked' : '' }}>
+                                    type="radio" wire:model.live="question_7" @disabled($readonlyInputs)>
                             </div>
                             <div class="form-check">
                                 <input wire:click='showSectionOf7' class="form-check-input" value="No"
-                                    type="radio" disabled {{ $form->question_7 === 'No' ? 'checked' : '' }}>
+                                    type="radio" wire:model.live="question_7" @disabled($readonlyInputs)>
                             </div>
 
                             <div class="form-check">
@@ -628,7 +643,11 @@
                         </div>
                     </div>
 
-                    @if ($form->question_7 === 'Yes')
+                    @error('question_7')
+                        <span class="text-danger">This input field is required!</span></br>
+                    @enderror
+
+                    @if ($question_7 === 'Yes')
                         <div class="row">
                             <div class="row">
                                 <div class="col-7">
@@ -641,20 +660,22 @@
                                 </div>
                                 <div class="col-3 d-flex justify-content-between align-items-center">
                                     <div class="form-check">
-                                        <input class="form-check-input" value="Yes" type="radio" disabled
-                                            {{ $form->question_7_a === 'Yes' ? 'checked' : '' }}>
+                                        <input class="form-check-input" value="Yes" type="radio"
+                                            wire:model.live="question_7_a" @disabled($readonlyInputs)>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" value="No" type="radio" disabled
-                                            {{ $form->question_7_a === 'No' ? 'checked' : '' }}>
+                                        <input class="form-check-input" value="No" type="radio"
+                                            wire:model.live="question_7_a" @disabled($readonlyInputs)>
                                     </div>
 
                                     <div class="form-check">
-                                        <input class="form-check-input" value="N/A" type="radio" disabled
-                                            {{ $form->question_7_a === 'N/A' ? 'checked' : '' }}>
+                                        <input class="form-check-input" value="N/A" type="radio"
+                                            wire:model.live="question_7_a" @disabled($readonlyInputs)>
                                     </div>
                                 </div>
-
+                                @error('question_7_a')
+                                    <span class="text-danger">This input field is required!</span></br>
+                                @enderror
                             </div>
                             <div class="row">
                                 <div class="col-7">
@@ -668,20 +689,22 @@
                                 </div>
                                 <div class="col-3 d-flex justify-content-between align-items-center">
                                     <div class="form-check">
-                                        <input class="form-check-input" value="Yes" type="radio" disabled
-                                            {{ $form->question_7_b === 'Yes' ? 'checked' : '' }}>
+                                        <input class="form-check-input" value="Yes" type="radio"
+                                            wire:model.live="question_7_b" @disabled($readonlyInputs)>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" value="No" type="radio" disabled
-                                            {{ $form->question_7_b === 'No' ? 'checked' : '' }}>
+                                        <input class="form-check-input" value="No" type="radio"
+                                            wire:model.live="question_7_b" @disabled($readonlyInputs)>
                                     </div>
 
                                     <div class="form-check">
-                                        <input class="form-check-input" value="N/A" type="radio" disabled
-                                            {{ $form->question_7_b === 'N/A' ? 'checked' : '' }}>
+                                        <input class="form-check-input" value="N/A" type="radio"
+                                            wire:model.live="question_7_b" @disabled($readonlyInputs)>
                                     </div>
                                 </div>
-
+                                @error('question_7_b')
+                                    <span class="text-danger">This input field is required!</span></br>
+                                @enderror
                             </div>
 
                             <div class="row">
@@ -695,20 +718,22 @@
                                 </div>
                                 <div class="col-3 d-flex justify-content-between align-items-center">
                                     <div class="form-check">
-                                        <input class="form-check-input" value="Yes" type="radio" disabled
-                                            {{ $form->question_7_c === 'Yes' ? 'checked' : '' }}>
+                                        <input class="form-check-input" value="Yes" type="radio"
+                                            wire:model.live="question_7_c" @disabled($readonlyInputs)>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" value="No" type="radio" disabled
-                                            {{ $form->question_7_c === 'No' ? 'checked' : '' }}>
+                                        <input class="form-check-input" value="No" type="radio"
+                                            wire:model.live="question_7_c" @disabled($readonlyInputs)>
                                     </div>
 
                                     <div class="form-check">
-                                        <input class="form-check-input" value="N/A" type="radio" disabled
-                                            {{ $form->question_7_c === 'N/A' ? 'checked' : '' }}>
+                                        <input class="form-check-input" value="N/A" type="radio"
+                                            wire:model.live="question_7_c" @disabled($readonlyInputs)>
                                     </div>
                                 </div>
-
+                                @error('question_7_c')
+                                    <span class="text-danger">This input field is required!</span></br>
+                                @enderror
                             </div>
                         </div>
                     @endif
@@ -723,11 +748,12 @@
                         <div class="col-3 d-flex justify-content-between align-items-center">
                             <div class="form-check">
                                 <input wire:click="showSectionOf8" class="form-check-input" value="Yes"
-                                    type="radio" disabled {{ $form->question_8 === 'Yes' ? 'checked' : '' }}>
+                                    type="radio" wire:model.live="question_8" @disabled($readonlyInputs)>
                             </div>
                             <div class="form-check">
                                 <input wire:click="showSectionOf8" class="form-check-input" value="No"
-                                    id="no-8" type="radio" disabled {{ $form->question_8 === 'No' ? 'checked' : '' }}>
+                                    id="no-8" type="radio" wire:model.live="question_8"
+                                    @disabled($readonlyInputs)>
                             </div>
 
                             <div class="form-check">
@@ -735,9 +761,11 @@
                             </div>
 
                         </div>
-
+                        @error('question_8')
+                            <span class="text-danger">This input field is required!</span></br>
+                        @enderror
                     </div>
-                    @if ($form->question_8 === 'Yes')
+                    @if ($question_8 === 'Yes')
                         <div class="row">
                             <div class="row">
                                 <div class="col-7">
@@ -750,19 +778,21 @@
                                 </div>
                                 <div class="col-3 d-flex justify-content-between align-items-center">
                                     <div class="form-check">
-                                        <input class="form-check-input" value="Yes" type="radio" disabled
-                                            {{ $form->question_8_a === 'Yes' ? 'checked' : '' }}>
+                                        <input class="form-check-input" value="Yes" type="radio"
+                                            wire:model.live="question_8_a" @disabled($readonlyInputs)>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" value="No" type="radio" disabled
-                                            {{ $form->question_8_a === 'No' ? 'checked' : '' }}>
+                                        <input class="form-check-input" value="No" type="radio"
+                                            wire:model.live="question_8_a" @disabled($readonlyInputs)>
                                     </div>
 
                                     <div class="form-check">
 
                                     </div>
                                 </div>
-
+                                @error('question_8_a')
+                                    <span class="text-danger">This input field is required!</span></br>
+                                @enderror
                             </div>
                             <div class="row">
                                 <div class="col-7">
@@ -772,28 +802,30 @@
                                         healthy
                                         conduct of
                                         the research will be disclosed to the participants at the end of the
-                                        participation and as early as possible (debriefing)?</label>
+                                        participation and as early as possible (debrie ng)?</label>
                                 </div>
                                 <div class="col-3 d-flex justify-content-between align-items-center">
                                     <div class="form-check">
-                                        <input class="form-check-input" value="Yes" type="radio" disabled
-                                            {{ $form->question_8_b === 'Yes' ? 'checked' : '' }}>
+                                        <input class="form-check-input" value="Yes" type="radio"
+                                            wire:model.live="question_8_b" @disabled($readonlyInputs)>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" value="No" type="radio" disabled
-                                            {{ $form->question_8_b === 'No' ? 'checked' : '' }}>
+                                        <input class="form-check-input" value="No" type="radio"
+                                            wire:model.live="question_8_b" @disabled($readonlyInputs)>
                                     </div>
 
                                     <div class="form-check">
 
                                     </div>
                                 </div>
-
+                                @error('question_8_b')
+                                    <span class="text-danger">This input field is required!</span></br>
+                                @enderror
                             </div>
 
                             <div class="row">
                                 <div class="col-7">
-                                    <label class="form-label-small">c. Has a debriefing form been submitted in the
+                                    <label class="form-label-small">c. Has a debrie ng form been submitted in the
                                         case
                                         of
                                         deception
@@ -802,25 +834,26 @@
                                 </div>
                                 <div class="col-3 d-flex justify-content-between align-items-center">
                                     <div class="form-check">
-                                        <input class="form-check-input" value="Yes" type="radio" disabled
-                                            {{ $form->question_8_c === 'Yes' ? 'checked' : '' }}>
+                                        <input class="form-check-input" value="Yes" type="radio"
+                                            wire:model.live="question_8_c" @disabled($readonlyInputs)>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" value="No" type="radio" disabled
-                                            {{ $form->question_8_c === 'No' ? 'checked' : '' }}>
+                                        <input class="form-check-input" value="No" type="radio"
+                                            wire:model.live="question_8_c" @disabled($readonlyInputs)>
                                     </div>
 
                                     <div class="form-check">
 
                                     </div>
                                 </div>
-
-
+                                @error('question_8_c')
+                                    <span class="text-danger">This input field is required!</span></br>
+                                @enderror
                             </div>
 
                             <div class="row">
                                 <div class="col-7">
-                                    <label class="form-label-small">d. Does the Debriefing Form contain the
+                                    <label class="form-label-small">d. Does the Debrie ng Form contain the
                                         following
                                         items
                                         (i-iii)?</label>
@@ -831,20 +864,22 @@
                                     </div>
                                     <div class="col-3 d-flex justify-content-between align-items-center">
                                         <div class="form-check">
-                                            <input class="form-check-input" value="Yes" type="radio" disabled
-                                                {{ $form->question_8_d_i === 'Yes' ? 'checked' : '' }}>
+                                            <input class="form-check-input" value="Yes" type="radio"
+                                                wire:model.live="question_8_d_i" @disabled($readonlyInputs)>
                                         </div>
                                         <div class="form-check">
-                                            <input class="form-check-input" value="No" type="radio" disabled
-                                                {{ $form->question_8_d_i === 'No' ? 'checked' : '' }}>
+                                            <input class="form-check-input" value="No" type="radio"
+                                                wire:model.live="question_8_d_i" @disabled($readonlyInputs)>
                                         </div>
 
                                         <div class="form-check">
-                                            <input class="form-check-input" value="N/A" type="radio" disabled
-                                                {{ $form->question_8_d_i === 'N/A' ? 'checked' : '' }}>
+                                            <input class="form-check-input" value="N/A" type="radio"
+                                                wire:model.live="question_8_d_i" @disabled($readonlyInputs)>
                                         </div>
                                     </div>
-
+                                    @error('question_8_d_i')
+                                        <span class="text-danger">This input field is required!</span></br>
+                                    @enderror
                                 </div>
 
                                 <div class="row">
@@ -853,20 +888,22 @@
                                     </div>
                                     <div class="col-3 d-flex justify-content-between align-items-center">
                                         <div class="form-check">
-                                            <input class="form-check-input" value="Yes" type="radio" disabled
-                                                {{ $form->question_8_d_ii === 'Yes' ? 'checked' : '' }}>
+                                            <input class="form-check-input" value="Yes" type="radio"
+                                                wire:model.live="question_8_d_ii" @disabled($readonlyInputs)>
                                         </div>
                                         <div class="form-check">
-                                            <input class="form-check-input" value="No" type="radio" disabled
-                                                {{ $form->question_8_d_ii === 'No' ? 'checked' : '' }}>
+                                            <input class="form-check-input" value="No" type="radio"
+                                                wire:model.live="question_8_d_ii" @disabled($readonlyInputs)>
                                         </div>
 
                                         <div class="form-check">
-                                            <input class="form-check-input" value="N/A" type="radio" disabled
-                                                {{ $form->question_8_d_ii === 'N/A' ? 'checked' : '' }}>
+                                            <input class="form-check-input" value="N/A" type="radio"
+                                                wire:model.live="question_8_d_ii" @disabled($readonlyInputs)>
                                         </div>
                                     </div>
-
+                                    @error('question_8_d_ii')
+                                        <span class="text-danger">This input field is required!</span></br>
+                                    @enderror
                                 </div>
 
                                 <div class="row">
@@ -881,20 +918,22 @@
                                     </div>
                                     <div class="col-3 d-flex justify-content-between align-items-center">
                                         <div class="form-check">
-                                            <input class="form-check-input" value="Yes" type="radio" disabled
-                                                {{ $form->question_8_d_iii === 'Yes' ? 'checked' : '' }}>
+                                            <input class="form-check-input" value="Yes" type="radio"
+                                                wire:model.live="question_8_d_iii" @disabled($readonlyInputs)>
                                         </div>
                                         <div class="form-check">
-                                            <input class="form-check-input" value="No" type="radio" disabled
-                                                {{ $form->question_8_d_iii === 'No' ? 'checked' : '' }}>
+                                            <input class="form-check-input" value="No" type="radio"
+                                                wire:model.live="question_8_d_iii" @disabled($readonlyInputs)>
                                         </div>
 
                                         <div class="form-check">
-                                            <input class="form-check-input" value="N/A" type="radio" disabled
-                                                {{ $form->question_8_d_iii === 'N/A' ? 'checked' : '' }}>
+                                            <input class="form-check-input" value="N/A" type="radio"
+                                                wire:model.live="question_8_d_iii" @disabled($readonlyInputs)>
                                         </div>
                                     </div>
-
+                                    @error('question_8_d_iii')
+                                        <span class="text-danger">This input field is required!</span></br>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
@@ -915,21 +954,23 @@
                             </div>
                             <div class="col-3 d-flex justify-content-between align-items-center">
                                 <div class="form-check">
-                                    <input class="form-check-input" value="Yes" type="radio" disabled
-                                        {{ $form->question_9 === 'Yes' ? 'checked' : '' }}>
+                                    <input class="form-check-input" value="Yes" type="radio"
+                                        wire:model.live="question_9" @disabled($readonlyInputs)>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" value="No" type="radio" disabled
-                                        {{ $form->question_9 === 'No' ? 'checked' : '' }}>
+                                    <input class="form-check-input" value="No" type="radio"
+                                        wire:model.live="question_9" @disabled($readonlyInputs)>
                                 </div>
 
                                 <div class="form-check">
-                                    <input class="form-check-input" value="N/A" type="radio" disabled
-                                        {{ $form->question_9 === 'N/A' ? 'checked' : '' }}>
+                                    <input class="form-check-input" value="N/A" type="radio"
+                                        wire:model.live="question_9" @disabled($readonlyInputs)>
                                 </div>
                             </div>
                         </div>
-
+                        @error('question_9')
+                            <span class="text-danger">This input field is required!</span></br>
+                        @enderror
                     </div>
 
                     <div class="row">
@@ -938,7 +979,7 @@
                         </div>
                         <div class="row">
                             <div class="col-7">
-                                <label class="form-label-small"> Is it specifed how research data will be
+                                <label class="form-label-small"> Is it speci ed how research data will be
                                     recorded
                                     (consistent
                                     with the principle
@@ -946,21 +987,23 @@
                             </div>
                             <div class="col-3 d-flex justify-content-between align-items-center">
                                 <div class="form-check">
-                                    <input class="form-check-input" value="Yes" type="radio" disabled
-                                        {{ $form->question_10 === 'Yes' ? 'checked' : '' }}>
+                                    <input class="form-check-input" value="Yes" type="radio"
+                                        wire:model.live="question_10" @disabled($readonlyInputs)>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" value="No" type="radio" disabled
-                                        {{ $form->question_10 === 'No' ? 'checked' : '' }}>
+                                    <input class="form-check-input" value="No" type="radio"
+                                        wire:model.live="question_10" @disabled($readonlyInputs)>
                                 </div>
 
                                 <div class="form-check">
-                                    <input class="form-check-input" value="N/A" type="radio" disabled
-                                        {{ $form->question_10 === 'N/A' ? 'checked' : '' }}>
+                                    <input class="form-check-input" value="N/A" type="radio"
+                                        wire:model.live="question_10" @disabled($readonlyInputs)>
                                 </div>
                             </div>
                         </div>
-
+                        @error('question_10')
+                            <span class="text-danger">This input field is required!</span></br>
+                        @enderror
                     </div>
 
                     <div class="row">
@@ -969,29 +1012,83 @@
                         </div>
                         <div class="row">
                             <div class="col-7">
-                                <label class="form-label-small"> Is it specifed how research data will be
-                                    stored
-                                    (locker or encrypted electronic file)?</label>
+                                <label class="form-label-small"> Is it speci ed how research data will be
+                                    recorded
+                                    (consistent
+                                    with the principle
+                                    of condentiality)?</label>
                             </div>
                             <div class="col-3 d-flex justify-content-between align-items-center">
                                 <div class="form-check">
-                                    <input class="form-check-input" value="Yes" type="radio" disabled
-                                        {{ $form->question_11 === 'Yes' ? 'checked' : '' }}>
+                                    <input class="form-check-input" value="Yes" type="radio"
+                                        wire:model.live="question_11" @disabled($readonlyInputs)>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" value="No" type="radio" disabled
-                                        {{ $form->question_11 === 'No' ? 'checked' : '' }}>
+                                    <input class="form-check-input" value="No" type="radio"
+                                        wire:model.live="question_11" @disabled($readonlyInputs)>
                                 </div>
                                 <div class="form-check">
 
                                 </div>
                             </div>
                         </div>
-
+                        @error('question_11')
+                            <span class="text-danger">This input field is required!</span></br>
+                        @enderror
                     </div>
 
                 </div>
             </form>
         </div>
 
+
+
+        {{-- Message Modal --}}
+        <div wire:ignore.self data-bs-backdrop="static" data-bs-keyboard="false" id="myModal" class="modal"
+            tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    </div>
+                    <div class="modal-body">
+                        <p class="">
+                            @if (Session::has('success'))
+                                <div class="text-center alert alert-success">
+                                    <i class="fa-solid fa-circle-check"></i>
+                                    <p>{{ Session::get('success') }}</p>
+                                </div>
+                            @endif
+
+                            @if (Session::has('error'))
+                                <div class="alert alert-danger">{{ Session::get('error') }}</div>
+                            @endif
+                        </p>
+                    </div>
+
+                    <div class="modal-footer">
+                        <a wire:navigate href="/user-dashboard" type="button" class="btn btn-secondary">Close</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{-- End of Message Modal --}}
     </div>
+</div>
+
+
+<script>
+    document.addEventListener('livewire:init', () => {
+        Livewire.on('showAttachFormModal', (event) => {
+            $('#attachFormModal').modal('show');
+
+        });
+    });
+
+    document.addEventListener('livewire:init', () => {
+        Livewire.on('showMessageModal', (event) => {
+            $('#myModal').modal('show');
+
+        });
+    });
+</script>

@@ -9,6 +9,11 @@ class ChecklistForm extends Model
 {
     protected $table = 'checklist_form';
 
+    public function app()
+    {
+        return $this->belongsTo(AppStatus::class, 'app_id', 'id');
+    }
+
     protected $fillable = [
         'user_id',
         'app_id',

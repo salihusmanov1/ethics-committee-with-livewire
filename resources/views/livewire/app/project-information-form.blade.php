@@ -19,7 +19,7 @@
                             <label class="form-label">1. Briefly describe the study to be conducted, including the
                                 sub-research
                                 questions, and hypotheses if any.</label>
-                            <textarea wire:model='question_1' type="text" class="form-control" placeholder="" rows="8"></textarea>
+                            <textarea wire:model.live='question_1' type="text" class="form-control" placeholder="" rows="8"></textarea>
                             @error('question_1')
                                 <span class="text-danger">This input field is required!</span></br>
                             @enderror
@@ -36,7 +36,7 @@
                                 the
                                 study along
                                 with this document.</label>
-                            <textarea wire:model='question_2' type="text" class="form-control" placeholder="" rows="8"></textarea>
+                            <textarea wire:model.live='question_2' type="text" class="form-control" placeholder="" rows="8"></textarea>
                             @error('question_2')
                                 <span class="text-danger">This input field is required!</span></br>
                             @enderror
@@ -46,7 +46,7 @@
                     <div class="mb-3 row">
                         <div class="col">
                             <label class="form-label">3. Write down the expected results of your study.</label>
-                            <textarea wire:model='question_3' type="text" class="form-control" placeholder="" rows="8"></textarea>
+                            <textarea wire:model.live='question_3' type="text" class="form-control" placeholder="" rows="8"></textarea>
                             @error('question_3')
                                 <span class="text-danger">This input field is required!</span></br>
                             @enderror
@@ -60,26 +60,26 @@
                                 physical and/or psychological wellbeing
                                 of the participants or that may be distressing for them?</label>
                             <div class="form-check">
-                                <input wire:click='showOtherInput' wire:model='radioButtons1' class="form-check-input"
+                                <input wire:click='showOtherInput' wire:model.live='question_4' class="form-check-input"
                                     type="radio" value="yes">
                                 <label class="form-label-small" for="flexCheckDefault2_0">Yes</label>
                             </div>
                             <div class="form-check">
-                                <input wire:click='showOtherInput' wire:model='radioButtons1' class="form-check-input"
+                                <input wire:click='showOtherInput'  wire:model.live='question_4' class="form-check-input"
                                     type="radio" value="no">
                                 <label class="form-label-small" for="flexCheckDefault2_0">No</label>
                             </div>
-                            @error('radioButtons1')
+                            @error('question_4')
                                 <span class="text-danger">This input field is required!</span></br>
                             @enderror
-                            @if ($radioButtons1 === 'yes')
+                            @if ($question_4 === 'yes')
                                 <label class="form-label" for="">If yes, please explain. Specify the precautions
                                     that will be taken to eliminate or minimize the effects of
                                     these items/procedures.</label>
                                 <div class="col">
-                                    <textarea wire:model ="question_4" value="" type="text" class="form-control" rows="8"></textarea>
+                                    <textarea wire:model.live ="question_4_1" value="" type="text" class="form-control" rows="8"></textarea>
                                 </div>
-                                @error('question_4')
+                                @error('question_4_1')
                                     <span class="text-danger">This input field is required!</span></br>
                                 @enderror
                             @endif
@@ -94,21 +94,21 @@
                                 aim
                                 of the study (i.e. is there deception)? </label>
                             <div class="form-check">
-                                <input wire:click='showOtherInput1' wire:model='radioButtons2' class="form-check-input"
+                                <input wire:click='showOtherInput1' wire:model.live='question_5' class="form-check-input"
                                     type="radio" value="yes">
                                 <label class="form-label-small">Yes</label>
                             </div>
                             <div class="form-check">
-                                <input wire:click='showOtherInput1' wire:model='radioButtons2' class="form-check-input"
+                                <input wire:click='showOtherInput1' wire:model.live='question_5' class="form-check-input"
                                     type="radio" value="no">
                                 <label class="form-label-small">No</label>
                             </div>
-                            @error('radioButtons2')
+                            @error('question_5')
                                 <span class="text-danger">This input field is required!</span></br>
                             @enderror
 
 
-                            @if ($radioButtons2 === 'yes')
+                            @if ($question_5 === 'yes')
                                 <label for="" class="form-label">If yes, explain why.
                                     Indicate
                                     how
@@ -118,9 +118,9 @@
                                     collection in debriefing the participants.</label>
 
                                 <div class="col">
-                                    <textarea wire:model ="question_5" value="" type="text" class="form-control" rows="8"></textarea>
+                                    <textarea wire:model.live ="question_5_1" value="" type="text" class="form-control" rows="8"></textarea>
                                 </div>
-                                @error('question_5')
+                                @error('question_5_1')
                                     <span class="text-danger">This input field is required!</span></br>
                                 @enderror
                             @endif
@@ -136,7 +136,7 @@
                                 research
                                 area
                                 and/or the society.</label>
-                            <textarea wire:model='question_6' type="text" class="form-control" placeholder="" rows="8"></textarea>
+                            <textarea wire:model.live='question_6' type="text" class="form-control" placeholder="" rows="8"></textarea>
                             @error('question_6')
                                 <span class="text-danger">This input field is required!</span></br>
                             @enderror
@@ -147,21 +147,21 @@
                         <div class="col">
                             <label class="form-label"> 7. Have you completed any previous research project?</label>
                             <div class="form-check">
-                                <input wire:click='showOtherInput2' wire:model='radioButtons3'
+                                <input wire:click='showOtherInput2' wire:model.live='question_7'
                                     class="form-check-input" type="radio" value="yes">
                                 <label class="form-label-small" for="flexCheckDefault">Yes</label>
                             </div>
                             <div class="form-check">
-                                <input wire:click='showOtherInput2' wire:model='radioButtons3'
+                                <input wire:click='showOtherInput2' wire:model.live='question_7'
                                     class="form-check-input" type="radio" value="no">
                                 <label class="form-label-small" for="flexCheckDefault">No</label>
                             </div>
-                            @error('radioButtons3')
+                            @error('question_7')
                                 <span class="text-danger">This input field is required!</span></br>
                             @enderror
 
 
-                            @if ($radioButtons3 === 'yes')
+                            @if ($question_7 === 'yes')
                                 <label for="" class="form-label">If your answer is yes,
                                     write
                                     down
@@ -170,9 +170,9 @@
                                     that you have taken part in and the names of funding institution(s) if
                                     any.</label>
                                 <div class="col">
-                                    <textarea wire:model ="question_7" value="" type="text" class="form-control" rows="8"></textarea>
+                                    <textarea wire:model.live ="question_7_1" value="" type="text" class="form-control" rows="8"></textarea>
                                 </div>
-                                @error('question_7')
+                                @error('question_7_1')
                                     <span class="text-danger">This input field is required!</span></br>
                                 @enderror
                             @endif
@@ -182,7 +182,7 @@
                     <div class="row">
                         <div class="col">
                             <label class="form-label">Researcher’s name and surname:</label>
-                            <input wire:model='rname' class="form-control" type="text" name="Name">
+                            <input wire:model.live='rname' class="form-control" type="text" name="Name">
                             @error('rname')
                                 <span class="text-danger">This input field is required!</span></br>
                             @enderror
@@ -193,7 +193,7 @@
                         </div>
                         <div class="col">
                             <label class="form-label">Supervisor’s / Advisor’s name and surname:</label>
-                            <input wire:model='sname' class="form-control" type="text" name="name">
+                            <input wire:model.live='sname' class="form-control" type="text" name="name">
                             @error('sname')
                                 <span class="text-danger">This input field is required!</span></br>
                             @enderror

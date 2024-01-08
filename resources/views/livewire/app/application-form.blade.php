@@ -29,21 +29,21 @@
                 <div class="mb-3 row" id="section-2">
                     <label class="form-label">2. Type Of Study</label>
                     <div class="form-check">
-                        <input wire:click="showQuestion5" wire:model.live="type_of_study" class="form-check-input"
+                        <input wire:click="showOtherInput" wire:model.live="type_of_study" class="form-check-input"
                             id="acRadio" type="radio" value="Academic Staff Study">
                         <label class="form-label-small">
                             Academic Staff Study
                         </label>
                     </div>
                     <div class="form-check">
-                        <input wire:click="showQuestion5" wire:model.live="type_of_study" class="form-check-input"
+                        <input wire:click="showOtherInput" wire:model.live="type_of_study" class="form-check-input"
                             type="radio" value="Doctorate Thesis">
                         <label class="form-label-small">
                             Doctorate Thesis
                         </label>
                     </div>
                     <div class="form-check">
-                        <input wire:click="showQuestion5" wire:model.live="type_of_study" class="form-check-input"
+                        <input wire:click="showOtherInput" wire:model.live="type_of_study" class="form-check-input"
                             type="radio" value="Master Thesis">
                         <label class="form-label-small">
                             Master Thesis
@@ -614,12 +614,12 @@
                                 stress for
                                 them?</label>
                             <div class="form-check">
-                                <input wire:model.live='question_14' class="form-check-input" type="radio"
+                                <input wire:click='showOtherInput4' wire:model.live='question_14' class="form-check-input" type="radio"
                                     value="no">
                                 <label class="form-label-small" for="flexCheckDefault">No</label>
                             </div>
                             <div class="form-check">
-                                <input wire:model.live='question_14' class="form-check-input" type="radio"
+                                <input wire:click='showOtherInput4' wire:model.live='question_14' class="form-check-input" type="radio"
                                     value="yes">
                                 <label class="form-label-small" for="flexCheckDefault">Yes</label>
                             </div>
