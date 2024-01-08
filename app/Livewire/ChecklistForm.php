@@ -6,6 +6,7 @@ use App\Models\AppStatus;
 use App\Models\ChecklistForm as ModelsChecklistForm;
 use App\Models\Forms;
 use Livewire\Attributes\Layout;
+use Livewire\WithFileUploads;
 use Livewire\Component;
 use Livewire\Attributes\Rule;
 use Illuminate\Support\Facades\Log;
@@ -15,6 +16,13 @@ use Illuminate\Support\Facades\Session;
 #[Layout('layout.app')]
 class ChecklistForm extends Component
 {
+    use WithFileUploads;
+
+    // #[Rule('nullable|sometimes|file|mimes:pdf')]
+    public $file1;
+
+    // #[Rule('nullable|sometimes|file|mimes:pdf')]
+    public $file2;
 
     #[Rule('required')]
     public $attach_form = '';
@@ -149,12 +157,28 @@ class ChecklistForm extends Component
 
     public function createChecklist()
     {
+        // if ($this->file1 || $this->file2) {
+        Log::info('File 1: ' . json_encode($this->file1));
+        Log::info('File 2: ' . json_encode($this->file2));
+
+        // if ($this->file1) {
+            $filePath1 = $this->file1->store('uploads', 'public');
+        // }
+
+        // if ($this->file2) {
+            $filePath2 = $this->file2->store('uploads', 'public');
+        // };
+        // }
+
         try {
             $checklist = ModelsChecklistForm::create([
                 'user_id' => auth()->user()->id,
+                'app_id' => '299',
                 'attach_form' => $this->attach_form,
                 'attach_parental'  => $this->attach_parental,
                 'debriefing' => $this->debriefing,
+                'file1' => $filePath1,
+                'file2' => $filePath2,
                 'question_1' => $this->question_1,
                 'question_2_a' => $this->question_2_a,
                 'question_2_b' => $this->question_2_b,
@@ -187,10 +211,10 @@ class ChecklistForm extends Component
                 'question_10' => $this->question_10,
                 'question_11' => $this->question_11
             ]);
-            $app = AppStatus::where('id', $this->attached_form_id)->first();
-            $app->update([
-                'checklist_form_id' => $checklist->id,
-            ]);
+            // $app = AppStatus::where('id', $this->attached_form_id)->first();
+            // $app->update([
+            //     'checklist_form_id' => $checklist->id,
+            // ]);
             Session::flash('success', 'Your form has been updated successfully.');
         } catch (QueryException $e) {
             Log::error("SQL Error: " . $e->getMessage());
@@ -199,9 +223,10 @@ class ChecklistForm extends Component
         $this->dispatch('showMessageModal');
     }
 
-    public function redirectToDashboard() {
-        return redirect()->route('user-dashboard');
-    }
+    // public function redirectToDashboard()
+    // {
+    //     // return redirect()->route('user-dashboard');
+    // }
 
 
     public $pageName = "ETHICS COMMITTEE PROJECT APPLICATION CHECKLIST";
