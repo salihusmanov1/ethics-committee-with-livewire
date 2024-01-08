@@ -970,16 +970,17 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <select wire:model.live="attached_form_id" class="form-control form-select form-select-lg" - aria-label=".form-select-lg">
+                        <select wire:model.live="attached_app_id" class="form-control form-select form-select-lg"-
+                            aria-label=".form-select-lg">
                             <option value="" hidden>Select a Form</option>
                             @foreach ($datas as $data)
-                            @if ($data->checklist_form_id == null && $data->form->name === $attach_form)
-                            <option value="{{ $data->id }}">
-                                <span>№{{ $data->id }}</span>
-                                <span> - </span>
-                                <span>{{ $data->form->name }}</span>
-                            </option>
-                            @endif
+                                @if ($data->form->name === $attach_form)
+                                    <option value="{{ $data->id }}">
+                                        <span>№{{ $data->id }}</span>
+                                        <span> - </span>
+                                        <span>{{ $data->form->name }}</span>
+                                    </option>
+                                @endif
                             @endforeach
 
 

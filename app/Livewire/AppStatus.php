@@ -18,6 +18,9 @@ class AppStatus extends Component
         if ($formType == 2) {
             $this->redirectRoute('project-information-form-show', ['formId' => $formId]);
         }
+        if ($formType == 1) {
+            $this->redirectRoute('application-form-show', ['formId' => $formId]);
+        }
     }
 
     public $pageName = "APPLICATION STATUS";

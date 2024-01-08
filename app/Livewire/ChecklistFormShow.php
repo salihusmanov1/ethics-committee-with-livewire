@@ -18,7 +18,6 @@ class ChecklistFormShow extends Component
 
     public function mount($formId)
     {
-        $this->data = AppStatus::where('checklist_form_id', $formId)->first();
         $this->form = ChecklistForm::where('id', $formId)->first();
     }
     public $pageName = "ETHICS COMMITTEE PROJECT APPLICATION CHECKLIST";

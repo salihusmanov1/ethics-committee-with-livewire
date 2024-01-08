@@ -4,22 +4,50 @@
 
 
     <div class="container form-container">
+
+
         <div class="form">
             <div class="header">
                 <h1>FINAL INTERNATIONAL UNIVERSITY</h1>
             </div>
+            <form action="" class="main">
+                <div>
+                    <div class="row">
+                        <div class="col" style="font-size: 16px; font-weight: bold;">
+                            <p><a class="link-opacity-50" href="{{ url('/show/checklist/' . $data->Checklist) }}"><i
+                                        class="fa-regular fa-file-lines"></i> &nbspAttached Informed Consent Form</a>
+                            </p>
+                            <p><a class="link-opacity-50" href="{{ url('/show/checklist/' . $data->Checklist->id) }}"><i
+                                        class="fa-regular fa-file-lines"></i> &nbspAttached Checklist Form</a>
+                            </p>
 
-            <form wire:submit="createForm1" action="" class="main">
+                        </div>
+                        <div class="col-md">
+                            <h3>№{{ $data->id }}</h3>
+                        </div>
+
+                        <div style="width: 100%" class="col d-flex justify-content-end">
+                            <div><button style="margin-left: 10px" wire:click="enableEdit" type="button"
+                                    class="btn btn-primary">Update</button></div>
+                            <div><button style="margin-left: 10px" type="button"
+                                    class="btn btn-secondary">Save</button>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
                 <div class="d-flex justify-content-center">
-                    <img style="width: 15%" src="img\logo6.png" alt="">
+                    <img style="width: 15%" src="\img\logo6.png" alt="">
                 </div>
                 <h3>ETHICS COMMITTEE APPLICATION FORM</h3>
                 <!-- 1 -->
                 <div class="mb-3 row" id="section-1">
                     <div class="col">
                         <label class="form-label">1. Title Of Study</label>
-                        <input wire:model.live="title_of_study" value="" type="text" class="form-control"
-                            placeholder="">
+                        <input wire:model.live="title_of_study" type="text" class="form-control" placeholder=""
+                            @readonly($readonlyInputs)>
                         @error('title_of_study')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
@@ -29,29 +57,29 @@
                 <div class="mb-3 row" id="section-2">
                     <label class="form-label">2. Type Of Study</label>
                     <div class="form-check">
-                        <input wire:click="showQuestion5" wire:model.live="type_of_study" class="form-check-input"
-                            id="acRadio" type="radio" value="Academic Staff Study">
+                        <input class="form-check-input" id="acRadio" type="radio" wire:model.live="type_of_study"
+                            value="Academic Staff Study" @disabled($readonlyInputs)>
                         <label class="form-label-small">
                             Academic Staff Study
                         </label>
                     </div>
                     <div class="form-check">
-                        <input wire:click="showQuestion5" wire:model.live="type_of_study" class="form-check-input"
-                            type="radio" value="Doctorate Thesis">
+                        <input class="form-check-input" type="radio" wire:model.live="type_of_study"
+                            value="Doctorate Thesis" @disabled($readonlyInputs)>
                         <label class="form-label-small">
                             Doctorate Thesis
                         </label>
                     </div>
                     <div class="form-check">
-                        <input wire:click="showQuestion5" wire:model.live="type_of_study" class="form-check-input"
-                            type="radio" value="Master Thesis">
+                        <input class="form-check-input" type="radio" wire:model.live="type_of_study"
+                            value="Master Thesis" @disabled($readonlyInputs)>
                         <label class="form-label-small">
                             Master Thesis
                         </label>
                     </div>
                     <div class="form-check">
-                        <input wire:click="showOtherInput" wire:model.live="type_of_study" class="form-check-input"
-                            type="radio" value="other">
+                        <input class="form-check-input" type="radio"wire:model.live="type_of_study" value="other"
+                            @disabled($readonlyInputs)>
                         <label class="form-label-small">
                             Other (Specify):
                         </label>
@@ -59,7 +87,7 @@
                     @if ($type_of_study === 'other')
                         <div class="col">
                             <input wire:model.live="type_of_study_other" value="" type="text"
-                                class="form-control" placeholder="">
+                                class="form-control" @readonly($readonlyInputs)>
                             @error('type_of_study_other')
                                 <span class="text-danger">This input field is required!</span></br>
                             @enderror
@@ -75,35 +103,36 @@
                     <label class="form-label">3. Researcher's</label>
                     <div class="col">
                         <label class="form-label-small headers">Name and surname:</label>
-                        <input wire:model.live='researcher_name' type="text" class="form-control" placeholder="">
+                        <input wire:model.live='researcher_name' type="text" class="form-control" @readonly($readonlyInputs)>
                         @error('researcher_name')
                             <span class="text-danger">{{ $message }}</span></br>
                         @enderror
                         <label class="form-label-small headers">Department:</label>
                         <input wire:model.live='researcher_department' type="text" class="form-control"
-                            placeholder="">
+                            @readonly($readonlyInputs)>
                         @error('researcher_department')
                             <span class="text-danger">{{ $message }}</span></br>
                         @enderror
                         <label class="form-label-small headers">Institute:</label>
                         <input wire:model.live='researcher_institution' type="text" class="form-control"
-                            placeholder="">
+                            @readonly($readonlyInputs)>
                         @error('researcher_institution')
                             <span class="text-danger">{{ $message }}</span></br>
                         @enderror
                         <label class="form-label-small headers">Phone:</label>
-                        <input wire:model.live='researcher_phone' type="text" class="form-control"
+                        <input wire:model.live='researcher_phone' type="text" class="form-control" @readonly($readonlyInputs)
                             placeholder="+90**********">
                         @error('researcher_phone')
                             <span class="text-danger">{{ $message }}</span></br>
                         @enderror
                         <label class="form-label-small headers">Address:</label>
-                        <textarea wire:model.live='researcher_address' type="text" class="form-control" placeholder="" rows="3"></textarea>
+                        <textarea wire:model.live='researcher_address' type="text" class="form-control" rows="3" @readonly($readonlyInputs)></textarea>
                         @error('researcher_address')
                             <span class="text-danger">{{ $message }}</span></br>
                         @enderror
                         <label class="form-label-small headers">Email:</label>
-                        <input wire:model.live='researcher_email' type="text" class="form-control" placeholder="">
+                        <input wire:model.live='researcher_email' type="text" class="form-control"
+                            @readonly($readonlyInputs)>
                         @error('researcher_email')
                             <span class="text-danger">{{ $message }}</span></br>
                         @enderror
@@ -119,12 +148,14 @@
                         @foreach ($other_researchers as $index => $researcher)
                             <div class="row">
                                 <div class="col">
-                                    <input wire:model.live="other_researchers.{{ $index }}.name" type="text"
-                                        class="form-control" placeholder="Name" required>
+                                    <input wire:model.live="other_researchers.{{ $index }}.full_name"
+                                        type="text" class="form-control" placeholder="Name" required
+                                        @readonly($readonlyInputs)>
                                 </div>
                                 <div class="col">
                                     <input wire:model.live="other_researchers.{{ $index }}.institute"
-                                        type="text" class="form-control" placeholder="Institute" required>
+                                        type="text" class="form-control" placeholder="Institute" required
+                                        @readonly($readonlyInputs)>
                                 </div>
                                 <div class="col">
                                     <a wire:click.prevent="removeResInput({{ $index }})"
@@ -136,8 +167,9 @@
                 </div>
 
 
+
                 <!-- 5 -->
-                @if ($question_5)
+                @if ($type_of_study !== 'Academic Staff Study')
                     <div class="mb-3 d-flex flex-wrap row">
                         <label class="form-label">
                             5. Advisor’s/Supervising Faculty Member’s <i>(Undergraduate students conducting research
@@ -150,7 +182,7 @@
                         <div class="col-md">
                             <label class="form-label-small headers">Title:</label>
                             <select wire:model.live="advisor_title" class="form-select form-select-lg"
-                                aria-label=".form-select-lg">
+                                aria-label=".form-select-lg" @disabled($readonlyInputs)>
                                 <option value="Prof. Dr." selected> Prof. Dr.</option>
                                 <option value="Assoc. Pro. Dr.">Assoc. Pro. Dr.</option>
                                 <option value="Asst. Prof. Dr.">Asst. Prof. Dr.</option>
@@ -163,13 +195,15 @@
                             @enderror
 
                             <label class="form-label-small headers">Name and surname:</label>
-                            <input wire:model.live="advisor_name" type="text" class="form-control">
+                            <input wire:model.live="advisor_name" type="text" class="form-control"
+                                @readonly($readonlyInputs)>
                             @error('advisor_name')
                                 <span class="text-danger">This input field is required!</span></br>
                             @enderror
 
                             <label class="form-label-small headers">Department:</label>
-                            <input wire:model.live="advisor_department" type="text" class="form-control">
+                            <input wire:model.live="advisor_department" type="text" class="form-control"
+                                @readonly($readonlyInputs)>
                             @error('advisor_department')
                                 <span class="text-danger">This input field is required!</span></br>
                             @enderror
@@ -179,21 +213,21 @@
                         <div class="col-md">
                             <label class="form-label-small headers">Phone:</label>
                             <input wire:model.live="advisor_phone" type="text" class="form-control"
-                                placeholder="+90**********">
+                                placeholder="+90**********" @readonly($readonlyInputs)>
                             @error('advisor_phone')
                                 <span class="text-danger">This input field is required!</span></br>
                             @enderror
 
                             <label class="form-label-small headers">Address:</label>
                             <input wire:model.live="advisor_address" type="text" class="form-control"
-                                name="Address:">
+                                name="Address:" @readonly($readonlyInputs)>
                             @error('advisor_address')
                                 <span class="text-danger">This input field is required!</span></br>
                             @enderror
 
                             <label class="form-label-small headers">E-mail:</label>
                             <input wire:model.live="advisor_email" type="text" class="form-control"
-                                name="E-mail:" placeholder="example@gmail.com">
+                                name="E-mail:" placeholder="example@gmail.com" @readonly($readonlyInputs)>
                             @error('advisor_email')
                                 <span class="text-danger">This input field is required!</span></br>
                             @enderror
@@ -203,7 +237,6 @@
                 @endif
                 <!-- 6 -->
                 <div class="mb-3 row">
-
                     <div class="form-label">6. Expected time frame of the study:</div>
                     <p>
                         <span class="warnings">The start date of the study should be at least three weeks from your
@@ -214,7 +247,7 @@
                     <div class="col-md">
                         <label class="form-label-small">Start:</label>
                         <input wire:model.live='expected_start' class="form-control" type="date" max="2040-12-31"
-                            min="1995-01-01">
+                            min="1995-01-01" @readonly($readonlyInputs)>
                         @error('expected_start')
                             <span class="text-danger">{{ $message }}</span></br>
                         @enderror
@@ -223,7 +256,7 @@
                     <div class="col-md">
                         <label class="form-label-small">End:</label>
                         <input wire:model.live='expected_end' class="form-control" type="date" max="2040-12-31"
-                            min="1995-01-01">
+                            min="1995-01-01" @readonly($readonlyInputs)>
                         @error('expected_end')
                             <span class="text-danger">{{ $message }}</span></br>
                         @enderror
@@ -242,7 +275,7 @@
                             <div class="row">
                                 <div class="col">
                                     <input wire:model.live="organizations.{{ $index }}" type="text"
-                                        class="form-control" placeholder="" required>
+                                        class="form-control" placeholder="" required @readonly($readonlyInputs)>
                                 </div>
                                 <div class="col">
                                     <a wire:click.prevent="removeInputOrg({{ $index }})"
@@ -260,14 +293,14 @@
                         organization other than IFU required for data collection?</label>
 
                     <div class="form-check">
-                        <input wire:model.live="question_8" value="no" class="form-check-input" type="radio"
-                            wire:click="showOtherInput1">
-                        <label class="form-label-small" for="flexCheckDefault1">No</label>
+                        <input wire:model.live="question_8" value="no" class="form-check-input" type="radio">
+                        <label class="form-label-small" for="flexCheckDefault1">No</label
+                            @disabled($readonlyInputs)>
                     </div>
 
                     <div class="form-check">
                         <input wire:model.live="question_8" value="yes" class="form-check-input" type="radio"
-                            wire:click="showOtherInput1">
+                            @disabled($readonlyInputs)>
                         <label class="form-label-small" for="flexCheckDefault1">Yes(specify)</label>
                     </div>
 
@@ -275,7 +308,7 @@
                         @if ($question_8 == 'yes')
                             <div class="col">
                                 <input wire:model.live="question_8_1" type="text" class="form-control"
-                                    placeholder="">
+                                    @readonly($readonlyInputs)>
                                 @error('question_8_1')
                                     <span class="text-danger">This input field is required!</span></br>
                                 @enderror
@@ -293,12 +326,12 @@
                         not:</label>
                     <div class="form-check">
                         <input wire:model.live='question_9' class="form-check-input" value="Supported"
-                            type="radio">
+                            type="radio" @disabled($readonlyInputs)>
                         <label class="form-label-small">Supported</label>
                     </div>
                     <div class="form-check">
                         <input wire:model.live='question_9' class="form-check-input" value="Not Supported"
-                            type="radio">
+                            type="radio" @disabled($readonlyInputs)>
                         <label class="form-label-small">Not Suported</label>
                     </div>
 
@@ -309,12 +342,12 @@
                     <label for="" class="form-label">If supported, specify institution:</label>
                     <div class="form-check">
                         <input wire:click='showOtherInput2' wire:model.live='question_9_1' class="form-check-input"
-                            value="University" type="radio">
+                            value="University" type="radio" @disabled($readonlyInputs)>
                         <label class="form-label-small">University</label>
                     </div>
                     <div class="form-check">
                         <input wire:click='showOtherInput2' wire:model.live='question_9_1' class="form-check-input"
-                            value="TUBITAK" type="radio">
+                            value="TUBITAK" type="radio" @disabled($readonlyInputs)>
                         <label class="form-label-small">TUBITAK</label>
                     </div>
                     <div class="row">
@@ -323,11 +356,12 @@
                                 <label class="form-label-small" for="flexCheckDefault3">International (please
                                     specify)</label>
                                 <input wire:click='showOtherInput2' wire:model.live='question_9_1'
-                                    class="form-check-input" value="international" type="radio">
+                                    class="form-check-input" value="international" type="radio"
+                                    @disabled($readonlyInputs)>
                             </div>
                             @if ($question_9_1 == 'international')
                                 <input wire:model.live="question_9_2" type="text" class="form-control"
-                                    placeholder="">
+                                    @readonly($readonlyInputs)>
                                 @error('question_9_2')
                                     <span class="text-danger">This input field is required!</span></br>
                                 @enderror
@@ -337,11 +371,12 @@
                             <div class="form-check">
                                 <label class="form-label-small" for="flexCheckDefault3">Other (please specify)</label>
                                 <input wire:click='showOtherInput2' wire:model.live='question_9_1'
-                                    class="form-check-input" value="other" type="radio">
+                                    class="form-check-input" value="other" type="radio"
+                                    @disabled($readonlyInputs)>
                             </div>
                             @if ($question_9_1 == 'other')
                                 <input wire:model.live="question_9_2" type="text" class="form-control"
-                                    placeholder="">
+                                    @readonly($readonlyInputs)>
                                 @error('question_9_2')
                                     <span class="text-danger">This input field is required!</span></br>
                                 @enderror
@@ -361,12 +396,12 @@
 
                     <div class="form-check">
                         <input wire:click='showOtherInput3' wire:model.live='question_9_3' class="form-check-input"
-                            type="radio" value="no">
+                            type="radio" value="no"@disabled($readonlyInputs)>
                         <label class="form-label-small">No</label>
                     </div>
                     <div class="form-check">
                         <input wire:click='showOtherInput3' wire:model.live='question_9_3' class="form-check-input"
-                            type="radio" value="yes">
+                            type="radio" value="yes"@disabled($readonlyInputs)>
                         <label class="form-label-small">Yes(specify)</label>
                     </div>
 
@@ -378,7 +413,7 @@
                     @if ($question_9_3 == 'yes')
                         <div class="col-6">
                             <input wire:model.live="question_9_4" type="text" class="form-control"
-                                placeholder="">
+                                @readonly($readonlyInputs)>
                             @error('question_9_4')
                                 <span class="text-danger">This input field is required!</span></br>
                             @enderror
@@ -392,24 +427,25 @@
                     <div class="form-label">10. Status of the application:</div>
                     <div class="form-check">
                         <input wire:click='showFields' wire:model.live='status' class="form-check-input"
-                            value="New" type="radio">
+                            value="New" type="radio" @disabled($readonlyInputs)>
                         <label class="form-label-small">New</label>
                     </div>
                     <div class="form-check">
                         <input wire:click='showFields' wire:model.live='status' class="form-check-input"
-                            value="Revised" type="radio">
+                            value="Revised" type="radio" @disabled($readonlyInputs)>
                         <label class="form-label-small">Revised</label>
                     </div>
 
 
                     <div class="form-check">
                         <input wire:click='showFields' wire:model.live='status' id="rpchanges"
-                            class="form-check-input" value="Reporting Changes" type="radio">
+                            class="form-check-input" value="Reporting Changes" type="radio"
+                            @disabled($readonlyInputs)>
                         <label class="form-label-small" for="flexCheckDefault6">Reporting Changes</label>
                     </div>
                     <div class="form-check">
                         <input wire:click='showFields' wire:model.live='status' class="form-check-input"
-                            value="Extension of a Previous Study" type="radio">
+                            value="Extension of a Previous Study" type="radio" @disabled($readonlyInputs)>
                         <label class="form-label-small">Extension of a Previous Study</label>
                     </div>
                 </div>
@@ -418,28 +454,22 @@
                     <span class="text-danger">This input field is required!</span></br>
                 @enderror
 
-
-
                 {{-- extension-of-previous-study-form --}}
 
-                @if ($extension)
+                @if ($status === 'Extension of a Previous Study')
                     <div class="mb-3 row">
                         <div class="col-6">
                             <label class="form-label">Protocol No (this is on your approval letter):</label>
-                            <input wire:model.live='ex_protocol_no' style="width: 50%" type="text"
-                                class="form-control" placeholder="">
-                            @error('ex_protocol_no')
-                                <span class="text-danger">This input field is required!</span></br>
-                            @enderror
+                            <input value="{{ $form->ex_protocol_no }}" style="width: 50%" type="text"
+                                class="form-control" placeholder="" readonly>
+
                         </div>
 
                         <div class="col-6">
                             <label class="form-label">The new expected date of completion:</label>
-                            <input wire:model.live='extension_end_date' style="width: 50%" type="date"
-                                class="form-control" placeholder="">
-                            @error('extension_end_date')
-                                <span class="text-danger">This input field is required!</span></br>
-                            @enderror
+                            <input value="{{ $form->extension_end_date }}" style="width: 50%" type="date"
+                                class="form-control" placeholder="" readonly>
+
                         </div>
 
 
@@ -448,31 +478,23 @@
                             the previously
                             approved one?</label>
                         <div class="form-check">
-                            <input wire:click='showRpChanges' wire:model.live='extension_q_1'
-                                class="form-check-input" type="radio" value="no">
+                            <input {{ $form->extension_q_1 === 'no' ? 'checked' : '' }} class="form-check-input"
+                                type="radio" value="no" disabled>
                             <label class="form-label-small">No</label>
                         </div>
                         <div class="form-check">
-                            <input wire:click='showRpChanges' wire:model.live='extension_q_1'
-                                class="form-check-input" type="radio" value="yes">
+                            <input {{ $form->extension_q_1 === 'yes' ? 'checked' : '' }} class="form-check-input"
+                                type="radio" value="yes" disabled>
                             <label class="form-label-small">Yes</label>
                         </div>
-
-                        @error('extension_q_1')
-                            <span class="text-danger">This input field is required!</span></br>
-                        @enderror
                     </div>
                 @endif
-                @if ($reporting)
+                @if ($status === 'Reporting Changes' || $extension_q_1 === 'yes')
                     <div class="mb-3 row">
                         <div class="col">
                             <label class="form-label">Protocol No:</label>
-                            <input wire:model.live='rp_protocol_no' style="width: 50%" type="text"
-                                class="form-control" placeholder="">
-
-                            @error('rp_protocol_no')
-                                <span class="text-danger">This input field is required!</span></br>
-                            @enderror
+                            <input value="{{ $form->rp_protocol_no }}" style="width: 50%" type="text"
+                                class="form-control" placeholder="" readonly>
 
 
                             <label class="form-label">Please explain the changes you want to make (e.g., adding a
@@ -493,10 +515,8 @@
                                 the
                                 Ethics
                                 Committee.</label>
-                            <textarea wire:model.live='reporting_q_1' type="text" class="form-control" placeholder="" rows="3"></textarea>
-                            @error('reporting_q_1')
-                                <span class="text-danger">This input field is required!</span></br>
-                            @enderror
+                            <textarea type="text" class="form-control" placeholder="" rows="3" readonly>{{ $form->reporting_q_1 }}</textarea>
+
 
                             <label class="form-label">Is the reason for the proposed changes an unexpected
                                 situation that happens to a
@@ -506,36 +526,28 @@
                                 health)?</label>
 
                             <div class="form-check">
-                                <input wire:model.live='reporting_q_2' class="form-check-input" type="radio"
-                                    value="no">
+                                <input {{ $form->reporting_q_2 === 'no' ? 'checked' : '' }} class="form-check-input"
+                                    type="radio" value="no" disabled>
                                 <label class="form-label-small">No</label>
                             </div>
                             <div class="form-check">
-                                <input wire:model.live='reporting_q_2' class="form-check-input" type="radio"
-                                    value="yes">
+                                <input {{ $form->reporting_q_2 === 'yes' ? 'checked' : '' }} class="form-check-input"
+                                    type="radio" value="yes" disabled>
                                 <label class="form-label-small">Yes</label>
                             </div>
 
-                            @error('reporting_q_2')
-                                <span class="text-danger">This input field is required!</span></br>
-                            @enderror
-
-                            @if ($reporting_q_2 == 'yes')
+                            @if ($form->reporting_q_2 == 'yes')
                                 <label class="form-label">If your answer is yes; describe the unexpected situation that
                                     requires you to
                                     make
                                     changes. Please indicate
                                     what measures you have taken to prevent similar situations from occurring in the
                                     future.</label>
-                                <textarea wire:model.live='reporting_q_2_1' type="text" class="form-control" placeholder="" rows="3"></textarea>
-
-                                @error('reporting_q_2_1')
-                                    <span class="text-danger">This input field is required!</span></br>
-                                @enderror
+                                <textarea type="text" class="form-control" placeholder="" rows="3" readonly>{{ $form->reporting_q_2_1 }}</textarea>
                             @endif
                         </div>
                     </div>
-                @elseif($new_revised)
+                @elseif($status === 'New' || $status === 'Revised')
                     {{-- 11 --}}
                     <div class="mb-3 row">
                         <div class="col">
@@ -550,7 +562,8 @@
                                 (maximum
                                 of two
                                 paragraphs).</label>
-                            <textarea type="text" wire:model.live='question_11' class="form-control" placeholder="" rows="3"></textarea>
+                            <textarea type="text" wire:model.live='question_11' class="form-control" placeholder="" rows="3"
+                                @readonly($readonlyInputs)></textarea>
                             @error('question_11')
                                 <span class="text-danger">This input field is required!</span></br>
                             @enderror
@@ -568,7 +581,8 @@
                                 techniques to be used.
                                 (Submit a copy of any measure or questionnaire used in the research with this
                                 document.)</label>
-                            <textarea wire:model.live='question_12' type="text" class="form-control" placeholder="" rows="3"></textarea>
+                            <textarea wire:model.live='question_12' type="text" class="form-control" placeholder="" rows="3"
+                                @readonly($readonlyInputs)></textarea>
                             @error('question_12')
                                 <span class="text-danger">This input field is required!</span></br>
                             @enderror
@@ -586,12 +600,12 @@
                                 there deception? Does the study require secrecy?</label>
                             <div class="form-check">
                                 <input wire:model.live='question_13' class="form-check-input" type="radio"
-                                    value="no">
+                                    value="no" @disabled($readonlyInputs)>
                                 <label class="form-label-small" for="flexCheckDefault">No</label>
                             </div>
                             <div class="form-check">
                                 <input wire:model.live='question_13' class="form-check-input" type="radio"
-                                    value="yes">
+                                    value="yes" @disabled($readonlyInputs)>
                                 <label class="form-label-small" for="flexCheckDefault">Yes</label>
                             </div>
                             @error('question_13')
@@ -615,12 +629,12 @@
                                 them?</label>
                             <div class="form-check">
                                 <input wire:model.live='question_14' class="form-check-input" type="radio"
-                                    value="no">
+                                    value="no" @disabled($readonlyInputs)>
                                 <label class="form-label-small" for="flexCheckDefault">No</label>
                             </div>
                             <div class="form-check">
                                 <input wire:model.live='question_14' class="form-check-input" type="radio"
-                                    value="yes">
+                                    value="yes" @disabled($readonlyInputs)>
                                 <label class="form-label-small" for="flexCheckDefault">Yes</label>
                             </div>
                             @error('question_14')
@@ -640,7 +654,7 @@
                                     eliminate or
                                     minimize the effects of these elements.
                                 </label>
-                                <textarea wire:model.live='question_14_1' type="text" class="form-control" placeholder="" rows="3"></textarea>
+                                <textarea wire:model.live='question_14_1' type="text" class="form-control" rows="3" @readonly($readonlyInputs)></textarea>
                                 @error('question_14_1')
                                     <span class="text-danger">This input field is required!</span></br>
                                 @enderror
@@ -657,12 +671,13 @@
                             <label class="form-label">15. The expected number of
                                 participants:</label>
                             <input wire:model.live='question_15' style="width: 15%" type="number"
-                                class="form-control">
+                                class="form-control"  @readonly($readonlyInputs)>
                             @error('question_15')
                                 <span class="text-danger">This input field is empty or invalid!</span></br>
                             @enderror
                         </div>
                     </div>
+
 
                     {{-- 16 --}}
                     <div class="mb-3 row">
@@ -674,12 +689,12 @@
                                 used?</label>
                             <div class="form-check">
                                 <input wire:model.live='question_16' class="form-check-input" type="radio"
-                                    value="no" name="flexRadioDefault11">
+                                    value="no" name="flexRadioDefault11"  @disabled($readonlyInputs)>
                                 <label class="form-label-small" for="flexCheckDefault">No</label>
                             </div>
                             <div class="form-check">
                                 <input wire:model.live='question_16' class="form-check-input" type="radio"
-                                    value="yes" name="flexRadioDefault11">
+                                    value="yes" name="flexRadioDefault11"  @disabled($readonlyInputs)>
                                 <label class="form-label-small" for="flexCheckDefault">Yes</label>
                             </div>
                             @error('question_16')
@@ -700,14 +715,14 @@
                         <div class="col">
                             <div class="form-check">
                                 <input class="form-check-input" wire:model.live='question_17.types.UniversityStudents'
-                                    type="checkbox" value="University students" id="flexCheckDefault">
+                                    type="checkbox" value="University students" id="flexCheckDefault"  @disabled($readonlyInputs)>
                                 <label class="form-label-small" for="flexCheckDefault">
                                     University students
                                 </label>
                             </div>
                             <div class="form-check">
                                 <input class="form-check-input" wire:model.live='question_17.types.AdultsInEmployment'
-                                    type="checkbox" value="Adults in employment" id="flexCheckChecked">
+                                    type="checkbox" value="Adults in employment" id="flexCheckChecked"  @disabled($readonlyInputs)>
                                 <label class="form-label-small" for="flexCheckChecked">
                                     Adults in
                                     employment
@@ -715,14 +730,14 @@
                             </div>
                             <div class="form-check">
                                 <input class="form-check-input" wire:model.live='question_17.types.UnemployedAdults'
-                                    type="checkbox" value="Unemployed adults" id="flexCheckDefault">
+                                    type="checkbox" value="Unemployed adults" id="flexCheckDefault"  @disabled($readonlyInputs)>
                                 <label class="form-label-small" for="flexCheckDefault">
                                     Unemployed adults
                                 </label>
                             </div>
                             <div class="form-check">
                                 <input class="form-check-input" wire:model.live='question_17.types.PreschoolChildren'
-                                    type="checkbox" value="Preschool children" id="flexCheckChecked">
+                                    type="checkbox" value="Preschool children" id="flexCheckChecked"  @disabled($readonlyInputs)>
                                 <label class="form-label-small" for="flexCheckChecked">
                                     Preschool children*
                                 </label>
@@ -736,7 +751,7 @@
                                 <input class="form-check-input"
                                     wire:model.live='question_17.types.MentallyDisabledChallengedIndividuals'
                                     type="checkbox" value="Mentally disabled/challenged individuals"
-                                    id="flexCheckDefault">
+                                    id="flexCheckDefault"  @disabled($readonlyInputs)>
                             </div>
                             <div class="form-check">
                                 <label class="form-label-small">
@@ -747,7 +762,7 @@
                                 <input class="form-check-input"
                                     wire:model.live='question_17.types.PhysicallyDisabledChallengedIndividuals'
                                     type="checkbox" value="Physically disabled/challenged individuals"
-                                    id="flexCheckDefault">
+                                    id="flexCheckDefault"  @disabled($readonlyInputs)>
                             </div>
                             <br>
                             <label class="form-label-small">Will you obtain verbal consent from the children
@@ -758,12 +773,12 @@
 
                             <div class="form-check">
                                 <input wire:model.live='question_17_1' class="form-check-input" type="radio"
-                                    value="no">
+                                    value="no"  @disabled($readonlyInputs)>
                                 <label class="form-label-small" for="flexCheckDefault">No</label>
                             </div>
                             <div class="form-check">
                                 <input wire:model.live='question_17_1' class="form-check-input" type="radio"
-                                    value="yes">
+                                    value="yes"  @disabled($readonlyInputs)>
                                 <label class="form-label-small" for="flexCheckDefault">Yes</label>
                             </div>
                             @error('question_17_1')
@@ -776,7 +791,7 @@
 
                                 <input style="margin-left: 15px" class="form-check-input"
                                     wire:model.live='question_17.types.HighschoolStudents' type="checkbox"
-                                    value="Highschool students" id="flexCheckDefault">
+                                    value="Highschool students" id="flexCheckDefault"  @disabled($readonlyInputs)>
                                 <label class="form-label-small">
                                     Highschool
                                     students**
@@ -785,7 +800,7 @@
                             <div class="form-check">
                                 <input style="margin-left: 15px" class="form-check-input"
                                     wire:model.live='question_17.types.PrimarySchoolPupils' type="checkbox"
-                                    value="Primary school pupils" id="flexCheckDefault">
+                                    value="Primary school pupils" id="flexCheckDefault"  @disabled($readonlyInputs)>
                                 <label class="form-label-small">
                                     Primary school
                                     pupils*
@@ -795,7 +810,7 @@
 
                                 <input style="margin-left: 15px" class="form-check-input"
                                     wire:model.live='question_17.types.ChildWorkers' type="checkbox"
-                                    value="Child workers" id="flexCheckDefault">
+                                    value="Child workers" id="flexCheckDefault"  @disabled($readonlyInputs)>
                                 <label class="form-label-small">
                                     Child workers**
                                 </label>
@@ -803,7 +818,7 @@
                             <div class="form-check">
                                 <input style="margin-left: 15px" class="form-check-input"
                                     wire:model.live='question_17.types.TheElderly' type="checkbox"
-                                    value="The elderly" id="flexCheckDefault">
+                                    value="The elderly" id="flexCheckDefault"  @disabled($readonlyInputs)>
                                 <label class="form-label-small">
                                     The elderly
                                 </label>
@@ -811,7 +826,7 @@
                             <div class="form-check">
                                 <input style="margin-left: 15px" class=" form-check-input"
                                     wire:model.live='question_17.types.Prisoners' type="checkbox" value="Prisoners"
-                                    id="flexCheckDefault">
+                                    id="flexCheckDefault" @disabled($readonlyInputs)>
                                 <label class="form-label-small">
                                     Prisoners
                                 </label>
@@ -825,12 +840,12 @@
 
                             <div class="form-check">
                                 <input wire:model.live='question_17_2' class="form-check-input" type="radio"
-                                    value="no">
+                                    value="no"  @disabled($readonlyInputs)>
                                 <label class="form-label-small" for="flexCheckDefault">No</label>
                             </div>
                             <div class="form-check">
                                 <input wire:model.live='question_17_2' class="form-check-input" type="radio"
-                                    value="yes">
+                                    value="yes"  @disabled($readonlyInputs)>
                                 <label class="form-label-small" for="flexCheckDefault">Yes</label>
                             </div>
                             @error('question_17_2')
@@ -869,6 +884,8 @@
                             the
                             students are expected to sign, with your application.</label>
                     </div>
+
+
                     {{-- 18 --}}
                     <div class="mb-3 row">
                         <div class="col">
@@ -883,12 +900,10 @@
                                 etc.) Please
                                 explain.</label>
 
-                            <textarea wire:model.live='question_18' type="text" class="form-control" placeholder="" rows="3"></textarea>
+                            <textarea type="text" class="form-control" placeholder="" rows="3" readonly>{{ $form->question_18 }}</textarea>
 
                         </div>
-                        @error('question_18')
-                            <span class="text-danger">This input field is required</span></br>
-                        @enderror
+
                     </div>
 
                     {{-- 19 --}}
@@ -904,85 +919,55 @@
                                 into the
                                 application false. Please add the text in the textbox below.</label>
 
-                            <textarea wire:model.live='question_19' type="text" class="form-control" placeholder="" rows="3"></textarea>
+                            <textarea type="text" class="form-control" placeholder="" rows="3" readonly>{{ $form->question_19 }}</textarea>
                         </div>
-                        @error('question_19')
-                            <span class="text-danger">This input field is required</span></br>
-                        @enderror
                     </div>
 
                     {{-- 20 --}}
-
-
                     {{-- <div class="mb-3 row">
-                        <label class="form-label">20. Please tick the method(s) to be used:</label>
-                        <div class="col">
-                            <!-- Checkbox options -->
-                            @foreach ($question_20['types'] as $key => $value)
-                                <div class="form-check">
-                                    <label class="form-label-small">
-                                        {{ $key }}
-                                    </label>
-                                    <input wire:model="question_20.types.{{ $key }}" class="form-check-input" type="checkbox"
-                                        value="{{ $key }}" id="flexCheck{{ $key }}">
-                                </div>
-                            @endforeach
-                    
-                            <!-- Other option -->
-                            <label class="form-label-small">
-                                Other (Please specify):
-                            </label>
-                            <input wire:model="question_20.other" style="margin-left:10px; width: 50%" class="form-control" type="text">
-                    
-                            <!-- Error message -->
-                            @error('question_20.types')
-                                <span style="margin-top:10px " class="text-danger">Please select at least one option above!</span><br>
-                            @enderror
-                        </div>
-                    </div> --}}
-                    <div class="mb-3 row">
                         <label class="form-label">20. Please tick the method(s) to be used:</label>
                         <div class="col">
                             <div class="form-check">
                                 <label class="form-label-small">
                                     Survey
                                 </label>
-                                <input wire:model="question_20.types.Survey" class="form-check-input"
-                                    type="checkbox" value="Survey" id="flexCheckSurvey">
+                                <input {{ in_array('Survey', $methods) ? 'checked' : '' }} class="form-check-input"
+                                    type="checkbox" value="Survey" id="flexCheckSurvey" disabled>
                             </div>
 
                             <div class="form-check">
                                 <label class="form-label-small">
                                     Interview
                                 </label>
-                                <input wire:model="question_20.types.Interview" class="form-check-input"
-                                    type="checkbox" value="Interview" id="flexCheckInterview">
+                                <input {{ in_array('Interview', $methods) ? 'checked' : '' }} class="form-check-input"
+                                    type="checkbox" value="Interview" id="flexCheckInterview" disabled>
                             </div>
 
                             <div class="form-check">
                                 <label class="form-label-small">
                                     Observation
                                 </label>
-                                <input wire:model="question_20.types.Observation" class="form-check-input"
-                                    type="checkbox" value="Observation" id="flexCheckObservation">
+                                <input {{ in_array('Observation', $methods) ? 'checked' : '' }}
+                                    class="form-check-input" type="checkbox" value="Observation"
+                                    id="flexCheckObservation" disabled>
                             </div>
 
                             <div class="form-check">
                                 <label class="form-label-small">
                                     Computer test
                                 </label>
-                                <input wire:model="question_20.types.ComputerTest" class="form-check-input"
-                                    type="checkbox" value="Computer test"
-                                    id="flexCheckComputerTest">
+                                <input {{ in_array('ComputerTest', $methods) ? 'checked' : '' }}
+                                    class="form-check-input" type="checkbox" value="Computer test"
+                                    id="flexCheckComputerTest" disabled>
                             </div>
 
                             <div class="form-check">
                                 <label class="form-label-small">
                                     Video/film recording
                                 </label>
-                                <input wire:model="question_20.types.VideoFilmRecording" class="form-check-input"
-                                    type="checkbox" value="Video film recording"
-                                    id="flexCheckVideoFilmRecording">
+                                <input {{ in_array('VideoFilmRecording', $methods) ? 'checked' : '' }}
+                                    class="form-check-input" type="checkbox" value="Video film recording"
+                                    id="flexCheckVideoFilmRecording" disabled>
                             </div>
                         </div>
 
@@ -991,62 +976,58 @@
                                 <label class="form-label-small">
                                     Voice recording
                                 </label>
-                                <input wire:model="question_20.types.VoiceRecording" class="form-check-input"
-                                    type="checkbox" value="Voice recording"
-                                    id="flexCheckVoiceRecording">
+                                <input {{ in_array('VoiceRecording', $methods) ? 'checked' : '' }}
+                                    class="form-check-input" type="checkbox" value="Voice recording"
+                                    id="flexCheckVoiceRecording" disabled>
                             </div>
 
                             <div class="form-check">
                                 <label class="form-label-small">
                                     Physiological measurement
                                 </label>
-                                <input wire:model="question_20.types.PhysiologicalMeasurement"
+                                <input {{ in_array('PhysiologicalMeasurement', $methods) ? 'checked' : '' }}
                                     class="form-check-input" type="checkbox" value="Physiological measurement"
-                                    id="flexCheckPhysiologicalMeasurement">
+                                    id="flexCheckPhysiologicalMeasurement" disabled>
                             </div>
 
                             <div class="form-check">
                                 <label class="form-label-small">
                                     Biological sample
                                 </label>
-                                <input wire:model="question_20.types.BiologicalSample" class="form-check-input"
-                                    type="checkbox" value="Biological sample"
-                                    id="flexCheckBiologicalSample">
+                                <input {{ in_array('BiologicalSample', $methods) ? 'checked' : '' }}
+                                    class="form-check-input" type="checkbox" value="Biological sample"
+                                    id="flexCheckBiologicalSample" disabled>
                             </div>
 
                             <div class="form-check">
                                 <label class="form-label-small">
                                     Making participants use alcohol, drugs or any other chemical substance
                                 </label>
-                                <input wire:model="question_20.types.MakingParticipantsUseSubstance"
+                                <input {{ in_array('MakingParticipantsUseSubstance', $methods) ? 'checked' : '' }}
                                     class="form-check-input" type="checkbox"
                                     value="Making participants use alcohol, drugs or any other chemical substance"
-                                    id="flexCheckMakingParticipantsUseSubstance">
+                                    id="flexCheckMakingParticipantsUseSubstance" disabled>
                             </div>
 
                             <div class="form-check">
                                 <label class="form-label-small">
                                     Exposure to high simulation (such as light, sound)
                                 </label>
-                                <input wire:model="question_20.types.ExposureToHighSimulation"
+                                <input {{ in_array('ExposureToHighSimulation', $methods) ? 'checked' : '' }}
                                     class="form-check-input" type="checkbox"
                                     value="Exposure to high simulation (such as light, sound)"
-                                    id="flexCheckExposureToHighSimulation">
+                                    id="flexCheckExposureToHighSimulation" disabled>
                             </div>
                         </div>
 
                         <label class="form-label-small">
                             Other (Please specify):
                         </label>
-                        <input wire:model="question_20.other" style="margin-left:10px; width: 50%"
-                            class="form-control" type="text">
+                        <input value="{{ implode(', ', $methods_other) }}" style="margin-left:10px; width: 50%"
+                            class="form-control" type="text" readonly>
 
-                        @error('question_20.types')
-                            <span style="margin-top:10px " class="text-danger">Please select at least one option
-                                above!</span></br>
-                        @enderror
                     </div>
-
+ --}}
 
 
 
@@ -1059,12 +1040,9 @@
                                 and/or
                                 society(one
                                 paragraph at most.)</label>
-                            <textarea wire:model.live='question_21' type="text" class="form-control" placeholder="" rows="3"></textarea>
+                            <textarea type="text" class="form-control" placeholder="" rows="3" readonly>{{ $form->question_21 }}</textarea>
 
                         </div>
-                        @error('question_21')
-                            <span class="text-danger">This input field is required</span></br>
-                        @enderror
                     </div>
                 @endif
 
@@ -1078,100 +1056,31 @@
                         to the best of my knowledge</label>
                     <div class="col-md">
                         <label class="form-label">Supervisor's (if any) Name and Surname:</label>
-                        <input wire:model.live='rname' class="form-control" type="text">
-                        @error('rname')
-                            <span class="text-danger">This input field is required</span></br>
-                        @enderror
+                        <input value="{{ $form->sname }}" class="form-control" type="text" readonly>
+
                     </div>
                     <div class="col">
                         <label class="form-label">Date:</label>
-                        <input wire:model.live='rdate' class="form-control" type="date">
-                        @error('rdate')
-                            <span class="text-danger">This input field is required</span></br>
-                        @enderror
+                        <input value="{{ $form->sdate }}" class="form-control" type="date" readonly>
+
                     </div>
                 </div>
                 <div class="mb-3 row">
                     <div class="col-md">
                         <label class="form-label">Researcher's Name and Surname:</label>
-                        <input wire:model.live='sname' name="researcher_name" class="form-control" type="text">
-                        @error('sname')
-                            <span class="text-danger">This input field is required</span></br>
-                        @enderror
+                        <input value="{{ $form->rname }}" name="researcher_name" class="form-control"
+                            type="text" readonly>
+
                     </div>
                     <div class="col-md">
                         <label class="form-label">Date:</label>
-                        <input wire:model.live='sdate' class="form-control" type="date">
-                        @error('sdate')
-                            <span class="text-danger">This input field is required</span></br>
-                        @enderror
+                        <input value="{{ $form->rdate }}" class="form-control" type="date" readonly>
+
                     </div>
 
                 </div>
-
-                <div class="button d-flex flex-row align-items-center justify-content-end">
-                    <button type="submit" class="btn submit btn-primary">Submit</button>
-                </div>
-
             </form>
-
         </div>
     </div>
-
-    {{-- Modal --}}
-    <div>
-        <div wire:ignore.self data-bs-backdrop="static" data-bs-keyboard="false" id="myModal" class="modal"
-            tabindex="-1" role="dialog">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                    </div>
-                    <div class="modal-body">
-                        <p class="">
-                            @if (Session::has('success'))
-                                <div class="text-center alert alert-success">
-                                    <i class="fa-solid fa-circle-check"></i>
-                                    <p>{{ Session::get('success') }}</p>
-                                </div>
-                                <hr>
-                                <div class="text-center alert alert-warning">
-                                    <i class="fa-solid fa-triangle-exclamation fa-xl"></i>
-                                    <p>
-                                        Please be aware that in order to complete your application, "Informed Consent
-                                        Form" and "Ethics Committee
-                                        Application Control
-                                        List" must be filled. Please navigate to the "Informed Consent Form" and
-                                        "Application Control List" section
-                                        in
-                                        the
-                                        menu and fill
-                                        out the
-                                        required information.</p>
-                                </div>
-                            @endif
-
-                            @if (Session::has('error'))
-                                <div class="alert alert-danger">{{ Session::get('error') }}</div>
-                            @endif
-                        </p>
-                    </div>
-
-                    <div class="modal-footer">
-                        <a wire:click='redirectUserDashboard' type="button" class="btn btn-secondary">Close</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    {{-- End of Modal --}}
-
-
 </div>
-<script>
-    document.addEventListener('livewire:init', () => {
-        Livewire.on('showModal', (event) => {
-            $('#myModal').modal('show');
-
-        });
-    });
-</script>
+<script></script>

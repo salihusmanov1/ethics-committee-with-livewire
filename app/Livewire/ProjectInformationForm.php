@@ -85,7 +85,6 @@ class ProjectInformationForm extends Component
             $app = AppStatus::create([
                 'user_id' => auth()->user()->id,
                 'form_type' => 2,
-                'checklist_form_id' => null,
                 'status' => 'New',
                 'user_email' => auth()->user()->email
             ]);
