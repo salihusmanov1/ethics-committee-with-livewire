@@ -21,13 +21,6 @@ thead th {
 
 
 
-.table a {
-    color: black !important;
-    font-weight: 400;
-    text-decoration: underline;
-}
-
-
 .table th,
 td {
     vertical-align: middle !important;

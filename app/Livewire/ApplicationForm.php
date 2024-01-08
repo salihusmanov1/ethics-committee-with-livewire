@@ -69,10 +69,18 @@ class ApplicationForm extends Component
     #[Rule('required_if:type_of_study,other')]
     public $type_of_study_other = '';
 
+    public $question_5 = true;
+
     public function showOtherInput()
     {
         if ($this->type_of_study !== "other") {
             $this->type_of_study_other = '';
+        }
+        if ($this->type_of_study !== 'Academic Staff Study')
+            $this->question_5 = true;
+        else {
+            $this->question_5 = false;
+            $this->reset('advisor_title', 'advisor_name', 'advisor_phone', 'advisor_department', 'advisor_address', 'advisor_email');
         }
     }
 
@@ -104,15 +112,7 @@ class ApplicationForm extends Component
         $this->other_researchers = array_values($this->other_researchers);
     }
 
-    public $question_5 = true;
 
-    public function showQuestion5()
-    {
-        if ($this->type_of_study !== 'Academic Staff Study')
-            $this->question_5 = true;
-        else
-            $this->question_5 = false;
-    }
 
     #[Rule('required_unless:type_of_study,Academic Staff Study')]
     public $advisor_title = '';
@@ -304,6 +304,14 @@ class ApplicationForm extends Component
     #[Rule('required_if:question_14,yes|string')]
     public $question_14_1 = '';
 
+    public function showOtherInput4()
+    {
+
+        if ($this->question_14 == 'no') {
+            $this->question_14_1 = '';
+        }
+    }
+
     #[Rule('required_if:status,New,Revised|numeric|between:0,20')]
     public $question_15 = '';
 
@@ -347,7 +355,6 @@ class ApplicationForm extends Component
             $app = AppStatus::create([
                 'user_id' => auth()->user()->id,
                 'form_type' => 1,
-                'checklist_form_id' => null,
                 'status' => 'New',
                 'user_email' => auth()->user()->email
             ]);

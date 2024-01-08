@@ -6,6 +6,7 @@ use App\Livewire\AppStatus;
 use App\Livewire\ConsentForm;
 use App\Livewire\ChecklistForm;
 use App\Livewire\ChecklistFormShow;
+use App\Livewire\ConsentFormShow;
 use App\Livewire\ProjectInformationForm;
 use App\Livewire\ProjectInformationFormShow;
 use App\Livewire\Login;
@@ -41,5 +42,5 @@ Route::get('/information-consent-form', ConsentForm::class)->middleware('isLogge
 Route::get('/show/project-information-form/{formId}', ProjectInformationFormShow::class)->name('project-information-form-show')->middleware('isLoggedIn');
 Route::get('/show/application-form/{formId}', ApplicationFormShow::class)->name('application-form-show')->middleware('isLoggedIn');
 Route::get('/show/checklist/{formId}', ChecklistFormShow::class)->name('checklist-form-show')->middleware('isLoggedIn');
-// Route::get('/show/information-consent-form/{formId}', ChecklistFormShow::class)->name('checklist-form-show')->middleware('isLoggedIn');
+Route::get('/show/information-consent-form/{formId}', ConsentFormShow::class)->name('consent-form-show')->middleware('isLoggedIn');
 

@@ -27,48 +27,51 @@ class ProjectInformationForm extends Component
     #[Rule('required')]
     public $question_3;
 
-    #[Rule('required_if:radioButtons1,yes')]
+    #[Rule('required')]
     public $question_4;
 
-    #[Rule('required')]
-    public $radioButtons1;
+    #[Rule('required_if:question_4,yes')]
+    public $question_4_1;
 
     public function showOtherInput()
     {
-        if ($this->radioButtons1 !== "yes") {
-            $this->question_4 = '';
+
+        if ($this->question_4 == 'no') {
+            $this->question_4_1 = '';
         }
     }
 
-    #[Rule('required_if:radioButtons2,yes')]
+    #[Rule('required')]
     public $question_5;
 
-    #[Rule('required')]
-    public $radioButtons2;
+    #[Rule('required_if:question_5,yes')]
+    public $question_5_1;
 
     public function showOtherInput1()
     {
-        if ($this->radioButtons2 !== "yes") {
-            $this->question_5 = '';
+
+        if ($this->question_5 == 'no') {
+            $this->question_5_1 = '';
         }
     }
+
 
     #[Rule('required')]
     public $question_6;
 
-    #[Rule('required_if:radioButtons3,yes')]
+    #[Rule('required')]
     public $question_7;
 
-
-    #[Rule('required')]
-    public $radioButtons3;
-
+    #[Rule('required_if:question_7,yes')]
+    public $question_7_1;
     public function showOtherInput2()
     {
-        if ($this->radioButtons3 !== "yes") {
-            $this->question_7 = '';
+
+        if ($this->question_7 == 'no') {
+            $this->question_7_1 = '';
         }
     }
+
 
     #[Rule('required')]
     public $rname;
@@ -78,7 +81,7 @@ class ProjectInformationForm extends Component
 
     public function createForm2()
     {
-       $validated = $this->validate();
+        $validated = $this->validate();
 
         try {
 
@@ -96,9 +99,12 @@ class ProjectInformationForm extends Component
                 'question_2' => $this->question_2,
                 'question_3' => $this->question_3,
                 'question_4' => $this->question_4,
+                'question_4_1' => $this->question_4_1,
                 'question_5' => $this->question_5,
+                'question_5_1' => $this->question_5_1,
                 'question_6' => $this->question_6,
                 'question_7' => $this->question_7,
+                'question_7_1' => $this->question_7_1,
                 'rname' => $this->rname,
                 'sname' => $this->sname
             ]);
@@ -112,7 +118,6 @@ class ProjectInformationForm extends Component
         if ($validated) {
             $this->dispatch('show-modal');
         }
-       
     }
 
     public function redirectToDashboard()

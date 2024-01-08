@@ -7,6 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Consentform extends Model
 {
+    public function form()
+    {
+        return $this->belongsTo(Form1::class, 'app_form_id', 'id');
+    }
     protected $table = 'consent_form';
 
     protected $primaryKey ='id';
@@ -14,6 +18,7 @@ class Consentform extends Model
         'r_full_name',
         'institue',
         'survey',
+        'title',
         'start_date',
         'end_date',
         'type',

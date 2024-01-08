@@ -56,7 +56,7 @@
                         @if (auth()->user()->role_id == 1)
                             <th scope="col">Comment</th>
                         @endif
-                        <th class="top-right" scope="col"></th>
+
 
                     </tr>
                 </thead>
@@ -67,7 +67,8 @@
                         <tr>
                             {{-- ID --}}
                             <th scope="row"><button class="btn btn-link"
-                                    wire:click="$dispatch('dataSent', { formType: {{ $data->form->id }}, formId: {{ $data->id }} })">#{{ $data->id }}
+                                    wire:click="$dispatch('dataSent', { formType: {{ $data->form->id }}, formId: {{ $data->id }} })"><i
+                                        class="fa-regular fa-file-lines"></i> #{{ $data->id }}
                                 </button></th>
                             {{-- TYPE --}}
                             <td>{{ $data->form->name }}</td>
@@ -92,27 +93,7 @@
                                     @endif
                                 </td>
                             @endif
-                            {{-- BUTTON --}}
-                            <td>
-                                <div class="dropdown">
-                                    <button class="btn" type="button" data-bs-toggle="dropdown"
-                                        aria-expanded="false">
-                                        <i class="fa-solid fa-ellipsis-vertical"></i>
-                                    </button>
 
-                                    <ul class="dropdown-menu">
-                                        @if (auth()->user()->role_id == 1)
-                                            <li><a class="btn dropdown-item" href="">edit</a>
-                                            </li>
-                                        @endif
-
-                                        <li><a data-id="{{ $data->id }}"
-                                                class="btn delete dropdown-item">delete</a>
-                                        </li>
-
-                                    </ul>
-                                </div>
-                            </td>
                             </td>
                             </td>
 
