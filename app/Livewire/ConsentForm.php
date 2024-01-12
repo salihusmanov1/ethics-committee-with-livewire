@@ -59,6 +59,7 @@ class ConsentForm extends Component
                 'r_full_name' => $this->researcher_name,
                 'institue' => $this->researcher_institution,
                 'survey' => $this->survey,
+                'title' => $this->researcher_title,
                 'start_date' => $this->start_date,
                 'end_date' => $this->end_date,
                 'type' => $this->type,

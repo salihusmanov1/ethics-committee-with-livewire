@@ -29,7 +29,7 @@ class AppStatus extends Component
         if (auth()->user()->role_id == 1) {
             $datas = ModelsAppStatus::where('user_id', auth()->user()->id)->with('form')->get();
         } else {
-            $datas = ModelsAppStatus::with('form')->all();
+            $datas = ModelsAppStatus::with('form')->get();
         }
 
 

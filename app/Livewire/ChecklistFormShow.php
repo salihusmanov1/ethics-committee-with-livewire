@@ -239,6 +239,19 @@ class ChecklistFormShow extends Component
         $this->dispatch('showMessageModal');
     }
 
+    public function deleteChecklistForm()
+    {
+        $this->checklist_form->delete();
+        Session::flash('success', 'Your form has been deleted successfully.');
+        $this->dispatch('showMessageModal');
+    }
+
+    public function redirectToDashboard()
+    {
+        return redirect()->route('user-dashboard');
+    }
+
+
 
     public $pageName = "ETHICS COMMITTEE PROJECT APPLICATION CHECKLIST";
     public function render()

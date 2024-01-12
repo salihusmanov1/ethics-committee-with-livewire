@@ -328,7 +328,7 @@ class ApplicationFormShow extends Component
     public $org;
     public $participants;
     public $methods;
-
+    public $select_status;
 
     public function mount($formId)
     {
@@ -339,7 +339,7 @@ class ApplicationFormShow extends Component
         $this->org = Organization::where('app_form_id', $this->form->id)->get()->pluck('organization')->toArray();
         $this->participants = Participants::where('app_form_id', $this->form->id)->get()->pluck('type')->toArray();
         $this->methods = Method::where('app_form_id', $this->form->id)->pluck('method')->toArray();
-
+        $this->select_status = $this->data->status;
 
         $this->title_of_study = $this->form->title_of_study;
         $this->type_of_study = $this->form->type_of_study;
@@ -490,13 +490,15 @@ class ApplicationFormShow extends Component
 
             ]);
 
-            $this->form->consentForm->update([
-                'r_full_name' => $this->researcher_name,
-                'institue' => $this->researcher_institution,
-                'title' => $this->title_of_study,
-                'email' => $this->researcher_email,
-                'phone_no' => $this->researcher_phone
-            ]);
+            if ($this->form->consentForm) {
+                $this->form->consentForm->update([
+                    'r_full_name' => $this->researcher_name,
+                    'institue' => $this->researcher_institution,
+                    'title' => $this->title_of_study,
+                    'email' => $this->researcher_email,
+                    'phone_no' => $this->researcher_phone
+                ]);
+            }
 
 
             $form1Id = $this->form->id;
@@ -585,6 +587,14 @@ class ApplicationFormShow extends Component
             Log::error("SQL Error: " . $e->getMessage());
             Session::flash('error', 'An error occurred while saving the form. Please try again.');
         }
+        $this->dispatch('showModal');
+    }
+
+    public function deleteForm1()
+    {
+        $this->form->delete();
+        $this->data->delete();
+        Session::flash('success', 'Your form has been deleted successfully.');
         $this->dispatch('showModal');
     }
 

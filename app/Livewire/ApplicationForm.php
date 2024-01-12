@@ -455,7 +455,7 @@ class ApplicationForm extends Component
                 }
             }
             if (!empty($this->question_17['other'])) {
-                $method = new Participants([
+                $participant = new Participants([
                     'type' => $this->question_17['other'],
                     'app_form_id' => $form1Id,
                 ]);

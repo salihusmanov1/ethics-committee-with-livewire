@@ -93,6 +93,15 @@ class ConsentFormShow extends Component
         }
     }
 
+    public function deleteConsentForm()
+    {
+        $this->consent_form->delete();
+
+        Session::flash('success', 'Your form has been deleted successfully.');
+        $this->dispatch('show-modal');
+    }
+
+
     public function redirectToDashboard()
     {
         return redirect()->route('user-dashboard');
@@ -101,7 +110,6 @@ class ConsentFormShow extends Component
     public $pageName = "Ethics Committee Informed Consent Form ";
     public function render()
     {
-        $userId = auth()->user()->id;
 
         return view('livewire.app.show.consent-form');
     }

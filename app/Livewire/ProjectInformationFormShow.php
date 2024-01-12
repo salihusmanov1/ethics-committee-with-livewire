@@ -108,9 +108,6 @@ class ProjectInformationFormShow extends Component
         $this->sname = $this->form2->sname;
     }
 
-    public function deleteForm2()
-    {
-    }
 
     public function updateForm2()
     {
@@ -143,6 +140,20 @@ class ProjectInformationFormShow extends Component
 
         $this->dispatch('show-modal');
     }
+
+    public function deleteForm2()
+    {
+        $this->form2->delete();
+        $this->data->delete();
+        Session::flash('success', 'Your form has been deleted successfully.');
+        $this->dispatch('show-modal');
+    }
+
+    public function redirectToDashboard()
+    {
+        return redirect()->route('user-dashboard');
+    }
+
 
     public $pageName = "ETHICS COMMITTEE PROJECT INFORMATION FORM";
     public function render()

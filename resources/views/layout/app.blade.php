@@ -44,9 +44,9 @@
                 @if (auth()->user()->role_id == 1)
                     <a href="{{ url('/user-dashboard') }}" class="list-group-item bg-transparent second-text">Home</a>
                 @endif
-                {{-- @if (auth()->user()->role_id == 0)
+                @if (auth()->user()->role_id == 0)
                     <a href="{{ route('admin-dashboard') }}" class="list-group-item bg-transparent second-text">Home</a>
-                @endif --}}
+                @endif
                 <div>
                     <button id="btn" class="list-group-item bg-transparent second-text" data-bs-toggle="collapse"
                         data-bs-target="#subCategory" aria-expanded="false" aria-controls="subCategory"
@@ -69,7 +69,7 @@
 
                 <a class="list-group-item bg-transparent second-text" href="/app-status">App Status</a>
 
-                <a href="" class="list-group-item bg-transparent second-text">Log Out</a>
+                <livewire:logout />
 
             </div>
 
