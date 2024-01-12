@@ -70,7 +70,7 @@
                         @enderror
                     </div>
                     <div>
-                        <input wire:model.live='file1' type="file" accept=".png">
+                        <input wire:model.live='file1' type="file" accept=".pdf">
                     </div>
 
                     <div class="row">
@@ -105,7 +105,7 @@
                     </div>
 
                     <div>
-                        <input wire:model.live='file2' type="file" accept=".png">
+                        <input wire:model.live='file2' type="file" accept=".pdf">
                     </div>
 
                     <div class="row">
@@ -970,17 +970,16 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <select wire:model.live="attached_app_id" class="form-control form-select form-select-lg"-
-                            aria-label=".form-select-lg">
+                        <select wire:model.live="attached_app_id" class="form-control form-select form-select-lg" - aria-label=".form-select-lg">
                             <option value="" hidden>Select a Form</option>
                             @foreach ($datas as $data)
-                                @if ($data->form->name === $attach_form)
-                                    <option value="{{ $data->id }}">
-                                        <span>№{{ $data->id }}</span>
-                                        <span> - </span>
-                                        <span>{{ $data->form->name }}</span>
-                                    </option>
-                                @endif
+                            @if ($data->form->name === $attach_form)
+                            <option value="{{ $data->id }}">
+                                <span>№{{ $data->id }}</span>
+                                <span> - </span>
+                                <span>{{ $data->form->name }}</span>
+                            </option>
+                            @endif
                             @endforeach
 
 

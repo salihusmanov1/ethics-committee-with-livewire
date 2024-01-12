@@ -18,10 +18,10 @@ class ChecklistForm extends Component
 {
     use WithFileUploads;
 
-    // #[Rule('nullable|sometimes|file|mimes:pdf')]
+    #[Rule('required|file|mimes:pdf')]
     public $file1;
 
-    // #[Rule('nullable|sometimes|file|mimes:pdf')]
+    #[Rule('required|file|mimes:pdf')]
     public $file2;
 
     #[Rule('required')]
@@ -158,14 +158,9 @@ class ChecklistForm extends Component
     public function createChecklist()
     {
         
-        // if ($this->file1) {
         $filePath1 = $this->file1->store('uploads', 'public');
-        // }
 
-        // if ($this->file2) {
         $filePath2 = $this->file2->store('uploads', 'public');
-        // };
-        // }
 
         try {
             ModelsChecklistForm::create([

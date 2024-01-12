@@ -10,12 +10,19 @@ use Livewire\Attributes\Rule;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 
 
 #[Layout('layout.app')]
 
 class ChecklistFormShow extends Component
 {
+
+    #[Rule('required|file|mimes:pdf')]
+    public $file1;
+
+    #[Rule('required|file|mimes:pdf')]
+    public $file2;
 
     #[Rule('required')]
     public $attach_parental = '';
@@ -159,6 +166,8 @@ class ChecklistFormShow extends Component
 
         $this->attach_parental = $this->checklist_form->attach_parental;
         $this->debriefing = $this->checklist_form->debriefing;
+        $this->file1 = asset('storage/' . $this->checklist_form->file1);
+        $this->file2 = asset('storage/' . $this->checklist_form->file2);
         $this->question_1 = $this->checklist_form->question_1;
         $this->question_2_a = $this->checklist_form->question_2_a;
         $this->question_2_b = $this->checklist_form->question_2_b;
