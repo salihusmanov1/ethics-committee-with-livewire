@@ -26,19 +26,19 @@
 
     <div class="container">
         @if (Session::has('status'))
-            <div class="alert alert-success">
-                {{ Session::get('status') }}
-            </div>
+        <div class="alert alert-success">
+            {{ Session::get('status') }}
+        </div>
         @endif
         @if (Session::has('success'))
-            <div class="alert alert-success">
-                {{ Session::get('success') }}
-            </div>
+        <div class="alert alert-success">
+            {{ Session::get('success') }}
+        </div>
         @endif
         @if (Session::has('error'))
-            <div class="alert alert-danger">
-                {{ Session::get('error') }}
-            </div>
+        <div class="alert alert-danger">
+            {{ Session::get('error') }}
+        </div>
         @endif
 
         <div class="table-responsive-sm">
@@ -50,13 +50,9 @@
                         <th scope="col">Application type</th>
                         <th scope="col">Status</th>
                         @if (auth()->user()->role_id == 0)
-                            <th scope="col">User Email</th>
+                        <th scope="col">User Email</th>
                         @endif
                         <th scope="col">Created</th>
-                        @if (auth()->user()->role_id == 1)
-                            <th scope="col">Comment</th>
-                        @endif
-
 
                     </tr>
                 </thead>
@@ -64,40 +60,27 @@
                 <tbody class="table-group-divider">
 
                     @foreach ($datas as $data)
-                        <tr>
-                            {{-- ID --}}
-                            <th scope="row"><button class="btn btn-link"
-                                    wire:click="$dispatch('dataSent', { formType: {{ $data->form->id }}, formId: {{ $data->id }} })"><i
-                                        class="fa-regular fa-file-lines"></i> #{{ $data->id }}
-                                </button></th>
-                            {{-- TYPE --}}
-                            <td>{{ $data->form->name }}</td>
+                    <tr>
+                        {{-- ID --}}
+                        <th scope="row"><button class="btn btn-link" wire:click="$dispatch('dataSent', { formType: {{ $data->form->id }}, formId: {{ $data->id }} })"><i class="fa-regular fa-file-lines"></i> #{{ $data->id }}
+                            </button></th>
+                        {{-- TYPE --}}
+                        <td>{{ $data->form->name }}</td>
 
-                            {{-- STATUS --}}
+                        {{-- STATUS --}}
 
-                            <td>{{ $data->status }}</td>
+                        <td>{{ $data->status }}</td>
 
-                            {{-- EMAIL --}}
-                            @if (auth()->user()->role_id == 0)
-                                <td>{{ $data->user_email }}</td>
-                            @endif
-                            {{-- DATA --}}
-                            <td>{{ $data->created_at->format('Y-m-d') }}</td>
+                        {{-- EMAIL --}}
+                        @if (auth()->user()->role_id == 0)
+                        <td>{{ $data->user_email }}</td>
+                        @endif
+                        {{-- DATA --}}
+                        <td>{{ $data->created_at->format('Y-m-d') }}</td>
 
-                            {{-- COMMENT --}}
+                        {{-- COMMENT --}}
 
-                            @if (auth()->user()->role_id == 1)
-                                <td>
-                                    @if ($data->admin_comment !== null)
-                                        <p>(1) Comment</p>
-                                    @endif
-                                </td>
-                            @endif
-
-                            </td>
-                            </td>
-
-                        </tr>
+                    </tr>
                     @endforeach
 
                 </tbody>

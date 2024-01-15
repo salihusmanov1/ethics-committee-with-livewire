@@ -119,7 +119,7 @@
                                 <a href="{{ $file2_old }}" target="_blank"
                                     download="{{ $checklist_form->file2 }}">Debriefing-Form.doc</a>
 
-                                <button class="btn btn-link" type="button" wire:click='deleteFile2'
+                                <button class="btn btn-link" type="button" wire:click='deleteFile2  '
                                     @disabled($readonlyInputs)>
                                     <i class="fa-solid fa-trash-can text-danger"></i></button>
                             </div>
