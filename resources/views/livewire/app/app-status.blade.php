@@ -53,10 +53,6 @@
                         <th scope="col">User Email</th>
                         @endif
                         <th scope="col">Created</th>
-                        <!-- @if (auth()->user()->role_id == 1)
-                            <th scope="col">Comment</th>
-                        @endif -->
-
 
                     </tr>
                 </thead>
@@ -83,17 +79,6 @@
                         <td>{{ $data->created_at->format('Y-m-d') }}</td>
 
                         {{-- COMMENT --}}
-
-                        @if (auth()->user()->role_id == 1)
-                        <td>
-                            @if ($data->admin_comment !== null)
-                            <p>(1) Comment</p>
-                            @endif
-                        </td>
-                        @endif
-
-                        </td>
-                        </td>
 
                     </tr>
                     @endforeach
