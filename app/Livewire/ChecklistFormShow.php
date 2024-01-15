@@ -7,6 +7,7 @@ use Livewire\Attributes\Layout;
 use App\Models\ChecklistForm;
 use Livewire\Component;
 use Livewire\Attributes\Rule;
+use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Session;
@@ -17,18 +18,50 @@ use Illuminate\Support\Facades\Storage;
 
 class ChecklistFormShow extends Component
 {
+    use WithFileUploads;
 
-    #[Rule('required|file|mimes:pdf')]
     public $file1;
 
-    #[Rule('required|file|mimes:pdf')]
+    public function deleteFile1()
+    {
+        Storage::disk('public')->delete($this->checklist_form->file1);
+        $this->checklist_form->update(['file1' => null]);
+    }
+
     public $file2;
+
+    public function deleteFile2()
+    {
+        Storage::disk('public')->delete($this->checklist_form->file2);
+        $this->checklist_form->update(['file2' => null]);
+    }
+
+    public $file3;
+
+    public function deleteFile3()
+    {
+        Storage::disk('public')->delete($this->checklist_form->file3);
+        $this->checklist_form->update(['file3' => null]);
+    }
+
+    public $file1_old;
+    public $file2_old;
+    public $file3_old;
 
     #[Rule('required')]
     public $attach_parental = '';
 
     #[Rule('required')]
     public $debriefing = '';
+
+    #[Rule('required')]
+    public $tools;
+
+    #[Rule('required_if:tools,Yes')]
+    public $tools_text;
+
+    #[Rule('required')]
+    public $permission;
 
     #[Rule('required')]
     public $question_1 = '';
@@ -166,8 +199,12 @@ class ChecklistFormShow extends Component
 
         $this->attach_parental = $this->checklist_form->attach_parental;
         $this->debriefing = $this->checklist_form->debriefing;
-        $this->file1 = asset('storage/' . $this->checklist_form->file1);
-        $this->file2 = asset('storage/' . $this->checklist_form->file2);
+        $this->tools = $this->checklist_form->tools;
+        $this->tools_text = $this->checklist_form->tools_text;
+        $this->permission = $this->checklist_form->permission;
+        $this->file1_old = asset('storage/' . $this->checklist_form->file1);
+        $this->file2_old = asset('storage/' . $this->checklist_form->file2);
+        $this->file3_old = asset('storage/' . $this->checklist_form->file3);
         $this->question_1 = $this->checklist_form->question_1;
         $this->question_2_a = $this->checklist_form->question_2_a;
         $this->question_2_b = $this->checklist_form->question_2_b;
@@ -201,13 +238,44 @@ class ChecklistFormShow extends Component
         $this->question_11 = $this->checklist_form->question_11;
     }
 
+
+    public $filePath1 = null;
+    public $filePath2 = null;
+    public $filePath3 = null;
     public function updateChecklistForm()
     {
         $this->validate();
+
+        if ($this->file1) {
+            $this->filePath1 = $this->file1->store('uploads', 'public');
+        } else {
+            $this->filePath1 = $this->checklist_form->file1;
+        }
+
+
+
+        if ($this->file2) {
+            $this->filePath2 = $this->file2->store('uploads', 'public');
+        } else {
+            $this->filePath2 = $this->checklist_form->file2;
+        }
+
+        if ($this->file3) {
+            $this->filePath3 = $this->file3->store('uploads', 'public');
+        } else {
+            $this->filePath3 = $this->checklist_form->file3;
+        }
+
         try {
             $this->checklist_form->update([
                 'attach_parental'  => $this->attach_parental,
                 'debriefing' => $this->debriefing,
+                'tools' => $this->tools,
+                'tools_text' => $this->tools_text,
+                'permission' => $this->permission,
+                'file1' =>  $this->filePath1,
+                'file2' =>  $this->filePath2,
+                'file3' =>  $this->filePath3,
                 'question_1' => $this->question_1,
                 'question_2_a' => $this->question_2_a,
                 'question_2_b' => $this->question_2_b,

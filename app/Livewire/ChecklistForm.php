@@ -22,6 +22,8 @@ class ChecklistForm extends Component
 
     public $file2;
 
+    public $file3;
+
     #[Rule('required')]
     public $attach_form = '';
 
@@ -30,6 +32,16 @@ class ChecklistForm extends Component
 
     #[Rule('required')]
     public $debriefing = '';
+
+    #[Rule('required')]
+    public $tools;
+
+    #[Rule('required_if:tools,Yes')]
+    public $tools_text;
+
+    #[Rule('required')]
+    public $permission;
+
 
     #[Rule('required')]
     public $question_1 = '';
@@ -147,23 +159,33 @@ class ChecklistForm extends Component
     public function checkValidation()
     {
         $validated = $this->validate();
+
         if ($validated)
             $this->dispatch('showAttachFormModal');
     }
 
     public $attached_app_id;
 
+   public $filePath1 = null;
+   public $filePath2 = null;
+   public $filePath3 = null;
+
     public function createChecklist()
     {
-        
+
         if ($this->file1) {
-        $filePath1 = $this->file1->store('uploads', 'public');
+            $this->filePath1 = $this->file1->store('uploads', 'public');
         }
+       
 
         if ($this->file2) {
-        $filePath2 = $this->file2->store('uploads', 'public');
+            $this->filePath2 = $this->file2->store('uploads', 'public');
         };
-        
+
+        if ($this->file3) {
+            $this->filePath3 = $this->file3->store('uploads', 'public');
+        };
+
 
         try {
             ModelsChecklistForm::create([
@@ -172,8 +194,12 @@ class ChecklistForm extends Component
                 'attach_form' => $this->attach_form,
                 'attach_parental'  => $this->attach_parental,
                 'debriefing' => $this->debriefing,
-                'file1' => $filePath1,
-                'file2' => $filePath2,
+                'tools' => $this->tools,
+                'tools_text' => $this->tools_text,
+                'permission' => $this->permission,
+                'file1' => $this->filePath1,
+                'file2' => $this->filePath2,
+                'file3' => $this->filePath3,
                 'question_1' => $this->question_1,
                 'question_2_a' => $this->question_2_a,
                 'question_2_b' => $this->question_2_b,

@@ -73,7 +73,13 @@
                             <span class="text-danger">This input field is required!</span></br>
                         @enderror
                     </div>
-                    @if ($attach_parental === "Yes")
+                    @if ($attach_parental === 'Yes')
+                        <div style="margin-bottom: 10px">
+                            <a
+                                href="https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fwww.final.edu.tr%2Fckfinder%2Fuserfiles%2Ffiles%2F05-HR_Parental_Approval_Form.doc&wdOrigin=BROWSELINK">Parent/Guardian
+                                Consent Form</a>
+                        </div>
+
                         <div>
                             <input style="width: 50%" class="form-control" wire:model.live='file1' type="file"
                                 accept=".doc">
@@ -97,16 +103,7 @@
                                 <input wire:model.live='debriefing' class="form-check-input" value="No"
                                     type="radio">
                                 <label class="form-label-small">
-                                    Not Needed
-                                </label>
-                            </div>
-                        </div>
-                        <div class="col col-sm-3">
-                            <div class="form-check">
-                                <input wire:model.live='debriefing' class="form-check-input" value="Tools"
-                                    type="radio">
-                                <label class="form-label-small" for="data_checklist">
-                                    An example of data collection tools (including online forms, applications, etc.)
+                                    No
                                 </label>
                             </div>
                         </div>
@@ -114,10 +111,74 @@
                             <span class="text-danger">This input field is required!</span></br>
                         @enderror
                     </div>
+                    @if ($debriefing === 'Yes')
+                        <div>
+                            <input style="width: 50%" class="form-control" wire:model.live='file2' type="file"
+                                accept=".doc">
+                        </div>
+                    @endif
 
-                    <div>
-                        <input class="form-control" wire:model.live='file2' type="file" accept=".doc">
+                    <div class="row">
+                        <label class="form-label">Tools</label>
+                        <div class="col-6 col-sm-3">
+                            <div class="form-check">
+                                <input wire:model.live='tools' class="form-check-input" value="Yes" type="radio">
+                                <label class="form-label-small">
+                                    Yes
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-6 col-sm-3">
+                            <div class="form-check">
+                                <input wire:model.live='tools' class="form-check-input" value="No" type="radio">
+                                <label class="form-label-small">
+                                    No
+                                </label>
+                            </div>
+                        </div>
+                        @error('tools')
+                            <span class="text-danger">This input field is required!</span></br>
+                        @enderror
                     </div>
+                    @if ($tools === 'Yes')
+                        <div>
+                            <textarea wire:model.live='tools_text' class="form-control" name="" id="" rows="3"></textarea>
+                        </div>
+                        @error('tools_text')
+                            <span class="text-danger">This input field is required!</span></br>
+                        @enderror
+                    @endif
+
+                    <div class="row">
+                        <label class="form-label">Persmisson</label>
+                        <div class="col-6 col-sm-3">
+                            <div class="form-check">
+                                <input wire:model.live='permission' class="form-check-input" value="Yes"
+                                    type="radio">
+                                <label class="form-label-small">
+                                    Yes
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-6 col-sm-3">
+                            <div class="form-check">
+                                <input wire:model.live='permission' class="form-check-input" value="No"
+                                    type="radio">
+                                <label class="form-label-small">
+                                    No
+                                </label>
+                            </div>
+                        </div>
+                        @error('permission')
+                            <span class="text-danger">This input field is required!</span></br>
+                        @enderror
+                    </div>
+                    @if ($permission === 'Yes')
+                        <div>
+                            <input style="width: 50%" class="form-control" wire:model.live='file3' type="file"
+                                accept=".doc">
+                        </div>
+                    @endif
 
                     <div class="row">
 
@@ -1068,16 +1129,17 @@
                             aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <select wire:model.live="attached_app_id" class="form-control form-select form-select-lg" - aria-label=".form-select-lg">
+                        <select wire:model.live="attached_app_id" class="form-control form-select form-select-lg" -
+                            aria-label=".form-select-lg">
                             <option value="" hidden>Select a Form</option>
                             @foreach ($datas as $data)
-                            @if ($data->form->name === $attach_form)
-                            <option value="{{ $data->id }}">
-                                <span>№{{ $data->id }}</span>
-                                <span> - </span>
-                                <span>{{ $data->form->name }}</span>
-                            </option>
-                            @endif
+                                @if ($data->form->name === $attach_form)
+                                    <option value="{{ $data->id }}">
+                                        <span>№{{ $data->id }}</span>
+                                        <span> - </span>
+                                        <span>{{ $data->form->name }}</span>
+                                    </option>
+                                @endif
                             @endforeach
 
 
