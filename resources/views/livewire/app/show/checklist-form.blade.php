@@ -84,7 +84,7 @@
                         @endif
                         <div>
                             <input style="width: 50%" class="form-control" wire:model.live='file1' type="file"
-                                accept=".doc" @disabled($checklist_form->file3 || $readonlyInputs)>
+                                accept=".doc" @disabled($checklist_form->file1 || $readonlyInputs)>
                         </div>
                     @endif
 
@@ -119,14 +119,14 @@
                                 <a href="{{ $file2_old }}" target="_blank"
                                     download="{{ $checklist_form->file2 }}">Debriefing-Form.doc</a>
 
-                                <button class="btn btn-link" type="button" wire:click='deleteFile2'
+                                <button class="btn btn-link" type="button" wire:click='deleteFile2  '
                                     @disabled($readonlyInputs)>
                                     <i class="fa-solid fa-trash-can text-danger"></i></button>
                             </div>
                         @endif
                         <div>
                             <input style="width: 50%" class="form-control" wire:model.live='file2' type="file"
-                                accept=".doc" @disabled($checklist_form->file3 || $readonlyInputs)>
+                                accept=".doc" @disabled($checklist_form->file2 || $readonlyInputs)>
                         </div>
                     @endif
 

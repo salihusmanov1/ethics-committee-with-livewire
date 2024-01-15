@@ -9,8 +9,10 @@ use Livewire\Component;
 use Livewire\Attributes\Rule;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Session;
+
 
 
 #[Layout('layout.app')]
