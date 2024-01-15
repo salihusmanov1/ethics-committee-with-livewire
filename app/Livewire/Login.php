@@ -27,8 +27,7 @@ class Login extends Component
 
         if (auth()->attempt(array('email' => $this->email, 'password' => $this->password))) {
             if (auth()->user()->role_id == 0) {
-                // return redirect()->route('admin-dashboard');
-                Session::flash('success', 'Welcome to admin Dashboard!');
+                return redirect()->route('admin-dashboard');
             } else {
                 $this->reset('email', 'password');
                 return redirect()->route('user-dashboard');

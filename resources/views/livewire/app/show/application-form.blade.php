@@ -27,18 +27,42 @@
                                             class="fa-regular fa-file-lines"></i> &nbspAttached Checklist Form</a>
                                 </p>
                             @endif
+                            <p style="font-size: 24px">№{{ $data->id }}</p >
                         </div>
-                        <div class="col-md">
-                            <h3>№{{ $data->id }}</h3>
-                        </div>
+                    
 
                         <div style="width: 100%" class="col d-flex justify-content-end">
-                            <div><button style="margin-left: 10px" wire:click="enableEdit" type="button"
-                                    class="btn btn-primary">Update</button></div>
-                            <div><button style="margin-left: 10px" type="submit"
+                            @if (auth()->user()->role_id == 0)
+                            <label class="form-label" style="margin-right: 10px">Status:</label>
+                                <div class="col">
+                                   
+                                    <select wire:model.live='select_status' class="form-select form-select-lg mb-3" aria-label="Large select example">
+                                        <option value="New"> New
+                                        </option>
+                                        <option value="Pending">
+                                            Pending</option>
+                                        <option value="Approved">
+                                            Approved</option>
+                                        <option value="Rejected">
+                                            Rejected</option>
+                                    </select>
+                                </div>
+                                <div><button style="margin-left: 10px" type="submit"
                                     class="btn btn-secondary">Save</button>
                             </div>
-                            <div><button style="margin-left: 10px" type="button" class="btn btn-danger">Delete</button></div>
+                            @endif
+                            @if (auth()->user()->role_id == 1)
+                                <div><button style="margin-left: 10px" wire:click="enableEdit" type="button"
+                                        class="btn btn-primary">Update</button></div>
+
+                                <div><button style="margin-left: 10px" type="submit"
+                                        class="btn btn-secondary">Save</button>
+                                </div>
+                            @endif
+                            <div>
+                                <button id="deleteBtn" style="margin-left: 10px" type="button"
+                                    class="btn btn-danger">Delete</button>
+                            </div>
 
                         </div>
                     </div>
@@ -64,29 +88,29 @@
                 <div class="mb-3 row" id="section-2">
                     <label class="form-label">2. Type Of Study</label>
                     <div class="form-check">
-                        <input wire:click="showOtherInput" class="form-check-input" id="acRadio" type="radio" wire:model.live="type_of_study"
-                            value="Academic Staff Study" @disabled($readonlyInputs)>
+                        <input wire:click="showOtherInput" class="form-check-input" id="acRadio" type="radio"
+                            wire:model.live="type_of_study" value="Academic Staff Study" @disabled($readonlyInputs)>
                         <label class="form-label-small">
                             Academic Staff Study
                         </label>
                     </div>
                     <div class="form-check">
-                        <input wire:click="showOtherInput" class="form-check-input" type="radio" wire:model.live="type_of_study"
-                            value="Doctorate Thesis" @disabled($readonlyInputs)>
+                        <input wire:click="showOtherInput" class="form-check-input" type="radio"
+                            wire:model.live="type_of_study" value="Doctorate Thesis" @disabled($readonlyInputs)>
                         <label class="form-label-small">
                             Doctorate Thesis
                         </label>
                     </div>
                     <div class="form-check">
-                        <input wire:click="showOtherInput" class="form-check-input" type="radio" wire:model.live="type_of_study"
-                            value="Master Thesis" @disabled($readonlyInputs)>
+                        <input wire:click="showOtherInput" class="form-check-input" type="radio"
+                            wire:model.live="type_of_study" value="Master Thesis" @disabled($readonlyInputs)>
                         <label class="form-label-small">
                             Master Thesis
                         </label>
                     </div>
                     <div class="form-check">
-                        <input wire:click="showOtherInput" class="form-check-input" type="radio"wire:model.live="type_of_study" value="other"
-                            @disabled($readonlyInputs)>
+                        <input wire:click="showOtherInput" class="form-check-input"
+                            type="radio"wire:model.live="type_of_study" value="other" @disabled($readonlyInputs)>
                         <label class="form-label-small">
                             Other (Specify):
                         </label>
@@ -127,8 +151,8 @@
                             <span class="text-danger">{{ $message }}</span></br>
                         @enderror
                         <label class="form-label-small headers">Phone:</label>
-                        <input wire:model.live='researcher_phone' type="text" class="form-control" @readonly($readonlyInputs)
-                            placeholder="+90**********">
+                        <input wire:model.live='researcher_phone' type="text" class="form-control"
+                            @readonly($readonlyInputs) placeholder="+90**********">
                         @error('researcher_phone')
                             <span class="text-danger">{{ $message }}</span></br>
                         @enderror
@@ -176,7 +200,7 @@
 
 
                 <!-- 5 -->
-                @if ($question_5)
+                @if ($type_of_study !== 'Academic Staff Study')
                     <div class="mb-3 d-flex flex-wrap row">
                         <label class="form-label">
                             5. Advisor’s/Supervising Faculty Member’s <i>(Undergraduate students conducting research
@@ -300,14 +324,15 @@
                         organization other than IFU required for data collection?</label>
 
                     <div class="form-check">
-                        <input wire:click='showOtherInput1' wire:model.live="question_8" value="no" class="form-check-input" type="radio">
+                        <input wire:click='showOtherInput1' wire:model.live="question_8" value="no"
+                            class="form-check-input" type="radio">
                         <label class="form-label-small" for="flexCheckDefault1">No</label
                             @disabled($readonlyInputs)>
                     </div>
 
                     <div class="form-check">
-                        <input wire:click='showOtherInput1' wire:model.live="question_8" value="yes" class="form-check-input" type="radio"
-                            @disabled($readonlyInputs)>
+                        <input wire:click='showOtherInput1' wire:model.live="question_8" value="yes"
+                            class="form-check-input" type="radio" @disabled($readonlyInputs)>
                         <label class="form-label-small" for="flexCheckDefault1">Yes(specify)</label>
                     </div>
 
@@ -657,13 +682,15 @@
                                 stress for
                                 them?</label>
                             <div class="form-check">
-                                <input wire:click='showOtherInput4' wire:model.live='question_14' class="form-check-input" type="radio"
-                                    value="no" @disabled($readonlyInputs)>
+                                <input wire:click='showOtherInput4' wire:model.live='question_14'
+                                    class="form-check-input" type="radio" value="no"
+                                    @disabled($readonlyInputs)>
                                 <label class="form-label-small" for="flexCheckDefault">No</label>
                             </div>
                             <div class="form-check">
-                                <input wire:click='showOtherInput4' wire:model.live='question_14' class="form-check-input" type="radio"
-                                    value="yes" @disabled($readonlyInputs)>
+                                <input wire:click='showOtherInput4' wire:model.live='question_14'
+                                    class="form-check-input" type="radio" value="yes"
+                                    @disabled($readonlyInputs)>
                                 <label class="form-label-small" for="flexCheckDefault">Yes</label>
                             </div>
                             @error('question_14')
@@ -1165,6 +1192,29 @@
         </div>
     </div>
     {{-- End of Modal --}}
+
+    {{-- Modal --}}
+    <div id="deleteModal" class="modal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body alert alert-warning">
+                    <p>Are you sure you want to delete this data? This action is irreversible and will permanently
+                        remove
+                        the selected data from the system. </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button id="deleteBtn" wire:click='deleteForm1' style="margin-left: 10px" type="button"
+                        class="btn btn-danger">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{-- End of Modal --}}
 </div>
 
 
@@ -1175,4 +1225,8 @@
 
         });
     });
+
+    $('#deleteBtn').click(function(e) {
+        $('#deleteModal').modal('show');
+    })
 </script>

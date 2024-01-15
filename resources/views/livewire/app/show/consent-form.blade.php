@@ -15,13 +15,19 @@
                                 <div class="col">
                                     <p>Information Consent Form of Application #{{ $consent_form->form->app_id }}</p>
                                 </div>
+
                                 <div style="width: 100%" class="col d-flex justify-content-end">
-                                    <div><button style="margin-left: 10px" wire:click="enableEdit" type="button"
-                                            class="btn btn-primary">Update</button></div>
-                                    <div><button style="margin-left: 10px" type="submit"
-                                            class="btn btn-secondary">Save</button>
+                                    @if (auth()->user()->role_id == 1)
+                                        <div><button style="margin-left: 10px" wire:click="enableEdit" type="button"
+                                                class="btn btn-primary">Update</button></div>
+                                        <div><button style="margin-left: 10px" type="submit"
+                                                class="btn btn-secondary">Save</button>
+                                        </div>
+                                    @endif
+                                    <div>
+                                        <button id="deleteBtn" style="margin-left: 10px" type="button"
+                                            class="btn btn-danger">Delete</button>
                                     </div>
-                                    <div><button style="margin-left: 10px" type="button" class="btn btn-danger">Delete</button></div>
                                 </div>
                             </div>
                         </div>
@@ -30,7 +36,7 @@
                         </div>
                         <h3>ETHICS COMMITTEE INFORMED CONSENT FORM</h3>
 
-                
+
                         <p class="form-label consent-text">Dear Participant, </p>
 
 
@@ -243,6 +249,27 @@
             </div>
         </div>
     </div>
+
+    <div id="deleteModal" class="modal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body alert alert-warning">
+                    <p>Are you sure you want to delete this data? This action is irreversible and will permanently
+                        remove
+                        the selected data from the system. </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button id="deleteBtn" wire:click='deleteConsentForm' style="margin-left: 10px" type="button"
+                        class="btn btn-danger">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script>
@@ -252,8 +279,8 @@
             $('#myModal').modal('show');
 
         });
-        // $('.btn').click(function() {
-        //     $('#myModal').modal('hide');
-        // })
+        $('#deleteBtn').click(function(e) {
+            $('#deleteModal').modal('show');
+        })
     });
 </script>

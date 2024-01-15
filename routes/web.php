@@ -1,5 +1,6 @@
 <?php
 
+use App\Livewire\AdminDashboard;
 use App\Livewire\ApplicationForm;
 use App\Livewire\ApplicationFormShow;
 use App\Livewire\AppStatus;
@@ -32,6 +33,7 @@ Route::get('/', Login::class);
 
 Route::get('/register', Register::class);
 Route::get('/user-dashboard', UserDashboard::class)->name('user-dashboard')->middleware('isLoggedIn');
+Route::get('/admin-dashboard', AdminDashboard::class)->name('admin-dashboard')->middleware('isLoggedIn')->middleware('isAdmin');
 Route::get('/application-form', ApplicationForm::class)->middleware('isLoggedIn');
 Route::get('/project-information-form', ProjectInformationForm::class)->middleware('isLoggedIn');
 Route::get('/app-status', AppStatus::class)->middleware('isLoggedIn');
