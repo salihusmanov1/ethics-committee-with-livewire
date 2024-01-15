@@ -10,7 +10,6 @@ use Livewire\Attributes\Rule;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Storage;
 
 
 #[Layout('layout.app')]
