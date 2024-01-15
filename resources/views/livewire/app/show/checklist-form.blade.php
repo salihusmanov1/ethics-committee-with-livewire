@@ -84,7 +84,7 @@
                         @endif
                         <div>
                             <input style="width: 50%" class="form-control" wire:model.live='file1' type="file"
-                                accept=".doc" @disabled($checklist_form->file3 || $readonlyInputs)>
+                                accept=".doc" @disabled($checklist_form->file1 || $readonlyInputs)>
                         </div>
                     @endif
 
@@ -126,43 +126,10 @@
                         @endif
                         <div>
                             <input style="width: 50%" class="form-control" wire:model.live='file2' type="file"
-                                accept=".doc" @disabled($checklist_form->file3 || $readonlyInputs)>
+                                accept=".doc" @disabled($checklist_form->file2 || $readonlyInputs)>
                         </div>
                     @endif
 
-                    <div class="row">
-                        <label class="form-label">Tools</label>
-                        <div class="col-6 col-sm-3">
-                            <div class="form-check">
-                                <input wire:model.live='tools' class="form-check-input" value="Yes" type="radio"
-                                    @disabled($readonlyInputs)>
-                                <label class="form-label-small">
-                                    Yes
-                                </label>
-                            </div>
-                        </div>
-                        <div class="col-6 col-sm-3">
-                            <div class="form-check">
-                                <input wire:model.live='tools' class="form-check-input" value="No"
-                                    type="radio" @disabled($readonlyInputs)>
-                                <label class="form-label-small">
-                                    No
-                                </label>
-                            </div>
-                        </div>
-                        @error('tools')
-                            <span class="text-danger">This input field is required!</span></br>
-                        @enderror
-                    </div>
-                    @if ($tools === 'Yes')
-                        <div>
-                            <textarea wire:model.live='tools_text' class="form-control" name="" id="" rows="3"
-                                @readonly($readonlyInputs)></textarea>
-                        </div>
-                        @error('tools_text')
-                            <span class="text-danger">This input field is required!</span></br>
-                        @enderror
-                    @endif
 
                     <div class="row">
                         <label class="form-label">Permisson</label>
@@ -204,6 +171,40 @@
                             <input style="width: 50%" class="form-control" wire:model.live='file3' type="file"
                                 accept=".doc" @disabled($checklist_form->file3 || $readonlyInputs)>
                         </div>
+                    @endif
+
+                    <div class="row">
+                        <label class="form-label">Tools</label>
+                        <div class="col-6 col-sm-3">
+                            <div class="form-check">
+                                <input wire:model.live='tools' class="form-check-input" value="Yes"
+                                    type="radio" @disabled($readonlyInputs)>
+                                <label class="form-label-small">
+                                    Yes
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-6 col-sm-3">
+                            <div class="form-check">
+                                <input wire:model.live='tools' class="form-check-input" value="No"
+                                    type="radio" @disabled($readonlyInputs)>
+                                <label class="form-label-small">
+                                    No
+                                </label>
+                            </div>
+                        </div>
+                        @error('tools')
+                            <span class="text-danger">This input field is required!</span></br>
+                        @enderror
+                    </div>
+                    @if ($tools === 'Yes')
+                        <div>
+                            <textarea wire:model.live='tools_text' class="form-control" name="" id="" rows="3"
+                                @readonly($readonlyInputs)></textarea>
+                        </div>
+                        @error('tools_text')
+                            <span class="text-danger">This input field is required!</span></br>
+                        @enderror
                     @endif
 
 
