@@ -424,6 +424,14 @@ class ApplicationFormShow extends Component
     public $existingOrganizations;
     public $existingOtherResearchers;
 
+    public function updateStatus() {
+        $this->data->update([
+            'status' => $this->select_status
+        ]); 
+        Session::flash('success', 'The application has been updated successfully.');
+        $this->dispatch('showModal');
+    }
+
     public function updateForm1()
     {
         $this->validate();
@@ -598,10 +606,6 @@ class ApplicationFormShow extends Component
         $this->dispatch('showModal');
     }
 
-    public function redirectUserDashboard()
-    {
-        return redirect('user-dashboard');
-    }
 
 
     public $pageName = "Ethics Committee Application Form";

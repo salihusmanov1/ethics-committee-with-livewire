@@ -27,16 +27,17 @@
                                             class="fa-regular fa-file-lines"></i> &nbspAttached Checklist Form</a>
                                 </p>
                             @endif
-                            <p style="font-size: 24px">№{{ $data->id }}</p >
+                            <p style="font-size: 24px">№{{ $data->id }}</p>
                         </div>
-                    
+
 
                         <div style="width: 100%" class="col d-flex justify-content-end">
                             @if (auth()->user()->role_id == 0)
-                            <label class="form-label" style="margin-right: 10px">Status:</label>
+                                <label class="form-label" style="margin-right: 10px">Status:</label>
                                 <div class="col">
-                                   
-                                    <select wire:model.live='select_status' class="form-select form-select-lg mb-3" aria-label="Large select example">
+
+                                    <select wire:model.live='select_status' class="form-select form-select-lg mb-3"
+                                        aria-label="Large select example">
                                         <option value="New"> New
                                         </option>
                                         <option value="Pending">
@@ -47,22 +48,30 @@
                                             Rejected</option>
                                     </select>
                                 </div>
-                                <div><button style="margin-left: 10px" type="submit"
-                                    class="btn btn-secondary">Save</button>
-                            </div>
+                                <div><button wire:click='updateStatus' style="margin-left: 10px" type="button"
+                                        class="btn btn-secondary">Save</button>
+                                </div>
+                                <div>
+                                    <button id="deleteBtn" style="margin-left: 10px" type="button"
+                                        class="btn btn-danger">Delete</button>
+                                </div>
+                                <div>
+                                    <button style="margin-left: 10px" class="btn btn-primary" wire:click="generatePdf">PDF</button>
+                                </div>
                             @endif
-                            @if (auth()->user()->role_id == 1)
+                            @if (auth()->user()->role_id == 1 && $data->status === 'New')
                                 <div><button style="margin-left: 10px" wire:click="enableEdit" type="button"
                                         class="btn btn-primary">Update</button></div>
 
                                 <div><button style="margin-left: 10px" type="submit"
                                         class="btn btn-secondary">Save</button>
                                 </div>
+                                <div>
+                                    <button id="deleteBtn" style="margin-left: 10px" type="button"
+                                        class="btn btn-danger">Delete</button>
+                                </div>
                             @endif
-                            <div>
-                                <button id="deleteBtn" style="margin-left: 10px" type="button"
-                                    class="btn btn-danger">Delete</button>
-                            </div>
+
 
                         </div>
                     </div>
@@ -134,7 +143,8 @@
                     <label class="form-label">3. Researcher's</label>
                     <div class="col">
                         <label class="form-label-small headers">Name and surname:</label>
-                        <input wire:model.live='researcher_name' type="text" class="form-control" @readonly($readonlyInputs)>
+                        <input wire:model.live='researcher_name' type="text" class="form-control"
+                            @readonly($readonlyInputs)>
                         @error('researcher_name')
                             <span class="text-danger">{{ $message }}</span></br>
                         @enderror
@@ -189,8 +199,8 @@
                                         @readonly($readonlyInputs)>
                                 </div>
                                 <div class="col">
-                                    <a wire:click.prevent="removeResInput({{ $index }})"
-                                        class="btn btn-danger removeResInput">Remove</a>
+                                    <button wire:click.prevent="removeResInput({{ $index }})"
+                                        class="btn btn-danger removeResInput" @disabled($readonlyInputs)>Remove</button>
                                 </div>
                             </div>
                         @endforeach
@@ -309,8 +319,8 @@
                                         class="form-control" placeholder="" required @readonly($readonlyInputs)>
                                 </div>
                                 <div class="col">
-                                    <a wire:click.prevent="removeInputOrg({{ $index }})"
-                                        class="btn btn-danger removeInput">Remove</a>
+                                    <button wire:click.prevent="removeInputOrg({{ $index }})"
+                                        class="btn btn-danger removeInput" @disabled($readonlyInputs)>Remove</button>
                                 </div>
                             </div>
                         @endforeach
@@ -1185,7 +1195,7 @@
                     </div>
 
                     <div class="modal-footer">
-                        <a wire:click='redirectUserDashboard' type="button" class="btn btn-secondary">Close</a>
+                        <a  type="button" data-bs-dismiss="modal" class="btn btn-secondary">Close</a>
                     </div>
                 </div>
             </div>
