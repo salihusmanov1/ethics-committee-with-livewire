@@ -10,13 +10,15 @@ use App\Models\Participants;
 use App\Models\Form1;
 use App\Models\Other_researchers;
 use App\Models\Organization;
-use Livewire\Attributes\Rule;
+// use Livewire\Attributes\Rule;
 use Illuminate\Support\Facades\Session;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 use PhpParser\Node\Stmt\TryCatch;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Validation\Rule;
+use Carbon\Carbon;
 
 
 #[Layout('layout.app')]
@@ -129,12 +131,19 @@ class ApplicationForm extends Component
 
 
 
-    #[Rule('required|date|after:today')]
     public $expected_start = '';
-    #[Rule('required|date|after:expected_start')]
     public $expected_end = '';
 
     public $organizations = [];
+
+    protected function rules()
+    {
+        return [
+            'expected_start' => ['required', 'date', 'after_or_equal:'. now()->addDays(21)->toDateString()],
+            'expected_end' => ['required', 'date', 'after_or_equal:expected_start'],
+
+        ];
+    }
 
     public function addOrgInput()
     {
