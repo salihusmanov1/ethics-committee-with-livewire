@@ -3,8 +3,6 @@
 namespace App\Livewire;
 
 use App\Models\AppStatus;
-use App\Models\Consentform;
-use App\Models\Forms;
 use App\Models\Method;
 use App\Models\Participants;
 use App\Models\Form1;
@@ -14,7 +12,6 @@ use Livewire\Attributes\Rule;
 use Illuminate\Support\Facades\Session;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
-use PhpParser\Node\Stmt\TryCatch;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Log;
 
@@ -38,15 +35,18 @@ class ApplicationFormShow extends Component
     #[Rule('required_if:type_of_study,other')]
     public $type_of_study_other = '';
     public $question_5 = true;
+    public $question_s = true; // extra
     public function showOtherInput()
     {
         if ($this->type_of_study !== "other") {
             $this->type_of_study_other = '';
         }
-        if ($this->type_of_study !== 'Academic Staff Study')
+        if ($this->type_of_study !== 'Academic Staff Study') {
             $this->question_5 = true;
-        else {
+            $this->question_s = true; //extra
+        } else {
             $this->question_5 = false;
+            $this->question_s = false; //extra
             $this->reset('advisor_title', 'advisor_name', 'advisor_phone', 'advisor_department', 'advisor_address', 'advisor_email');
         }
     }
@@ -95,10 +95,25 @@ class ApplicationFormShow extends Component
 
 
 
-    #[Rule('required|date|after:today')]
+
     public $expected_start = '';
-    #[Rule('required|date|after:expected_start')]
     public $expected_end = '';
+
+    protected function rules()
+    {
+        return [
+            'expected_start' => ['required', 'date'],
+            'expected_end' => ['required', 'date', 'after_or_equal:expected_start'],
+
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'expected_end.after_or_equal' => 'The :attribute must be a date after the expected start date.',
+        ];
+    }
 
     public $organizations = [];
 
@@ -129,7 +144,7 @@ class ApplicationFormShow extends Component
     #[Rule('required')]
     public $question_9 = '';
 
-    #[Rule('required')]
+    #[Rule('required_if:question_9,Supported')]
     public $question_9_1 = '';
 
     #[Rule('required_if:question_9_1,international,other')]
@@ -255,7 +270,7 @@ class ApplicationFormShow extends Component
         }
     }
 
-    #[Rule('required_if:status,New,Revised|numeric|between:0,20')]
+    #[Rule('required_if:status,New,Revised')]
     public $question_15 = '';
 
     #[Rule('required_if:status,New,Revised')]
@@ -294,11 +309,29 @@ class ApplicationFormShow extends Component
         'other' => '',
     ];
 
+    public $question_20_other = false;
 
-    #[Rule('required_if:status,New,Revised')]
+    public function showOtherInput5()
+    {
+        $this->question_20_other = !$this->question_20_other;
+        if (!$this->question_20_other)
+            $this->question_20["other"] = '';
+    }
+
+    public $question_17_other = false;
+
+    public function showOtherInput6()
+    {
+        $this->question_17_other = !$this->question_17_other;
+        if (!$this->question_17_other)
+            $this->question_17["other"] = '';
+    }
+
+
+    // #[Rule('required_if:status,New,Revised')]
     public $question_17_1 = '';
 
-    #[Rule('required_if:status,New,Revised')]
+    // #[Rule('required_if:status,New,Revised')]
     public $question_17_2 = '';
 
 
@@ -417,6 +450,14 @@ class ApplicationFormShow extends Component
                 $this->question_20['other'] = $value;
             }
         }
+
+        if ($this->question_17["other"]) {
+            $this->question_17_other = true;
+        }
+
+        if ($this->question_20["other"]) {
+            $this->question_20_other = true;
+        }
     }
 
     public $existingMethods;
@@ -424,16 +465,19 @@ class ApplicationFormShow extends Component
     public $existingOrganizations;
     public $existingOtherResearchers;
 
-    public function updateStatus() {
+    public function updateStatus()
+    {
         $this->data->update([
             'status' => $this->select_status
-        ]); 
+        ]);
         Session::flash('success', 'The application has been updated successfully.');
         $this->dispatch('showModal');
     }
 
     public function updateForm1()
     {
+
+
         $this->validate();
 
         try {
@@ -604,6 +648,11 @@ class ApplicationFormShow extends Component
         $this->data->delete();
         Session::flash('success', 'Your form has been deleted successfully.');
         $this->dispatch('showModal');
+    }
+
+    public function redirectToDashboard()
+    {
+        return redirect()->route('user-dashboard');
     }
 
 

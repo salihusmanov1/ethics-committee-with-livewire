@@ -10,15 +10,13 @@ use App\Models\Participants;
 use App\Models\Form1;
 use App\Models\Other_researchers;
 use App\Models\Organization;
-// use Livewire\Attributes\Rule;
+use Livewire\Attributes\Rule;
 use Illuminate\Support\Facades\Session;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 use PhpParser\Node\Stmt\TryCatch;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Validation\Rule;
-use Carbon\Carbon;
 
 
 #[Layout('layout.app')]
@@ -40,6 +38,7 @@ class ApplicationForm extends Component
         'other' => '',
     ];
 
+
     public $question_17 = [
         'types' => [
             'UniversityStudents' => false,
@@ -57,6 +56,22 @@ class ApplicationForm extends Component
         'other' => '',
     ];
 
+    public $question_20_other = false;
+
+    public function showOtherInput5()
+    {
+        $this->question_20_other = !$this->question_20_other;
+    }
+
+    public $question_17_other = false;
+
+    public function showOtherInput6()
+    {
+        $this->question_17_other = !$this->question_17_other;
+    }
+
+
+
     // protected $rules = [
     //     'question_20.types' => 'array|required|min:1',
     // ];
@@ -72,16 +87,19 @@ class ApplicationForm extends Component
     public $type_of_study_other = '';
 
     public $question_5 = true;
+    public $question_s = true; // extra
 
     public function showOtherInput()
     {
         if ($this->type_of_study !== "other") {
             $this->type_of_study_other = '';
         }
-        if ($this->type_of_study !== 'Academic Staff Study')
+        if ($this->type_of_study !== 'Academic Staff Study') {
             $this->question_5 = true;
-        else {
+            $this->question_s = true; //extra
+        } else {
             $this->question_5 = false;
+            $this->question_s = false; //extra
             $this->reset('advisor_title', 'advisor_name', 'advisor_phone', 'advisor_department', 'advisor_address', 'advisor_email');
         }
     }
@@ -131,19 +149,29 @@ class ApplicationForm extends Component
 
 
 
+
+
     public $expected_start = '';
     public $expected_end = '';
-
-    public $organizations = [];
 
     protected function rules()
     {
         return [
-            'expected_start' => ['required', 'date', 'after_or_equal:'. now()->addDays(21)->toDateString()],
+            'expected_start' => ['required', 'date', 'after_or_equal:' . now()->addDays(21)->toDateString()],
             'expected_end' => ['required', 'date', 'after_or_equal:expected_start'],
 
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'expected_start.after_or_equal' => 'The :attribute must be a date at least 21 days from today.',
+            'expected_end.after_or_equal' => 'The :attribute must be a date after the expected start date.',
+        ];
+    }
+
+    public $organizations = [];
 
     public function addOrgInput()
     {
@@ -173,7 +201,7 @@ class ApplicationForm extends Component
     #[Rule('required')]
     public $question_9 = '';
 
-    #[Rule('required')]
+    #[Rule('required_if:question_9,Supported')]
     public $question_9_1 = '';
 
     #[Rule('required_if:question_9_1,international,other')]
@@ -321,16 +349,16 @@ class ApplicationForm extends Component
         }
     }
 
-    #[Rule('required_if:status,New,Revised|numeric|between:0,20')]
+    #[Rule('required_if:status,New,Revised')]
     public $question_15 = '';
 
     #[Rule('required_if:status,New,Revised')]
     public $question_16 = '';
 
-    #[Rule('required_if:status,New,Revised')]
+    // #[Rule('required_if:status,New,Revised')]
     public $question_17_1 = '';
 
-    #[Rule('required_if:status,New,Revised')]
+    // #[Rule('required_if:status,New,Revised')]
     public $question_17_2 = '';
 
 
@@ -348,10 +376,12 @@ class ApplicationForm extends Component
     public $rname = '';
     #[Rule('required')]
     public $rdate = '';
-    #[Rule('required|string')]
+    //#[Rule('required|string')]
+    #[Rule('required_unless:type_of_study,Academic Staff Study|string')]
     public $sname = '';
-    #[Rule('required')]
-    public $sdate = '';
+    //#[Rule('required')]
+    #[Rule('required_unless:type_of_study,Academic Staff Study')]
+    public $sdate = null;
 
 
 
