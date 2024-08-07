@@ -4,7 +4,7 @@ The Ethics Committee Forms Web Application is a platform designed for For Final 
 
 
 ## About the Application
-- This application is updated version of (https://github.com/yourusername/legacy-repository)
+- This application is updated version of (https://github.com/salihusmanov1/ethics-committee-forms-web-app.git)
 
 ## Updates
 - Integrated Laravel Livewire for enhanced interactivity.
