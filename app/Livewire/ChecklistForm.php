@@ -247,7 +247,7 @@ class ChecklistForm extends Component
     }
 
 
-    public $pageName = "ETHICS COMMITTEE PROJECT APPLICATION CHECKLIST";
+    public $pageName = "Ethics Comittee Project Application Checklist";
     public function render()
     {
         $userId = auth()->user()->id;

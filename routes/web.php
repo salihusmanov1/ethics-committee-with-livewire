@@ -34,15 +34,14 @@ Route::get('/', Login::class);
 Route::get('/register', Register::class);
 Route::get('/user-dashboard', UserDashboard::class)->name('user-dashboard')->middleware('isLoggedIn');
 Route::get('/admin-dashboard', AdminDashboard::class)->name('admin-dashboard')->middleware('isLoggedIn')->middleware('isAdmin');
-Route::get('/application-form', ApplicationForm::class)->middleware('isLoggedIn');
-Route::get('/project-information-form', ProjectInformationForm::class)->middleware('isLoggedIn');
-Route::get('/app-status', AppStatus::class)->middleware('isLoggedIn');
-Route::get('/checklist-form', ChecklistForm::class)->middleware('isLoggedIn');
-Route::get('/information-consent-form', ConsentForm::class)->middleware('isLoggedIn');
+Route::get('/application-form', ApplicationForm::class)->name('application-form')->middleware('isLoggedIn');
+Route::get('/project-information-form', ProjectInformationForm::class)->name('project-information-form')->middleware('isLoggedIn');
+Route::get('/app-status', AppStatus::class)->name('app-status')->middleware('isLoggedIn');
+Route::get('/checklist-form', ChecklistForm::class)->name('checklist-form')->middleware('isLoggedIn');
+Route::get('/information-consent-form', ConsentForm::class)->name('information-consent-form')->middleware('isLoggedIn');
 
 // Route::get('/forms/{formType}/{formId}', AppStatus::class);
 Route::get('/show/project-information-form/{formId}', ProjectInformationFormShow::class)->name('project-information-form-show')->middleware('isLoggedIn');
 Route::get('/show/application-form/{formId}', ApplicationFormShow::class)->name('application-form-show')->middleware('isLoggedIn');
 Route::get('/show/checklist/{formId}', ChecklistFormShow::class)->name('checklist-form-show')->middleware('isLoggedIn');
 Route::get('/show/information-consent-form/{formId}', ConsentFormShow::class)->name('consent-form-show')->middleware('isLoggedIn');
-

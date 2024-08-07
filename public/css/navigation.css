@@ -54,7 +54,7 @@
  }
 
  #page-content-wrapper {
-   min-width: 100vw;
+   width: 100%;
  }
  
 
@@ -104,7 +104,7 @@
    }
 
    #page-content-wrapper {
-     min-width: 0;
+     
      width: 100%;
    }
 

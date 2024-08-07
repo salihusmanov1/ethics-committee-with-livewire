@@ -1,3 +1,3 @@
 <div>
-    <a wire:click='logout' type="button" class="list-group-item bg-transparent second-text">Log Out</a>
+    <a wire:click='logout' type="button" class="nav-link text-white">Log Out</a>
 </div>

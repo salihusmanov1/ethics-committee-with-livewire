@@ -9,7 +9,7 @@
 
             <div class="main">
                 <form wire:submit='updateForm2'>
-                    <div style="font-size: 16px; font-weight: bold;">
+                    {{-- <div style="font-size: 16px; font-weight: bold;">
                         <div class="row">
                             <div class="col">
                                 @if ($data->Checklist)
@@ -38,7 +38,63 @@
                                 </div>
                             </div>
                         </div>
+                    </div> --}}
+
+                    <div class="row">
+                        <div class="col-12 col-md-6" style="font-size: 16px; font-weight: bold;">
+                            @if ($data->Checklist)
+                                <p><a class="link-opacity-50"
+                                        href="{{ url('/show/checklist/' . $data->Checklist->id) }}"><i
+                                            class="fa-regular fa-file-lines"></i> &nbspAttached Checklist Form</a>
+                                </p>
+                            @endif
+                            <p style="font-size: 24px"> No. {{ $data->id }}</p>
+                        </div>
+
+
+                        <div class="col-12 col-md-6">
+                            @if (auth()->user()->role_id == 0)
+                                <div class="row my-0">
+                                    <div class="col-12 col-lg-8 d-flex p-2">
+                                        <label class="form-label" style="margin-right: 10px">Status:</label>
+                                        <select wire:model.live='select_status' class="form-select">
+                                            <option value="New"> New
+                                            </option>
+                                            <option value="Pending">
+                                                Pending</option>
+                                            <option value="Approved">
+                                                Approved</option>
+                                            <option value="Rejected">
+                                                Rejected</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-12 col-lg-2 p-2"><button wire:click='updateStatus' type="button"
+                                            class="btn btn-secondary">Save</button>
+                                    </div>
+                                    <div class="col-12 col-lg-2 p-2">
+                                        <button id="deleteBtn" type="button" class="btn btn-danger">Delete</button>
+                                    </div>
+                                </div>
+                            @endif
+                            @if (auth()->user()->role_id == 1 && $data->status === 'New')
+                                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                    <button wire:click="enableEdit" type="button"
+                                        class=" btn btn-outline-primary {{ $readonlyInputs ? '' : 'active' }}"><i
+                                            class="bi bi-pencil-square"></i>&nbspEdit</button>
+
+                                    <button type="submit" class=" btn btn-secondary"><i class="bi bi-download"></i>&nbspSave</button>
+
+
+                                    <button id="deleteBtn" type="button" class="  btn btn-danger"><i class="bi bi-file-earmark-x"></i>&nbspDelete</button>
+
+                                </div>
+                            @endif
+
+
+                        </div>
                     </div>
+
+
                     <div class="d-flex justify-content-center">
                         <img style="width: 15%" src="\img\logo6.png" alt="">
                     </div>

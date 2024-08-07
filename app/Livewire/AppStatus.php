@@ -16,10 +16,10 @@ class AppStatus extends Component
     {
 
         if ($formType == 2) {
-            $this->redirectRoute('project-information-form-show', ['formId' => $formId]);
+            $this->redirectRoute('project-information-form-show', ['formId' => $formId], navigate: true);
         }
         if ($formType == 1) {
-            $this->redirectRoute('application-form-show', ['formId' => $formId]);
+            $this->redirectRoute('application-form-show', ['formId' => $formId], navigate: true);
         }
     }
 
